@@ -8,7 +8,7 @@ import { HeaderComponent } from './layouts/header/header.component';
 const routes: Routes = [
     { 
         path: '', 
-        component: HomeComponent,
+        component: HeaderComponent,
         children: [ 
             { path: '', component: HomeComponent },
             { path: '', component: LoginComponent },
