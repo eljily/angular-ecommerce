@@ -23,59 +23,45 @@
 
                 <div class="widget-header icontext d-flex align-items-center">
                     <div class="text">
-                        <span class="text-muted">Bienvenue!</span>
-                        <div> 
-                            <a routerLink="/login">Se connecte</a> |  
-                            <a routerLink="/signup">Créer un compte</a>
-                        </div>
+                      <span class="text-muted">Bienvenue!</span>
+                      <div *ngIf="isLoggedIn(); else notLoggedIn">
+                        <a>{{ currentUser.name }}</a> |
+                        <a (click)="logout()">Se déconnecter</a>
+                      </div>
+                      <ng-template #notLoggedIn>
+                        <a routerLink="/login">Se connecter</a> |
+                        <a routerLink="/signup">Créer un compte</a>
+                      </ng-template>
                     </div>
                     <a href="#" class="icon icon-lg rounded-circle border text-secondary"><i class="fas fa-user"></i></a>
-                </div>
-                
-    
+                  </div>
+                  
             </div> <!-- widgets-wrap.// -->
         </div> <!-- col.// -->
     </div> <!-- row.// -->
         </div> <!-- container.// -->
     </section> <!-- header-main .// -->
 
-    <nav class="navbar navbar-expand-custom navbar-mainbg "  >
-   
-        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars text-white"></i>
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars text-white"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+                <div class="hori-selector">
+                    <div class="left"></div>
+                    <div class="right"></div>
+                </div>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="javascript:void(0); " routerLink="/home" ><i class="fa-solid fa-house"></i>Accueil</a>
+                    <a class="nav-link" routerLink="/home"><i class="fa-solid fa-house"></i>Accueil</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-shirt"></i>Mode Homme</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-venus"></i>Mode Femme</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-mobile"></i>Telephones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-laptop"></i>Computers</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-tablet"></i>Tablettes</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="fa-regular fa-keyboard"></i>Accessoires</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0);"><i class="fa-solid fa-question"></i>Autre</a>
+                <li class="nav-item" *ngFor="let category of categories">
+                    <a class="nav-link" [routerLink]="['/products', category.id]">
+                        <i [ngClass]="categoryIconMappings[category.name]"></i>{{ category.name }}
+                    </a>
                 </li>
             </ul>
         </div>
-     </nav>
-    
-    
+    </nav>
     

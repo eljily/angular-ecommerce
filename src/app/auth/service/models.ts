@@ -1,3 +1,4 @@
+
 // RegisterDto pour les données d'inscription
 export interface RegisterDto {
     name: string;
@@ -8,7 +9,7 @@ export interface RegisterDto {
   
   // AuthRequestDto pour les données d'authentification
   export interface AuthRequestDto {
-    email: string;
+    phoneNumber: string; 
     password: string;
   }
   
@@ -27,8 +28,9 @@ export interface RegisterDto {
   
   // AuthResponseDto pour la structure des réponses d'authentification
   export interface AuthResponseDto {
+    jwt: string;
     token: string;
-    user: any; // Vous pouvez définir la structure de l'objet utilisateur ici
+    userId: number;
+    name: string;
     // Ajoutez d'autres propriétés nécessaires à la réponse de l'authentification
   }
-  

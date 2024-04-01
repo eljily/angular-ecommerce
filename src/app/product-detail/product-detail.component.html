@@ -1,0 +1,27 @@
+<main>
+    <article>
+      <section class="section product" aria-label="product" *ngIf="productDetails">
+        <div class="container">
+          <p-carousel [value]="productDetails.images" [numVisible]="1" [numScroll]="1" [circular]="true"
+            [showIndicators]="false">
+            <ng-template let-image pTemplate="item">
+              <figure class="product-banner">
+                <img [src]="image.imageUrl" width="600" height="600" loading="eager" alt="Product Image"
+                  class="img-cover">
+              </figure>
+            </ng-template>
+          </p-carousel>
+  
+          <div class="product-content">
+            <p class="product-subtitle">{{ productDetails.mark }}</p>
+            <h1 class="h1 product-title">{{ productDetails.name }}</h1>
+            <p class="product-text">{{ productDetails.description }}</p>
+            <div class="wrapper">
+              <span class="price" data-total-price>{{ productDetails.price + " MRU" }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+  

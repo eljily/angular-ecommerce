@@ -1,4 +1,4 @@
-<app-header></app-header>
+
 <div>
     <section class="categories">
       <div class="container-fluid">
@@ -56,5 +56,34 @@
       </div>
     </section>
   </div>
-<app-produit></app-produit>
-<app-footer></app-footer>
+
+  <section class="section-name padding-y-sm">
+    <div class="container">
+        <header class="section-heading">
+            <a href="#" class="btn btn-outline-primary float-end">See all</a>
+            <h3 class="section-title">Tous les produits</h3>
+        </header><!-- sect-heading -->
+
+        <div class="row">
+            <div class="col-md-3" *ngFor="let product of products">
+                <div class="card card-product-grid">
+                    <a class="img-wrap">
+                        <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name">
+                    </a>
+                    <figcaption class="info-wrap">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <a class="title">{{ product.name }}</a>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="price mt-1">{{ product.price + "MRU" }}</div>
+                            </div>
+                        </div>
+                    </figcaption>
+                    <a [routerLink]="['/product-details', product.id]" class="btn btn-primary">Voir les détails</a>
+                </div>
+            </div><!-- col.// -->
+        </div>
+    </div><!-- row.// -->
+    <!-- container // -->
+</section>

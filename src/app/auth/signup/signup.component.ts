@@ -1,9 +1,10 @@
 import { Component,OnInit } from '@angular/core';
 import { HeaderComponent } from '../../layouts/header/header.component';
-import { AuthService } from './auth.service';
-import { RegisterDto } from '../models';
+import { AuthService } from '../service/auth.service';
+import { RegisterDto } from '../service/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class SignupComponent implements OnInit {
   registerForm!: FormGroup; 
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthService,private router: Router) {}
 
   ngOnInit(): void {
     // Initialisez le formulaire avec FormBuilder
@@ -29,6 +30,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('Form submitted.'); // Ajoutez ce log pour vérifier si la méthode onSubmit est appelée
     if (this.registerForm.invalid) {
       console.log("Form is not valid. Cannot submit.");
       return; // Arrêtez l'exécution de la fonction si le formulaire n'est pas valide
@@ -41,16 +43,19 @@ export class SignupComponent implements OnInit {
       password: this.registerForm.value.password,
       phoneNumber: this.registerForm.value.phone // Ajoutez le numéro de téléphone à formData
     };
+   // console.log("Form data:", formData); // Ajoutez ce log pour vérifier les données envoyées au service
+  
     console.log("Form is valid. Submitting...");
   
     this.authService.signup(formData).subscribe(
       response => {
-        console.log('Inscription réussie', response);
+        console.log('Signup response:', response); // Ajoutez ce log pour vérifier la réponse du service
         alert("Account Created!");
         // Gérez la réponse de réussite ici, par exemple : rediriger l'utilisateur vers une page de connexion
+        this.router.navigate(['/login']);
       },
       error => {
-        console.error('Erreur lors de inscription', error);
+        console.error('Erreur lors de l\'inscription', error);
         // Gérez l'erreur ici, par exemple : afficher un message d'erreur à l'utilisateur
       }
     );
