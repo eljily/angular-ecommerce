@@ -23,18 +23,37 @@
 
                 <div class="widget-header icontext d-flex align-items-center">
                     <div class="text">
-                      <span class="text-muted">Bienvenue!</span>
+                      <span class="text-muted">Bienvenue!       </span>
                       <div *ngIf="isLoggedIn(); else notLoggedIn">
                         <a>{{ currentUser.name }}</a> |
-                        <a (click)="logout()">Se déconnecter</a>
+                        <a (click)="logout()">Se déconnecter    </a>
                       </div>
                       <ng-template #notLoggedIn>
                         <a routerLink="/login">Se connecter</a> |
                         <a routerLink="/signup">Créer un compte</a>
                       </ng-template>
                     </div>
-                    <a href="#" class="icon icon-lg rounded-circle border text-secondary"><i class="fas fa-user"></i></a>
+                    <div class="icon-container">
+                      <button mat-icon-button [matMenuTriggerFor]="menu" style="background-color: #ffff; margin: -10px; width: 100px;"  >
+                        <i class="fas fa-user" style="color: #0d6efd;"></i> <!-- Icône personnalisée -->
+                      </button>
+                      <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+                        <button mat-menu-item (click)="navigateTo('profile')">
+                          Profil
+                        </button>
+                        <button mat-menu-item (click)="navigateTo('poduit-user')">
+                         poduit-utilisateur
+                        </button>
+                        <button mat-menu-item (click)="navigateTo('settings')">
+                            Paramètres
+                          </button>
+                      </mat-menu>
+                    </div>
                   </div>
+                  
+                  
+                  
+                
                   
             </div> <!-- widgets-wrap.// -->
         </div> <!-- col.// -->

@@ -8,17 +8,19 @@ import { MenuItem } from 'primeng/api';
 import { Category } from '../../produit/service/Category';
 import { CategoryService } from './category.service';
 import { ProductsService } from '../../produit/service/products.service';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink,CommonModule ],
+  imports: [RouterLink,CommonModule,MatMenuModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 
 export class HeaderComponent implements OnInit {
+
   currentUser: any;
   categories: any[] = [];
   products: any[] = [];
@@ -31,6 +33,9 @@ export class HeaderComponent implements OnInit {
     'Home': 'pi pi-home',
     'Others': 'pi pi-user'
   };
+
+
+  showDropdown: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -55,6 +60,18 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+  
+  toggleDropdown(): void {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  hideDropdown(): void {
+    this.showDropdown = false;
+  }
+
+  navigateTo(route: string): void {
+    this.router.navigate([route]);
   }
 
   navigateToCategory(categoryId: number) {
