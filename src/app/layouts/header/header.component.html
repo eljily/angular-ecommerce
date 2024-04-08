@@ -23,16 +23,17 @@
 
                 <div class="widget-header icontext d-flex align-items-center">
                     <div class="text">
-                      <span class="text-muted">Bienvenue!       </span>
-                      <div *ngIf="isLoggedIn(); else notLoggedIn">
-                        <a>{{ currentUser.name }}</a> |
-                        <a (click)="logout()">Se déconnecter    </a>
-                      </div>
-                      <ng-template #notLoggedIn>
-                        <a routerLink="/login">Se connecter</a> |
-                        <a routerLink="/signup">Créer un compte</a>
-                      </ng-template>
+                        <span class="text-muted">Bienvenue!</span>
+                        <div *ngIf="isLoggedIn(); else notLoggedIn">
+                            <a *ngIf="currentUser">{{ currentUser?.data?.data?.name }}</a> |
+                            <a (click)="logout()">Se déconnecter</a>
+                        </div>
+                        <ng-template #notLoggedIn>
+                            <a routerLink="/login">Se connecter</a> |
+                            <a routerLink="/signup">Créer un compte</a>
+                        </ng-template>
                     </div>
+                    
                     <div class="icon-container">
                       <button mat-icon-button [matMenuTriggerFor]="menu" style="background-color: #ffff; margin: -10px; width: 100px;"  >
                         <i class="fas fa-user" style="color: #0d6efd;"></i> <!-- Icône personnalisée -->
@@ -41,11 +42,21 @@
                         <button mat-menu-item (click)="navigateTo('profile')">
                           Profil
                         </button>
+                        <button mat-menu-item (click)="navigateTo('forgot-password')">
+                            Changer le mot de passe
+                          </button>
+                          <button mat-menu-item (click)="navigateTo('add')">
+                            add
+                          </button>
+                          <button mat-menu-item (click)="navigateTo('settings')">
+                            Paramètres
+                          </button>
                         <button mat-menu-item (click)="navigateTo('poduit-user')">
                          poduit-utilisateur
                         </button>
-                        <button mat-menu-item (click)="navigateTo('settings')">
-                            Paramètres
+
+                        <button  style="color: red;" mat-menu-item (click)="navigateTo('delete-account')">
+                            Supprimer le compte
                           </button>
                       </mat-menu>
                     </div>
@@ -61,26 +72,37 @@
         </div> <!-- container.// -->
     </section> <!-- header-main .// -->
 
-    <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <i class="fas fa-bars text-white"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <div class="hori-selector">
-                    <div class="left"></div>
-                    <div class="right"></div>
-                </div>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/home"><i class="fa-solid fa-house"></i>Accueil</a>
-                </li>
-                <li class="nav-item" *ngFor="let category of categories">
-                    <a class="nav-link" [routerLink]="['/products', category.id]">
-                        <i [ngClass]="categoryIconMappings[category.name]"></i>{{ category.name }}
+      
+    <nav>
+        <div class="wrapper">
+          <input type="radio" name="slide" id="menu_btn" />
+          <input type="radio" name="slide" id="cancel_btn" />
+          <ul class="nav_links">
+            <label for="cancel_btn" class="btn cancel_btn">
+              <i class="fas fa-times"></i>
+            </label>
+            <!-- Lien vers la page d'accueil en dehors de la boucle *ngFor -->
+            <li><a routerLink="/home">Accueil</a></li>
+            <!-- Boucle *ngFor pour les autres catégories -->
+            <ng-container *ngFor="let category of categories">
+              <li>
+                <!-- Utilisez routerLink au lieu de href -->
+                <a (click)="toggleSubMenu(category)" [ngClass]="categoryIconMappings[category.name]">{{ category.name }}</a>
+                <input type="checkbox" id="showDrop" class="showDrop" [checked]="category.isSubMenuOpen">
+                <!-- Vous pouvez ajouter le code pour les sous-catégories ici si nécessaire -->
+                <ul   *ngIf="category.isSubMenuOpen && category.subCategories && category.subCategories && category.subCategories.length > 0" class="drop_menu">
+                    <a [routerLink]="['/products', subCategory.id]" *ngFor="let subCategory of category.subCategories">
+                        {{ subCategory.name }}
                     </a>
-                </li>
-            </ul>
+                </ul>
+              </li>
+            </ng-container>
+          </ul>
+          <label for="menu_btn" class="btn menu_btn">
+            <i class="fas fa-bars"></i>
+          </label>
         </div>
-    </nav>
+      </nav>
+      
+    
     

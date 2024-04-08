@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { HeaderComponent } from '../../layouts/header/header.component';
 import { AuthService } from '../service/auth.service';
-import { RegisterDto } from '../service/models';
+import { RegisterDto } from '../../profile/model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -37,12 +37,23 @@ export class SignupComponent implements OnInit {
     }
   
     // Si le formulaire est valide, continuez avec la soumission
-    const formData: RegisterDto = {
-      name: this.registerForm.value.name,
-      email: this.registerForm.value.email,
-      password: this.registerForm.value.password,
-      phoneNumber: this.registerForm.value.phone // Ajoutez le numéro de téléphone à formData
+    const formData = this.registerForm.value;
+    const registerData: RegisterDto = {
+      data: {
+        id: 0, // Vous devez peut-être générer l'ID autrement
+        name: formData.name,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        address: formData.address,
+        birthDate: formData.birthDate,
+        phoneNumber: formData.phoneNumber,
+        password: formData.password,
+        email: formData.email,
+        profilePhoto: formData.profilePhoto,
+        profileUrl: formData.profileUrl
+      }
     };
+    
    // console.log("Form data:", formData); // Ajoutez ce log pour vérifier les données envoyées au service
   
     console.log("Form is valid. Submitting...");

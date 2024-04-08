@@ -6,8 +6,12 @@ export interface Product {
     name: string;
     price: number;
     mark:string;
+    hit:number;
     description: string;
     createDate: Date;
     updateDate: Date;
     images: Image[];
+    
   }
+
+  

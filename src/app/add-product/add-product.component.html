@@ -1,0 +1,44 @@
+<form class="product-form" enctype="multipart/form-data" (submit)="onSubmit()">
+
+    <fieldset class="product-fieldset">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" class="form-control" name="description" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" id="price" class="form-control" name="price" required>
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" class="form-control" name="category" [(ngModel)]="selectedCategory" (change)="loadSubCategories()" required>
+          <option value="" disabled selected>Select category</option>
+          <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="subCategory">Sub-category</label>
+        <select id="subCategory" class="form-control" name="subCategory" [(ngModel)]="selectedSubCategory" required>
+          <option value="" disabled selected>Select sub-category</option>
+          <option *ngFor="let subCategory of subCategories" [ngValue]="subCategory">{{ subCategory.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mark">Mark</label>
+        <input type="text" id="mark" class="form-control" name="mark" required>
+      </div>
+
+      <div class="form-group">
+        <label for="images">Images</label>
+        <input type="file" id="images" class="form-control" name="images" multiple required>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
+  </form>
+  
+
+  

@@ -1,11 +1,29 @@
-
 // RegisterDto pour les données d'inscription
 export interface RegisterDto {
+
+data:{
+    id: number;
     name: string;
-    email: string;
-    password: string;
+    firstName: string;
+    lastName: string;
+    address: string;
+    birthDate: Date;
     phoneNumber: string;
+    password: string;
+    email: string;
+    profilePhoto: string; 
+    profileUrl: string;
+}
   }
+  
+  export interface ResponseMessage<T> {
+    status: number;
+    message?: string;
+    data?: T;
+  }
+  
+  
+
   
   // AuthRequestDto pour les données d'authentification
   export interface AuthRequestDto {
@@ -20,17 +38,22 @@ export interface RegisterDto {
   }
   
   // ResponseMessage pour la structure des messages de réponse du serveur
-  export interface ResponseMessage {
+  export interface ResponseMessage<T> {
     status: number;
     message?: string;
-    data?: any;
+    data?: T;
   }
-  
   // AuthResponseDto pour la structure des réponses d'authentification
   export interface AuthResponseDto {
     jwt: string;
-    token: string;
     userId: number;
-    name: string;
-    // Ajoutez d'autres propriétés nécessaires à la réponse de l'authentification
+    
+    decodedToken: {
+      sub: string;
+      userId: number;
+      role: string;
+      email: string;
+      name: string;
+      // Ajoutez d'autres propriétés du token si nécessaire
+    };
   }

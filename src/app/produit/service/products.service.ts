@@ -7,9 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class ProductsService {
 
+
+
   private api = "http://localhost:8081/api";
 
   constructor(private http: HttpClient) { }
+
+  
 
   public getAllProducts() :Observable<any> {
     return this.http.get(`${this.api}/products`);

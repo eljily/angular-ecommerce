@@ -1,10 +1,14 @@
 import { Routes } from '@angular/router';
+import { AddProductComponent } from './add-product/add-product.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { DeleteAccountComponent } from './delete-account/delete-account.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProduitComponent } from './produit/produit.component';
+import { ProfileComponent } from './profile/profile.component';
 
 // Déclarez et définissez vos routes
 const routes: Routes = [
@@ -31,6 +35,12 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'product-details/:productId', component: ProductDetailComponent },
     { path: 'products/:categoryId', component: ProduitComponent },
+    { path: 'add', component: AddProductComponent },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
+    { path: 'delete-account', component: DeleteAccountComponent },
+
+
+    { path: 'profile', component: ProfileComponent },
     { path: 'login', component: LoginComponent ,data: { noHeaderFooter: true } },
     { path: 'signup', component: SignupComponent, data: { noHeaderFooter: true } ,}
 ]

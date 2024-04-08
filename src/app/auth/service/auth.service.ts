@@ -2,8 +2,10 @@ import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { RegisterDto, AuthRequestDto, OtpLoginDto, ResponseMessage, AuthResponseDto } from './models'; 
+import { RegisterDto, AuthRequestDto, ResponseMessage, AuthResponseDto , } from '../../profile/model'; 
 import { isPlatformBrowser } from '@angular/common';
+import { JwtDecoderService } from './jwt.service';
+import { UserService } from '../../profile/UserService';
 
 @Injectable({
   providedIn: 'root'
@@ -12,30 +14,41 @@ export class AuthService {
   private baseUrl = 'http://localhost:8081/api/auth';
   private currentUserSubject: BehaviorSubject<AuthResponseDto | null>;
   public currentUser: Observable<AuthResponseDto | null>;
-
+  
   constructor(
     private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private jwtDecoderService: JwtDecoderService,
+    private userService: UserService
   ) {
     const currentUser = isPlatformBrowser(this.platformId) ? localStorage.getItem('currentUser') : null;
     this.currentUserSubject = new BehaviorSubject<AuthResponseDto | null>(currentUser ? JSON.parse(currentUser) : null);
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  // Méthode pour récupérer les informations de l'utilisateur depuis le localStorage
+  getCurrentUserFromLocalStorage(): AuthResponseDto | null {
+    if (typeof localStorage !== 'undefined') {
+        const currentUser = localStorage.getItem('currentUser');
+        return currentUser ? JSON.parse(currentUser) : null;
+    } else {
+        return null; // Gérer le cas où localStorage n'est pas disponible
+    }
+}
   public get currentUserValue(): AuthResponseDto | null {
     return this.currentUserSubject.value;
   }
-  
-  signup(registerDto: RegisterDto): Observable<ResponseMessage> {
-    return this.http.post<ResponseMessage>(`${this.baseUrl}/signup`, registerDto)
+
+
+
+  signup(registerDto: RegisterDto): Observable<ResponseMessage<AuthResponseDto>> {
+    return this.http.post<ResponseMessage<AuthResponseDto>>('http://localhost:8081/api/auth/signup', registerDto)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           let errorMessage = 'Unknown error occurred';
           if (error.error instanceof ErrorEvent) {
-            // Erreur côté client
             errorMessage = `Error: ${error.error.message}`;
           } else {
-            // Erreur côté serveur
             errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
           }
           console.error(errorMessage);
@@ -43,70 +56,60 @@ export class AuthService {
         })
       );
   }
-
+  
 
   login(authRequestDto: AuthRequestDto): Observable<AuthResponseDto> {
     return this.http.post<AuthResponseDto>(`${this.baseUrl}/login`, authRequestDto).pipe(
       tap((response: AuthResponseDto) => {
-        console.log('Type de jwt:', typeof response.jwt);
-        console.log('Type de userId:', typeof response.userId);
-        console.log('Nom de l\'utilisateur:', response.name);
+        const decodedToken = this.jwtDecoderService.decodeToken(response.jwt);
+        const currentUser: AuthResponseDto & { user?: RegisterDto } = { ...response, user: undefined };
+        currentUser.decodedToken = decodedToken;
+  
         if (isPlatformBrowser(this.platformId)) {
-          this.storeAuthData(response.jwt, response.userId); // Stocker le jeton JWT et l'ID de l'utilisateur
+          this.storeAuthData(response.jwt, response.userId);
         }
-        this.currentUserSubject.next(response);
+  
+        this.userService.getUserById(response.userId).subscribe(
+          (userDetailsResponse: ResponseMessage<RegisterDto>) => {
+            const userDetails = userDetailsResponse.data; // Extract the RegisterDto from the response
+            if (userDetails) {
+              currentUser.user = userDetails;
+              this.currentUserSubject.next(currentUser);
+            } else {
+              console.error('Détails de l\'utilisateur introuvables dans la réponse.');
+            }
+          },
+          (error: any) => {
+            console.error('Erreur lors de la récupération des détails de l\'utilisateur:', error);
+          }
+        );
       }),
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          console.error('Mauvaises informations d\'identification');
-          return throwError('Mauvaises informations d\'identification');
-        }
-        return throwError('Erreur lors de la tentative de connexion');
-      })
+      catchError(this.handleError)
     );
   }
   
 
-  storeAuthData(jwt: string, userId: number): void {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('currentUser', JSON.stringify({ jwt, userId }));
-    }
+  private storeAuthData(jwt: string, userId: number): void {
+    localStorage.setItem('currentUser', JSON.stringify({ jwt, userId }));
   }
 
-  
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('currentUser');
     }
     this.currentUserSubject.next(null);
   }
-  
-  verifyOTP(otpLogin: OtpLoginDto): Observable<ResponseMessage> {
-    return this.http.post<ResponseMessage>(`${this.baseUrl}/verify-otp`, otpLogin).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  resendOTP(phoneNumber: string): Observable<ResponseMessage> {
-    return this.http.post<ResponseMessage>(`${this.baseUrl}/send-otp?phoneNumber=${phoneNumber}`, {}).pipe(
-      catchError(this.handleError)
-    );
-  }
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     let errorMessage = 'Unknown error occurred';
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
       errorMessage = `Error: ${error.error.message}`;
     } else if (error.status === 401 || error.status === 403) {
-      // Erreur d'authentification
       errorMessage = 'Identifiants incorrects. Veuillez réessayer.';
     } else {
-      // Autre erreur côté serveur
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     console.error(errorMessage);
     return throwError(errorMessage);
   }
-
 }

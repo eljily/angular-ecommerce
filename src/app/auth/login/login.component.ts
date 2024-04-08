@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup ,Validators,ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '../../layouts/header/header.component';
-import { AuthService } from '../service/auth.service';import { AuthRequestDto } from '../service/models';
-;
+import { AuthService } from '../service/auth.service';
+import { JwtDecoderService } from '../service/jwt.service';
 
 @Component({
   selector: 'app-login',
@@ -12,49 +13,77 @@ import { AuthService } from '../service/auth.service';import { AuthRequestDto } 
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  errorMessage: string = ''; // Ajoutez cette variable pour stocker le message d'erreur
+  errorMessage: string = '';
+  currentUser: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router // Injectez le service Router
+    private router: Router,
+    private jwtDecoderService: JwtDecoderService
   ) {
     this.loginForm = this.formBuilder.group({
-      phoneNumber: ['', Validators.required], // Changer email en phoneNumber
+      phoneNumber: ['', Validators.required],
       password: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    this.authService.currentUser.subscribe(user => {
+      this.currentUser = user;
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const loginData: AuthRequestDto = {
+      console.log('Formulaire valide. Tentative de connexion...');
+  
+      const loginData = {
         phoneNumber: this.loginForm.value.phoneNumber,
         password: this.loginForm.value.password
       };
-
+  
       this.authService.login(loginData).subscribe(
         (response) => {
-          // Traitement de la réponse de connexion réussie
           console.log('Connexion réussie', response);
-          // Stockez les informations d'authentification
-          this.authService.storeAuthData(response.jwt, response.userId);
+  
+          // Stockage du jeton JWT et de l'ID de l'utilisateur
+          if (isPlatformBrowser(this.platformId)) {
+            console.log('Enregistrement des informations d\'authentification dans le local storage...');
+            this.storeAuthData(response.jwt, response.userId);
+          }
+  
+          // Déchiffrer le JWT pour obtenir les informations de l'utilisateur
+          const decodedToken = this.jwtDecoderService.decodeToken(response.jwt);
+          console.log('Informations décodées du JWT:', decodedToken);
+  
+          // Afficher le nom de l'utilisateur dans la console
+          const userName = decodedToken.name;
+          console.log('Nom de l\'utilisateur:', userName);
+  
           // Redirection vers la page d'accueil
+          console.log('Redirection vers la page d\'accueil...');
           this.router.navigate(['/home']);
         },
         (error) => {
-          // Traitement de l'erreur de connexion
           console.error('Erreur de connexion', error);
           if (error.status === 401 || error.status === 403) {
-            // Le serveur a renvoyé une erreur d'authentification
             this.errorMessage = 'Identifiants incorrects. Veuillez réessayer.';
           } else {
-            // Une autre erreur s'est produite
             this.errorMessage = 'Une erreur s\'est produite lors de la connexion. Veuillez réessayer.';
           }
         }
       );
+    } else {
+      console.log('Formulaire invalide. Veuillez corriger les erreurs.');
     }
+  }
+  storeAuthData(jwt: string, userId: number) {
+    throw new Error('Method not implemented.');
+  }
+  platformId(platformId: any) {
+    throw new Error('Method not implemented.');
   }
 }

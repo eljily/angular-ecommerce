@@ -1,35 +1,40 @@
-<!-- ========================= SECTION  ========================= -->
-<section class="section-name padding-y-sm">
-    <div class="container">
-        <header class="section-heading">
-            <a href="#" class="btn btn-outline-primary float-end">See all</a>
-            <h3 class="section-title">produits</h3>
-        </header><!-- sect-heading -->
 
-        <div class="row">
-            <div class="col-md-3" *ngFor="let product of pagedProducts">
-                <div  class="card card-product-grid">
-                    <a class="img-wrap">
-                        <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name">
-                    </a>
-                    <figcaption  class="info-wrap">
-                        <div class="row align-items-center">
-                            <div class="col-md-6">
-                                <a class="title">{{ product.name }}</a>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="price mt-1">{{   product.price + "  MRU" }}</div>
+        <div class="container bootdey">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title"><span>Products</span></div>
+                    <div class="row">
+                        <!-- Utilisez une boucle pour afficher chaque produit -->
+                        <div [routerLink]="['/product-details', product.id]" class="col-sm-3 col-md-3 col-lg-3 box-product-outer" *ngFor="let product of pagedProducts">
+                            <div class="box-product">
+                                <div class="img-wrapper">
+                                    <a href="detail.html">
+                                        <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name" style="width: 100%">
+                                    </a>
+                                    <div class="tags">
+                                        <span class="label-tags" *ngFor="let tag of product.tags"><span class="label label-{{tag.class}}">{{tag.name}}</span></span>
+                                    </div>
+                                    <div class="option">
+                                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Wishlist"><i class="ace-icon fa fa-heart"></i></a>
+                                    </div>
+                                </div>
+                                <h6><a href="detail.html">{{product.name}}</a></h6>
+                                <div class="price">
+                                    <div>{{product.price + " MRU"}}</div>
+                                </div>
+                                <div class="rating">
+                                    <i class="ace-icon fa fa-star"></i>
+                                    <i class="ace-icon fa fa-star"></i>
+                                    <i class="ace-icon fa fa-star"></i>
+                                    <i class="ace-icon fa fa-star"></i>
+                                    <i class="ace-icon fa fa-star-half-o"></i>
+                                    <a href="#">(2 reviews)</a>
+                                </div>
                             </div>
                         </div>
-                    </figcaption>
-     
-                        <a  [routerLink]="['/product-details', product.id]" class="btn btn-primary">Voir les détails</a>
-
+                    </div>
                 </div>
-            </div><!-- col.// -->
+            </div>
         </div>
-    </div><!-- row.// -->
-    <!-- container // -->
-</section>
-    <!-- ========================= SECTION  END// ========================= -->
+        
 
