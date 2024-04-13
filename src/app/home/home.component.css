@@ -82,11 +82,16 @@
     margin-top: 20px;
     margin-bottom: 20px;
     font-size: 1.2rem;
+    max-width: 100%; /* Limiter la largeur du titre à 100% de son conteneur */
+    overflow: hidden; /* Masquer tout contenu dépassant de la zone */
+    text-overflow: ellipsis; /* Ajouter des points de suspension pour indiquer qu'il y a plus de contenu que ce qui est visible */
+    white-space: nowrap; /* Empêcher le texte de se mettre à la ligne */
 }
-
 .bootdey .box-product-outer {
     /* width: calc(20% - 10px); /* Pour que chaque produit occupe 25% de la largeur de son conteneur */
     margin-bottom: 25px;
+    border-radius: 5px;
+    border: 1px solid #f38a2e;
 }
 
 .padding-bottom-sm {
@@ -94,7 +99,8 @@
 }
 
 .box-product-outer {
-    width: calc(15% - 40px);
+    width: calc(18% - 40px);
+    margin-right: 10px;
     margin-bottom: 20px;
 }
 
@@ -142,24 +148,11 @@
 
 .box-product .img-wrapper > a > img {
     width: 100%;
-    border-radius: 10px;
+    align-self: flex-end;
+    border-radius: 50px;
 }
 
-.box-product .img-wrapper .tags {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: inline-block;
-    overflow: visible;
-    width: auto;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    vertical-align: inherit;
-    border-width: 0;
-    background-color: transparent;
-    direction: rtl;
-}
+
 
 .box-product .img-wrapper .tags-left {
     left: 0;
@@ -184,21 +177,6 @@
     text-decoration: none;
 }
 
-.box-product .img-wrapper > .option {
-    position: absolute;
-    top: auto;
-    right: 0;
-    bottom: -30px;
-    left: 0;
-    width: auto;
-    height: 28px;
-    -webkit-transition: all .2s ease;
-    -o-transition: all .2s ease;
-    transition: all .2s ease;
-    text-align: center;
-    vertical-align: middle;
-    background-color: rgba(0, 0, 0, .55);
-}
 
 .box-product .img-wrapper .option > a {
     font-size: 18px;
@@ -211,36 +189,56 @@
 .box-product .img-wrapper img {
     margin-top: 10px;
     width: 100%;
-    height: 100px; /* Spécifiez la hauteur fixe désirée pour toutes les images */
-    object-fit: cover; /* Assure que les images conservent leur ratio et remplissent la zone définie */
+    height: 100px;
+    object-fit: cover;
 }
-.box-product .img-wrapper:hover > .option {
-    top: auto;
-    bottom: 0;
-}
+
+
+
+
 
 .nameproduct {
     margin-top: 10px;
     font-size: 1.0em;
     color: #000;
+    max-width: 100%; /* Limiter la largeur du titre à 100% de son conteneur */
+    overflow: hidden; /* Masquer tout contenu dépassant de la zone */
+    text-overflow: ellipsis; /* Ajouter des points de suspension pour indiquer qu'il y a plus de contenu que ce qui est visible */
+    white-space: nowrap; /* Empêcher le texte de se mettre à la ligne */
+    
 
+}
+
+.box-product {
+    display: flex; /* Utilise flexbox pour aligner les éléments enfants */
+    flex-direction: column; /* Aligner les éléments enfants verticalement */
+    align-items: center; /* Centrer les éléments enfants horizontalement */
+    justify-content: flex-start; /* Aligner les éléments enfants en haut */
 }
 
 .price {
-    background-color: #F56B2A;
-    color: #ffff;
-    border-right: 1px solid ; /* Ajoute une bordure rouge */
-   /* border-radius: 0 0 100px;/* Arrondit les coins de la bordure */
-    padding: 5px 10px; /* Ajoute un peu d'espace autour du texte */
-    left: 100%;
+    text-align: center;
+    background-color: #f38a2e;
+    color: #fff;
+    padding: 5px 10px;
+    border-top-left-radius: 15px ;
+    border-top-right-radius: 15px ;
+    font-size: 14px;
+    z-index: 1; 
 }
-
 
 
 .eyes {
     /*display: flex; 
     align-items: center; 
     margin-left: 40%;
-    margin-bottom: 10px;*/
-    background-color:#5161ce ;
+    margin-bottom: 10px;
+    background-color:#5161ce ;*/
+    align-self: flex-end;
+    margin-left: 40%;
+    color: #000;
+    padding: 5px 10px;
+    font-size: 14px;
+    margin-right: auto;
+    z-index: 1; 
 }

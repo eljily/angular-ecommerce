@@ -1,0 +1,22 @@
+.gal-item{
+	overflow: hidden;
+	padding: 8px;
+}
+.gal-item .box{
+	height: 100%;
+	overflow: hidden;
+}
+.box img{
+	height: 100%;
+	width: 100%;
+	object-fit:cover;
+}
+.carousel {
+    width: 100%; /* Définir la largeur du carrousel principal */
+    height: 400px; /* Définir la hauteur du carrousel principal */
+}
+
+.inner-carousel {
+    width: 100%; /* Définir la largeur des carrousels internes */
+    height: 100%; /* Définir la hauteur des carrousels internes */
+}

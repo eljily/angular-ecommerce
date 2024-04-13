@@ -1,44 +1,45 @@
-<form class="product-form" enctype="multipart/form-data" (submit)="onSubmit()">
+<form class="product-form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+  <fieldset class="product-fieldset">
+    <legend>Ajouter votre Annonce Gratuit!!</legend>
+    <div class="form-group">
+      <label for="name">Nom du produit</label>
+      <input type="text" id="name" class="form-control" [(ngModel)]="product.name" name="name" required>
+    </div>
+    <div class="form-group">
+      <label for="marque">marque</label>
+      <input id="marque" class="form-control" [(ngModel)]="product.mark" name="description" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" class="form-control" [(ngModel)]="product.description" name="description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="price">Prix en mru</label>
+      <div class="input-group">
+        <span class="input-group-text">MRU</span>
+        <input type="number" id="price" class="form-control" [(ngModel)]="product.price" name="price" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="category">Catégorie</label>
+      <select id="category" class="form-control" [(ngModel)]="product.category" name="category" required (change)="onCategoryChange(product.category)">
+        <option value="" disabled selected>Sélectionner une catégorie</option>
+        <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+      </select>
+    </div>    
+    <div class="form-group">
+      <label for="subcategory">Sous Catégorie</label>
+      <select id="subcategory" class="form-control" [(ngModel)]="product.subcategory" name="subcategory" required>
+        <option value="" disabled selected>Sélectionner une sous-catégorie</option>
+        <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <input type="file" id="images" name="images" multiple (change)="onFileSelect($event)" accept="image/*" class="form-control-file">
+      <small class="form-text text-muted">Sélectionnez jusqu'à 2 images.</small>
+    </div>
+    
+    <button type="submit" class="btn btn-primary" [disabled]="!product.name || !product.description || !product.price || !product.category || !product.subcategory">Publier</button>
+  </fieldset>
+</form>
 
-    <fieldset class="product-fieldset">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" class="form-control" name="name" required>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" class="form-control" name="description" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="price">Price</label>
-        <input type="number" id="price" class="form-control" name="price" required>
-      </div>
-      <div class="form-group">
-        <label for="category">Category</label>
-        <select id="category" class="form-control" name="category" [(ngModel)]="selectedCategory" (change)="loadSubCategories()" required>
-          <option value="" disabled selected>Select category</option>
-          <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="subCategory">Sub-category</label>
-        <select id="subCategory" class="form-control" name="subCategory" [(ngModel)]="selectedSubCategory" required>
-          <option value="" disabled selected>Select sub-category</option>
-          <option *ngFor="let subCategory of subCategories" [ngValue]="subCategory">{{ subCategory.name }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="mark">Mark</label>
-        <input type="text" id="mark" class="form-control" name="mark" required>
-      </div>
-
-      <div class="form-group">
-        <label for="images">Images</label>
-        <input type="file" id="images" class="form-control" name="images" multiple required>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </fieldset>
-  </form>
-  
-
-  

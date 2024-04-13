@@ -10,12 +10,14 @@ import { ProduitComponent } from '../produit/produit.component';
 import { Category, SubCategory } from '../produit/service/Category';
 import { Product } from '../produit/service/model';
 import {ProductsService} from '../produit/service/products.service'
+import { SliderComponent } from '../slider/slider.component';
+
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,IonicModule,RouterModule, NgFor ],
+  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,IonicModule,RouterModule, NgFor ,SliderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

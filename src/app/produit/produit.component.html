@@ -1,40 +1,35 @@
-
-        <div class="container bootdey">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="title"><span>Products</span></div>
-                    <div class="row">
-                        <!-- Utilisez une boucle pour afficher chaque produit -->
-                        <div [routerLink]="['/product-details', product.id]" class="col-sm-3 col-md-3 col-lg-3 box-product-outer" *ngFor="let product of pagedProducts">
-                            <div class="box-product">
-                                <div class="img-wrapper">
-                                    <a href="detail.html">
-                                        <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name" style="width: 100%">
-                                    </a>
-                                    <div class="tags">
-                                        <span class="label-tags" *ngFor="let tag of product.tags"><span class="label label-{{tag.class}}">{{tag.name}}</span></span>
-                                    </div>
-                                    <div class="option">
-                                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Wishlist"><i class="ace-icon fa fa-heart"></i></a>
-                                    </div>
-                                </div>
-                                <h6><a href="detail.html">{{product.name}}</a></h6>
-                                <div class="price">
-                                    <div>{{product.price + " MRU"}}</div>
-                                </div>
-                                <div class="rating">
-                                    <i class="ace-icon fa fa-star"></i>
-                                    <i class="ace-icon fa fa-star"></i>
-                                    <i class="ace-icon fa fa-star"></i>
-                                    <i class="ace-icon fa fa-star"></i>
-                                    <i class="ace-icon fa fa-star-half-o"></i>
-                                    <a href="#">(2 reviews)</a>
-                                </div>
+<div class="container bootdey">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title"><span>Products</span></div>
+            <div class="row" >
+                <!-- Utilisez une boucle pour afficher chaque produit -->
+                <div [routerLink]="['/product-details', product.id]" class="col-sm-3 col-md-3 col-lg-3 box-product-outer" *ngFor="let product of pagedProducts" >
+                    <div class="box-product" >
+                        <div class="img-wrapper">
+                            <a href="detail.html">
+                                <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name" style="width: 100%">
+                            </a>
+                            <div class="tags">
+                                  <!-- 
+                                <span class="label-tags" *ngFor="let tag of product.tags"><span class="label label-{{tag.class}}">{{tag.name}}</span></span>
+                                ---->
+                            </div>
+                            <div class="option">
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Wishlist"><i class="ace-icon fa fa-heart"></i></a>
                             </div>
                         </div>
+                        <div class="nameproduct">
+                          <p href="detail.html">{{product.name}}</p>
+                         
+                        </div>
+                      <div class="eyes">
+                          <i class="fa fa-eye fa-xs">{{ product.hit }} </i>
+                      </div>
                     </div>
+                    <p class="price">{{product.price + " MRU"}}</p>
                 </div>
             </div>
         </div>
-        
-
+    </div>
+</div>

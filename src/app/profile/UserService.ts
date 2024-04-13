@@ -43,7 +43,7 @@ export class UserService {
   saveUser(user: RegisterDto): Observable<ResponseMessage<any>> {
     if (user.data.id) {
       // Si l'identifiant de l'utilisateur est défini, envoyez une requête de mise à jour
-      return this.http.put<ResponseMessage<any>>(`http://localhost:8081/api/${user.data.id}`, user)
+      return this.http.post<ResponseMessage<any>>('http://localhost:8081/api/users', user)
         .pipe(
           catchError((error: HttpErrorResponse) => {
             // Gérez l'erreur ici, par exemple en affichant un message d'erreur à l'utilisateur
