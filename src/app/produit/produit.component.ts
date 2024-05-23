@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
@@ -9,7 +9,7 @@ import { ProductsService } from './service/products.service';
 @Component({
   selector: 'app-produit',
   standalone: true,
-  imports: [RouterModule, NgFor ,IonicModule],
+  imports: [RouterModule, NgFor ,IonicModule,CommonModule],
   templateUrl: './produit.component.html',
   styleUrls: ['./produit.component.css']
 })
@@ -55,7 +55,7 @@ export class ProduitComponent implements OnInit {
     if (categoryId === 0) {
       productsObservable = this.productService.getAllProductsPaged(this.currentPage - 1, this.rows);
     } else {
-      productsObservable = this.productService.getAllProductsByCategoryId(categoryId, this.currentPage - 1, this.rows);
+      productsObservable = this.productService.getAllProductsBySubCategoryId(categoryId, this.currentPage - 1, this.rows);
     }
 
     productsObservable.subscribe(

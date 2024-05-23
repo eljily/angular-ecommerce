@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+
 import { IonicModule } from '@ionic/angular';
 import { Product } from '../produit/service/model';
 import { CarouselModule } from 'primeng/carousel';
 import { ProductsService } from '../produit/service/products.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({

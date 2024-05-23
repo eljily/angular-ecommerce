@@ -1,65 +1,67 @@
 <div class="container bootdey">
-    <div class="col-md-12">
-        <section class="panel">
-            <div class="panel-body">
-                <div class="col-md-6">
+    <div class="title"><span>produit-details :</span></div>
+    <div class="row">
+         
+        <div class="col-lg-6 col-md-12">
+            
+            <section class="panel">
+                <div class="panel-body">
                     <div class="pro-img-details">
                         <!-- Utilisation de la première image du backend comme image principale -->
                         <img *ngIf="productDetails?.images && productDetails.images.length > 0"
-                            [src]="productDetails.images[currentImageIndex].imageUrl" [alt]="productDetails.images[currentImageIndex].alt" class="product-image">
+                            [src]="productDetails.images[currentImageIndex].imageUrl" [alt]="productDetails.images[currentImageIndex].alt" class="product-image img-fluid" style="margin-left: 15px; margin-top: 10px;">
                     </div>
+                </div>
+            </section>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="pro-img-list">
                         <!-- Affichage des autres images du backend -->
                         <ng-container *ngIf="productDetails?.images && productDetails.images.length > 1">
                             <a *ngFor="let image of productDetails.images; let i = index"  (click)="changeMainImage(i)">
-                                <img [src]="image.imageUrl" [alt]="image.alt" class="product-image">
+                                <img [src]="image.imageUrl" [alt]="image.alt" class="product-image img-fluid">
                             </a>
                         </ng-container>
                     </div>
                 </div>
-                <div class="col-md-6">
-                <div class="product_meta">
-                    <strong>Nom du produit  :</strong>
-                    <h4 class="pro-d-title">
-                        <a href="#" class="">{{  productDetails.name }}</a>
-                    </h4>
-                    <strong>Nom du vendeur :</strong>
-                    <h4 class="pro-d-title">
-                        <a href="#" class="">{{  productDetails.name }}</a>
-                    </h4>
-                </div>
-                <div>
-                    <strong>Marque :</strong>
-                <p>{{ productDetails.mark }}</p>
-                </div>
-                    <div>
-                        <strong>description :</strong>
-                    <p>{{ productDetails.description }}</p>
-                 </div>
-                    <div class="product_meta">
-                        <span class="posted_in">
-                            <strong>Categories:</strong> 
-                            <a rel="tag" href="#">telephone</a>, 
-                            <a rel="tag" href="#">...</a>, 
-                            <a rel="tag" href="#">...</a>, 
-                            <a rel="tag" href="#">...</a>.
-                        </span>
-                        <span class="tagged_as">
-                            <strong>Tags:</strong> 
-                            <a rel="tag" href="#">homme</a>, 
-                            <a rel="tag" href="#">femme</a>.
-                        </span>
-                    </div>
-                    <div class="m-bot15">
-                        <strong>Price :</strong>
-                        <span class="pro-price">   {{ productDetails.price }} MRU</span>
-                    </div>
-
-                    <p>
-                        <button class="btn btn-round btn-danger" type="button"><i class="fa fa-phone"></i> +33695185210</button>
-                    </p>
-                </div>
             </div>
-        </section>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="product_meta">
+                <strong>Nom du produit :</strong>
+                <h4 class="pro-d-title">
+                    <a href="#" class="">{{  productDetails.name }}</a>
+                </h4>
+                <strong>Nom du vendeur :</strong>
+                <h4 class="pro-d-title">
+                    <a href="#" class="">{{  productDetails.vendorDetails.name }}</a>
+                </h4>
+            </div>
+            <div>
+                <strong>Adresse :</strong>
+                <p>{{productDetails.region}},{{productDetails.subRegion}}</p>
+            </div>
+            <div>
+                <strong>Description :</strong>
+                <p>{{ productDetails.description }}</p>
+            </div>
+            <div class="product_meta">
+                <span class="posted_in">
+                    <strong>Categories : {{ productDetails.createDate }}</strong> 
+                </span>
+                <span class="tagged_as">
+                    <strong>Vue : {{ productDetails.hit }}</strong> 
+                </span>
+            </div>
+            <div class="m-bot15">
+                <strong>Prix : </strong>
+                <span class="pro-price">{{ productDetails.price }} MRU</span>
+            </div>
+            <p style="margin-top: 10px;">
+                <button class="btn btn-round custom-border" type="button"><i class="fa fa-phone"></i> {{ productDetails.vendorDetails.phoneNumber }}</button>
+                <button style="margin-left: 10px;" class="btn btn-round custom-border" type="button"><i class="fa-brands fa-square-whatsapp"></i> {{ productDetails.vendorDetails.whatsappNumber }}</button>
+            </p>
+        </div>
     </div>
+
 </div>

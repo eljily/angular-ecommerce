@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ProductsService } from '../produit/service/products.service';
 import { CategoryService } from '../layouts/header/category.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Category, SubCategory } from '../produit/service/Category';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FieldsetModule } from 'primeng/fieldset';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/service/auth.service';
+
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -20,76 +23,155 @@ import { Router } from '@angular/router';
 
 })
 export class AddProductComponent implements OnInit {
-  constructor(private productService: ProductsService, 
-    private categoryService: CategoryService, 
-    private router: Router,
-     private messageService: MessageService,
-) { }
-
+  selectedImages: { file: File, url: string }[] = [];
   product: any = {};
-  images: any[] = [];
+  images: File[] = [];
   msgs: any[] = [];
-  categories: Category[] = [];
-  subcategories: SubCategory[] = [];
+  categories: any[] = [];
+  subcategories: any[] = [];
+  regions: any[] = [];
+  subregions: any[] = [];
+  selectedRegionId: string = '';
+  selectedCategory: string = '';
+  selectedSubcategory: string = '';
+  selectedRegion: string = '';
+  selectedSubregion: string = '';
+  isBrowser: boolean;
+
+  constructor(
+    private productService: ProductsService,
+    private categoryService: CategoryService,
+    private router: Router,
+    private messageService: MessageService,
+    private authService: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  toaster = inject(ToastrService);
 
   ngOnInit() {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else {
+      this.loadCategories();
+      this.loadRegions();
+    }
+  }
+
+  loadCategories() {
     this.categoryService.getAllCategories().subscribe(
       (response: any) => {
-        console.log(response)
         this.categories = response;
       },
-      error => {
+      (error) => {
         console.error('Error fetching categories:', error);
       }
     );
   }
 
+  loadRegions() {
+    this.productService.getAllRegionsWithSubRegions().subscribe(
+      (data: any) => {
+        console.log('Régions récupérées :', data);
+        this.regions = data.data;
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des régions :', error);
+      }
+    );
+  }
+
   onSubmit() {
+    const tokenAvailable = this.authService.isAuthenticated();
+    if (!tokenAvailable) {
+      console.log('Token non trouvé dans le localStorage');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const token = this.authService.getToken();
+    console.log('Token found:', token);
+
     const formData = new FormData();
     formData.append('name', this.product.name);
     formData.append('description', this.product.description);
     formData.append('price', this.product.price);
     formData.append('category', this.product.category);
-    formData.append('subCategoryId', this.product.subcategory); // Append selected subcategory
+    formData.append('subCategoryId', this.product.subcategory);
+    formData.append('regionId', this.product.region);
+    formData.append('subRegionId', this.product.subregion);
     for (let i = 0; i < this.images.length; i++) {
       formData.append('images', this.images[i]);
     }
-    console.log(this.product)
+
     this.productService.addProduct(formData).subscribe(
-      response => {
-        console.log('Product added successfully', response);
-        this.messageService.add({severity:'success', summary:'Success', detail:'Product added successfully'});
+      (response) => {
+        console.log('Produit ajouté avec succès', response);
+        this.showSuccessToast();
         this.clearForm();
+        this.router.navigate(['/home']);  // Redirection vers la page d'accueil après le succès
       },
-      error => {
-        console.error('Error adding product', error);
-        // Handle error
+      (error) => {
+        console.error('Erreur lors de ajout du produit', error);
+        this.showErrorToast();
       }
     );
   }
-  
+
   clearForm() {
     this.product = {};
     this.images = [];
+    this.selectedCategory = '';
+    this.selectedSubcategory = '';
+    this.selectedRegionId = '';
+    this.selectedSubregion = '';
+    this.selectedImages = [];
   }
-  
+
   onFileSelect(event: any) {
-    const files: File[] = event.files;
+    const files: File[] = Array.from(event.target.files);
     for (let i = 0; i < files.length; i++) {
-      this.images.push(files[i]);
+      const file = files[i];
+      const fileURL = URL.createObjectURL(file);
+      this.selectedImages.push({ file, url: fileURL });
+      this.images.push(file);
+    }
+    console.log('Fichiers sélectionnés:', this.images);
+  }
+
+  onCategoryChange(categoryId: string) {
+    const selectedCategory = this.categories.find(category => category.id === parseInt(categoryId, 10));
+    if (selectedCategory && selectedCategory.subCategories) {
+      this.subcategories = selectedCategory.subCategories;
+      this.product.subcategory = this.subcategories[0].id;
+    } else {
+      this.subcategories = [];
+      this.product.subcategory = '';
     }
   }
 
-  onCategoryChange(categoryName: string) {
-    console.log('Selected category:', categoryName);
-    const selectedCategory = this.categories.find(category => category.name === categoryName);
-    console.log('Selected category object:', selectedCategory);
-    if (selectedCategory && selectedCategory.subCategories) {
-      this.subcategories = selectedCategory.subCategories;
-      console.log('Subcategories:', this.subcategories);
+  onRegionChange(regionId: string) {
+    const selectedRegion = this.regions.find(region => region.id === parseInt(regionId, 10));
+    if (selectedRegion && selectedRegion.subRegions) {
+      this.subregions = selectedRegion.subRegions;
+      this.product.subregion = this.subregions[0].id;
     } else {
-      this.subcategories = [];
-      console.log('No subcategories found for the selected category.');
+      this.subregions = [];
+      this.product.subregion = '';
+    }
+  }
+
+  showSuccessToast() {
+    if (this.isBrowser) {
+      this.toaster.success('Produit ajouté avec succès', 'Succès');
+    }
+  }
+
+  showErrorToast() {
+    if (this.isBrowser) {
+      this.toaster.error('Erreur lors de ajout du produit', 'Erreur');
     }
   }
 }

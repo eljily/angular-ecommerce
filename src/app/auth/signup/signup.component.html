@@ -2,7 +2,7 @@
 <div class="style">
   <div id="sign_in">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <span>SSOUQI</span>
+      <span style="color: #363636;" >SSOUQI</span>
 
       <div id="field">
         <label><i class="fas fa-user"></i></label>
@@ -16,7 +16,7 @@
 
       <div id="field">
         <label><i class="fas fa-phone"></i></label>
-        <input type="tel" formControlName="phone" placeholder="Numéro de téléphone" required />
+        <input type="tel" formControlName="phoneNumber" placeholder="Numéro de téléphone" required />
       </div>
 
       <div id="field">
@@ -27,6 +27,7 @@
       <div class="field">
         <input type="submit" value="Créer nouveau compte" />
       </div>
+      <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
     </form>
   </div>
 </div>

@@ -1,0 +1,49 @@
+
+
+.produit .produit-item:hover {
+    box-shadow: 0 0 55px rgba(0, 0, 0, 0.4);
+}
+
+.produit .produit-item .produit-img {
+    overflow: hidden;
+    transition: 0.5s;
+    border-radius: 10px 10px 0 0;
+}
+
+.produit .produit-item .produit-img img {
+    transition: 0.5s;
+}
+
+.produit .produit-item .produit-img img:hover {
+    transform: scale(1.3);
+}
+
+/*** Produits End ***/
+.produit-img img {
+    width: 150px; /* Largeur fixe */
+    height: 200px; /* Hauteur fixe */
+    object-fit: cover; /* Redimensionne l'image pour remplir les dimensions spécifiées sans déformer */
+}
+
+
+.price-border {
+    border-right: 1px solid #ced4da; /* Couleur de la bordure */
+    padding-right: 5px; /* Espace entre le prix et la bordure */
+  }
+
+
+  .product-border {
+    border: 1px solid #fd7e14; /* Bordure de 1px, couleur #fd7e14 */
+    border-radius: 10px; /* Coins arrondis */
+    color: #fff; /* Couleur du texte */
+    background-color: #f38a2e; /* Couleur de fond */
+    transition: all 0.3s ease; /* Animation de transition */
+}
+
+
+
+  .products-border {
+    border: 1px solid #fd7e14; /* Bordure de 1px, couleur #fd7e14 */
+    border-top: 0;
+}
+

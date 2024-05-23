@@ -1,0 +1,42 @@
+
+  <div class="container-fluid produit py-4 ">
+    <div class="col-md-12 mx-md-50">
+      <div class="title">
+        <span>
+          <i class="fa-solid fa-list fa-beat-fade" style="color: #f08c00; border: 1px solid; padding: 0.1em;"></i>
+          produit
+        </span>
+      </div>
+      <div class="tab-class text-center " >
+        <div class="tab-content produit mx-md-5 ">
+          <div id="tab-1" class="tab-pane fade show p-0 active">
+            <div class="row flex-wrap flex-lg-nowrap g-2 ">
+              <div class="row g-2"  *ngIf="products.length">
+                <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 "  [routerLink]="['/product-details', product.id]" *ngFor="let product of products">
+                  <div class="rounded position-relative produit-item " style="cursor: pointer;">
+                    <div class="produit-img " >
+                      <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name" class="img-fluid w-100 rounded-top" alt="">
+                    </div>
+  
+                    <div class="text-white bg-secondary px-2 py-1 rounded position-absolute" style="top: 5px; right: 5px; font-size: 0.9rem;"><i class="fa-solid fa-share-nodes"></i></div>
+                    <div class="p-2  border-top-0 rounded-bottom products-border">
+                      <h6 class="text-dark fs-6 fw-bold mb-0" style="font-size: 1.0rem;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ product.name }}</h6>
+                      <p style="font-size: 0.7rem;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><i class="fa-solid fa-location-dot"></i> {{product.region}},{{product.subRegion}}</p>
+                      <p style="font-size: 1.0rem;"><i class="fa fa-eye fa-xs"></i> {{ product.hit }} </p>
+                      <div class="product-border">
+                        <a  class="btn  rounded-pill px-2  " style="font-size: 1.0rem; width: 100%; color: #fff;"> {{ product.price + " MRU" }}</a>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  

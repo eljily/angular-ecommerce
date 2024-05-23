@@ -1,0 +1,7 @@
+<div *ngIf="loading$ | async" class="loading-overlay">
+  <div class="spinner"></div>
+</div>
+
+<div *ngIf="!(loading$ | async) && !(hasData$ | async)" class="no-data-message">
+  Aucune donnée disponible.
+</div>

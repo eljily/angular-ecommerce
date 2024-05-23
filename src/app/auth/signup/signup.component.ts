@@ -5,18 +5,22 @@ import { RegisterDto } from '../../profile/model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [HeaderComponent,FormsModule,ReactiveFormsModule],
+  imports: [HeaderComponent,FormsModule,ReactiveFormsModule,CommonModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
 export class SignupComponent implements OnInit {
   registerForm!: FormGroup; 
+  errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService,private router: Router) {}
+
+  constructor(private formBuilder: FormBuilder, private authService: AuthService,private router: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     // Initialisez le formulaire avec FormBuilder
@@ -24,16 +28,18 @@ export class SignupComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      phone: ['', Validators.required] // Ajoutez le champ de numéro de téléphone au formulaire
+      phoneNumber: ['', Validators.required] // Ajoutez le champ de numéro de téléphone au formulaire
     });
     console.log("Form initialized successfully!");
   }
 
   onSubmit(): void {
-    console.log('Form submitted.'); // Ajoutez ce log pour vérifier si la méthode onSubmit est appelée
+    console.log('Form submitted.'); 
     if (this.registerForm.invalid) {
       console.log("Form is not valid. Cannot submit.");
-      return; // Arrêtez l'exécution de la fonction si le formulaire n'est pas valide
+      this.errorMessage = "Veuillez remplir tous les champs correctement.";
+      this.showErrorToast("l\'un des champs n\'est pas rempli ")
+      return;
     }
   
     // Si le formulaire est valide, continuez avec la soumission
@@ -61,14 +67,24 @@ export class SignupComponent implements OnInit {
     this.authService.signup(formData).subscribe(
       response => {
         console.log('Signup response:', response); // Ajoutez ce log pour vérifier la réponse du service
-        alert("Account Created!");
+        this.showSuccessToast("Compte créé avec succes");
         // Gérez la réponse de réussite ici, par exemple : rediriger l'utilisateur vers une page de connexion
         this.router.navigate(['/login']);
       },
       error => {
         console.error('Erreur lors de l\'inscription', error);
+        this.showErrorToast("Erreur lors de l\'inscription")
         // Gérez l'erreur ici, par exemple : afficher un message d'erreur à l'utilisateur
       }
     );
+  }
+
+
+  showSuccessToast(message: string) {
+    this.toastr.success(message, 'Succès');
+  }
+
+  showErrorToast(message: string) {
+    this.toastr.error(message, 'Erreur');
   }
 }

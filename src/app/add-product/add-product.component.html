@@ -1,45 +1,93 @@
-<form class="product-form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-  <fieldset class="product-fieldset">
-    <legend>Ajouter votre Annonce Gratuit!!</legend>
-    <div class="form-group">
-      <label for="name">Nom du produit</label>
-      <input type="text" id="name" class="form-control" [(ngModel)]="product.name" name="name" required>
-    </div>
-    <div class="form-group">
-      <label for="marque">marque</label>
-      <input id="marque" class="form-control" [(ngModel)]="product.mark" name="description" required>
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea id="description" class="form-control" [(ngModel)]="product.description" name="description" required></textarea>
-    </div>
-    <div class="form-group">
-      <label for="price">Prix en mru</label>
-      <div class="input-group">
-        <span class="input-group-text">MRU</span>
-        <input type="number" id="price" class="form-control" [(ngModel)]="product.price" name="price" required>
+<div class="container-xl px-4 mt-4">
+  <hr class="mt-0 mb-4">
+  <div class="row">
+    <div class="col-xl-8">
+      <div class="card mb-4">
+        <div class="card-header">Ajouter votre Annonce Gratuit!!</div>
+        <div class="card-body">
+          <form #productForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label class="small mb-1" for="inputUsername">Nom du produit*</label>
+              <input class="form-control" id="inputUsername" [(ngModel)]="product.name" name="name" type="text" placeholder="Entrez le nom du produit" required>
+              <div *ngIf="productForm.submitted && !product.name" class="text-danger">Ce champ est obligatoire</div>
+            </div>
+            <div class="row gx-3 mb-3">
+              <div class="col-md-6">
+                <label for="inputState5">Catégorie</label>
+                <select id="inputState5" class="form-control" [(ngModel)]="selectedCategory" name="category" required (change)="onCategoryChange(selectedCategory)">
+                  <option disabled value="">Sélectionner une catégorie...</option>
+                  <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+                </select>
+                <div *ngIf="productForm.submitted && !selectedCategory" class="text-danger">Ce champ est obligatoire</div>
+              </div>
+              <div class="col-md-6">
+                <label for="subcategory">Sous Catégorie</label>
+                <select id="subcategory" class="form-control" [(ngModel)]="selectedSubcategory" name="subcategory" required>
+                  <option disabled value="">Sélectionner une sous-catégorie...</option>
+                  <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
+                </select>
+                <div *ngIf="productForm.submitted && !selectedSubcategory" class="text-danger">Ce champ est obligatoire</div>
+              </div>
+            </div>
+            <div class="row gx-3 mb-3">
+              <div class="col-md-6">
+                <label for="inputState5">Région</label>
+                <select id="inputState5" class="form-control" [(ngModel)]="selectedRegionId" name="region" required (change)="onRegionChange(selectedRegionId)">
+                  <option disabled value="">Sélectionner une région...</option>
+                  <option *ngFor="let region of regions" [value]="region.id">{{ region.name }}</option>
+                </select>
+                <div *ngIf="productForm.submitted && !selectedRegionId" class="text-danger">Ce champ est obligatoire</div>
+              </div>
+              <div class="col-md-6">
+                <label for="inputState6">Sous-région</label>
+                <select id="inputState6" class="form-control" [(ngModel)]="selectedSubregion" name="subregion" required>
+                  <option disabled value="">Sélectionner une sous-région...</option>
+                  <option *ngFor="let subregion of subregions" [value]="subregion.id">{{ subregion.name }}</option>
+                </select>
+                <div *ngIf="productForm.submitted && !selectedSubregion" class="text-danger">Ce champ est obligatoire</div>
+              </div>
+            </div>
+            <div class="row gx-3 mb-3">
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputFirstName">Marque</label>
+                <input class="form-control" id="inputFirstName" type="text" [(ngModel)]="product.mark" name="mark" placeholder="Entrez la marque" required>
+                <div *ngIf="productForm.submitted && !product.mark" class="text-danger">Ce champ est obligatoire</div>
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLastName">Prix en MRU</label>
+                <div class="input-group">
+                  <input class="form-control" id="inputLastName" type="number" [(ngModel)]="product.price" name="price" placeholder="MRU" required>
+                </div>
+                <div *ngIf="productForm.submitted && !product.price" class="text-danger">Ce champ est obligatoire</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="small mb-1" for="inputOrgName">Description</label>
+              <textarea class="form-control" id="inputOrgName" [(ngModel)]="product.description" name="description" placeholder="Entrez une description" required></textarea>
+              <div *ngIf="productForm.submitted && !product.description" class="text-danger">Ce champ est obligatoire</div>
+            </div>
+            <div class="form-group">
+              <input type="file" id="images" name="images" multiple (change)="onFileSelect($event)" accept="image/*" class="form-control-file" required>
+              <small class="form-text text-muted">Sélectionnez jusqu'à 2 images.</small>
+              <div *ngIf="productForm.submitted && selectedImages.length === 0" class="text-danger">Ce champ est obligatoire</div>
+            </div>
+            <div class="container bootdey">
+              <div class="row">
+                <div class="col-lg-6 col-md-12">
+                  <div class="pro-img-list">
+                    <ng-container *ngFor="let image of selectedImages">
+                      <a>
+                        <img [src]="image.url" class="product-image img-fluid">
+                      </a>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="submit" [disabled]="!productForm.form.valid || selectedImages.length === 0">Save changes</button>
+          </form>
+        </div>
       </div>
     </div>
-    <div class="form-group">
-      <label for="category">Catégorie</label>
-      <select id="category" class="form-control" [(ngModel)]="product.category" name="category" required (change)="onCategoryChange(product.category)">
-        <option value="" disabled selected>Sélectionner une catégorie</option>
-        <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
-      </select>
-    </div>    
-    <div class="form-group">
-      <label for="subcategory">Sous Catégorie</label>
-      <select id="subcategory" class="form-control" [(ngModel)]="product.subcategory" name="subcategory" required>
-        <option value="" disabled selected>Sélectionner une sous-catégorie</option>
-        <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <input type="file" id="images" name="images" multiple (change)="onFileSelect($event)" accept="image/*" class="form-control-file">
-      <small class="form-text text-muted">Sélectionnez jusqu'à 2 images.</small>
-    </div>
-    
-    <button type="submit" class="btn btn-primary" [disabled]="!product.name || !product.description || !product.price || !product.category || !product.subcategory">Publier</button>
-  </fieldset>
-</form>
-
+  </div>
+</div>

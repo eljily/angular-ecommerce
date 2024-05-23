@@ -7,7 +7,7 @@
     place-items: center;
     margin: 0 auto;
     min-block-size: 90vh;
-    background-image: url(../../../assets/img/background.jpg) ;
+    background-image: url(../../../assets/img/pub/wp7347703.webp) ;
     color: #000000;
 }
 
@@ -44,7 +44,7 @@
   }
   
   label {
-    background-color: #FFD700;
+    background-color: #f38a2e;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
@@ -55,7 +55,7 @@
   
   input {
     
-    border: 0;
+    border: 1px solid #f38a2e;
     transition: background-color 0.3s;
     inline-size: 100%;
     color: #000000;
@@ -64,6 +64,7 @@
   
   input::placeholder {
     vertical-align: center;
+    
   }
   
   
@@ -73,9 +74,10 @@
   }
   
   input[type="submit"] {
+    
     cursor: pointer;
-    background-color: #3b4148;
-    color: #fff;
+    background-color: #ffff;
+    color: #363636;
     font-weight: 700;
     text-transform: uppercase;
     line-height: 1.2;
@@ -83,7 +85,7 @@
   
   input[type="submit"]:focus,
   input[type="submit"]:hover {
-    background-color: #FFD700;
+    background-color: #f38a2e;
   }
   
   p {

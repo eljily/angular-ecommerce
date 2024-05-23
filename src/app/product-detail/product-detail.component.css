@@ -196,3 +196,27 @@ body{margin-top:20px;
         font-size: 18px;
         font-weight: 300;
     }
+    .custom-border {
+        border: 1px solid #fd7e14; /* Bordure de 2px de large, couleur #333 */
+        border-radius: 10px; /* Coins arrondis */
+        padding: 10px 20px; /* Espace de remplissage */
+        color: #333; /* Couleur du texte */
+        background-color: #fff; /* Couleur de fond */
+        transition: all 0.3s ease; /* Animation de transition */
+      }
+      
+      .custom-border:hover {
+        background-color: #f38a2e; /* Changement de couleur de fond au survol */
+        color: #fff; /* Changement de couleur du texte au survol */
+      }
+
+
+      .title {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        max-width: 100%; /* Limiter la largeur du titre à 100% de son conteneur */
+        overflow: hidden; /* Masquer tout contenu dépassant de la zone */
+        text-overflow: ellipsis; /* Ajouter des points de suspension pour indiquer qu'il y a plus de contenu que ce qui est visible */
+        white-space: nowrap; /* Empêcher le texte de se mettre à la ligne */
+    }

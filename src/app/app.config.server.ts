@@ -1,6 +1,6 @@
 import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
-import { provideServerRendering } from '@angular/platform-server';
 import { appConfig } from './app.config';
+import { provideServerRendering } from './provide-server-rendering'; // Assurez-vous de corriger le chemin d'importation selon l'emplacement réel de votre fichier
 
 const serverConfig: ApplicationConfig = {
   providers: [

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { RegisterDto, ResponseMessage } from './model';
 
@@ -38,6 +38,8 @@ export class UserService {
       })
     );
   }
+
+
   
 
   saveUser(user: RegisterDto): Observable<ResponseMessage<any>> {

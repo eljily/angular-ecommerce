@@ -1,14 +1,23 @@
-import { ApplicationConfig,importProvidersFrom} from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { FetchHttpClientService } from './FetchHttpClientService'; 
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 
 
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { routes } from './app.routes';
+import { provideToastr } from 'ngx-toastr';
+import { provideRouter } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideAnimationsAsync } from './animations-util';
+
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(),importProvidersFrom(HttpClientModule),provideHttpClient(withFetch()), provideAnimationsAsync('noop')]
+  providers: [
+    provideRouter(routes),
+    provideClientHydration(),
+    importProvidersFrom(HttpClientModule),
+    provideHttpClient(withFetch()),
+    provideAnimationsAsync(),
+    provideToastr(),
+   
+  ]
 };
+

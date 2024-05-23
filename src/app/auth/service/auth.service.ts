@@ -7,6 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { JwtDecoderService } from './jwt.service';
 import { UserService } from '../../profile/UserService';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,9 @@ export class AuthService {
   private baseUrl = 'http://localhost:8081/api/auth';
   private currentUserSubject: BehaviorSubject<AuthResponseDto | null>;
   public currentUser: Observable<AuthResponseDto | null>;
-  
+  private redirectUrl: string | null = null;
+  private isconnected: boolean = false;
+
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -24,56 +27,82 @@ export class AuthService {
     const currentUser = isPlatformBrowser(this.platformId) ? localStorage.getItem('currentUser') : null;
     this.currentUserSubject = new BehaviorSubject<AuthResponseDto | null>(currentUser ? JSON.parse(currentUser) : null);
     this.currentUser = this.currentUserSubject.asObservable();
+    this.isconnected = !!currentUser;   //
   }
 
-  // Méthode pour récupérer les informations de l'utilisateur depuis le localStorage
+  isAuthenticated(): boolean {
+    return this.isconnected;
+  }
+
+  setAuthenticated(): void {
+    this.isconnected = true;
+  }
+
+  setRedirectUrl(redirectUrl: string): void {
+    this.redirectUrl = redirectUrl;
+    console.log('URL de redirection stockée dans AuthService:', this.redirectUrl);
+  }
+
+  getRedirectUrl(): string | null {
+    console.log('URL récupérée du service AuthService:', this.redirectUrl);
+    return this.redirectUrl;
+  }
+
+  clearRedirectUrl(): void {
+    this.redirectUrl = null;
+  }
+
+  isTokenAvailable(): boolean {
+    const token = localStorage.getItem('token');
+    console.log('Token in isTokenAvailable:', token);
+    return !!token;
+  }
+
+  getToken(): string | null {
+    const token = localStorage.getItem('token');
+    console.log('Token in getToken:', token);
+    return token;
+  }
+
   getCurrentUserFromLocalStorage(): AuthResponseDto | null {
     if (typeof localStorage !== 'undefined') {
-        const currentUser = localStorage.getItem('currentUser');
-        return currentUser ? JSON.parse(currentUser) : null;
+      const currentUser = localStorage.getItem('currentUser');
+      return currentUser ? JSON.parse(currentUser) : null;
     } else {
-        return null; // Gérer le cas où localStorage n'est pas disponible
+      return null;
     }
-}
+  }
+
   public get currentUserValue(): AuthResponseDto | null {
     return this.currentUserSubject.value;
   }
 
-
-
   signup(registerDto: RegisterDto): Observable<ResponseMessage<AuthResponseDto>> {
-    return this.http.post<ResponseMessage<AuthResponseDto>>('http://localhost:8081/api/auth/signup', registerDto)
+    return this.http.post<ResponseMessage<AuthResponseDto>>(`${this.baseUrl}/signup`, registerDto)
       .pipe(
-        catchError((error: HttpErrorResponse) => {
-          let errorMessage = 'Unknown error occurred';
-          if (error.error instanceof ErrorEvent) {
-            errorMessage = `Error: ${error.error.message}`;
-          } else {
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-          }
-          console.error(errorMessage);
-          return throwError(errorMessage);
-        })
+        catchError(this.handleError)
       );
   }
-  
 
   login(authRequestDto: AuthRequestDto): Observable<AuthResponseDto> {
     return this.http.post<AuthResponseDto>(`${this.baseUrl}/login`, authRequestDto).pipe(
       tap((response: AuthResponseDto) => {
         const decodedToken = this.jwtDecoderService.decodeToken(response.jwt);
-        const currentUser: AuthResponseDto & { user?: RegisterDto } = { ...response, user: undefined };
-        currentUser.decodedToken = decodedToken;
-  
+        const currentUser: AuthResponseDto = { ...response, decodedToken };
+
+        console.log('Connexion réussie', response);
+        console.log('Informations décodées du JWT:', decodedToken);
+
         if (isPlatformBrowser(this.platformId)) {
-          this.storeAuthData(response.jwt, response.userId);
+          this.storeAuthData(currentUser);
         }
-  
+
         this.userService.getUserById(response.userId).subscribe(
           (userDetailsResponse: ResponseMessage<RegisterDto>) => {
-            const userDetails = userDetailsResponse.data; // Extract the RegisterDto from the response
+            const userDetails = userDetailsResponse.data;
             if (userDetails) {
-              currentUser.user = userDetails;
+              currentUser.decodedToken.name = userDetails.data.name;
+              this.isconnected = true;
               this.currentUserSubject.next(currentUser);
             } else {
               console.error('Détails de l\'utilisateur introuvables dans la réponse.');
@@ -87,11 +116,14 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
-  
 
-  private storeAuthData(jwt: string, userId: number): void {
-    localStorage.setItem('currentUser', JSON.stringify({ jwt, userId }));
+  private storeAuthData(authResponse: AuthResponseDto): void {
+    console.log('Storing token:', authResponse.jwt);
+    localStorage.setItem('token', authResponse.jwt);
+    localStorage.setItem('currentUser', JSON.stringify(authResponse));
+    this.isconnected = true;  // Mise à jour de l'état de connexion
   }
+
 
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {

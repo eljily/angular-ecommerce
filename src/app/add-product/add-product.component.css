@@ -92,3 +92,13 @@ p-messages {
   background-color: #f5a104; /* Lighter orange color */
   border-color: #f5a104; /* Lighter orange color */
 }
+
+
+.pro-img-list a {
+  display: inline-block; /* Pour que les liens d'image se comportent comme des blocs */
+  max-width: 100px; /* Largeur maximale des images */
+  max-height: 100px; /* Hauteur maximale des images */
+  overflow: hidden; /* Masquer tout débordement d'image */
+  margin-right: 10px; /* Marge entre les images */
+}
+
