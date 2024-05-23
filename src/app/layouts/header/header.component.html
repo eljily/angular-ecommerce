@@ -86,7 +86,7 @@
       <div class="col-sm-4 col-lg-3 text-center text-sm-start">
         <div class="main-logo" style="margin-left: 50px;">
           <a href="#">
-            <img src="../../../assets/img/logo.jpeg" alt="" style="width: 90px; height: 40px; margin-right: 25px;">
+            <img src="../../../assets/img/logo.jpeg" alt="" style="width: 90px; height: 60px; margin-right: 40px;">
           </a>
         </div>
       </div>
@@ -128,13 +128,13 @@
   
             <li >
                 <a href="#" class="rounded-circle bg-light p-2 mx-1 " style="border-radius: 15px; border: 1px solid #fd7e14;">
-                    <i style="margin: 2px 5px 2px 5px;" class="fa-solid fa-heart"></i>
+                    <i style="margin: 2px 5px 2px 5px;color: rgb(49, 48, 48);" class="fa-solid fa-heart"></i>
                 </a>
               </li>
 
               <li class="d-lg-block">
-                <span  class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
-                  <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#search"></use></svg>
+                <span  class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch" >
+                  <svg width="24" height="24" viewBox="0 0 24 24" ><use xlink:href="#search"></use></svg>
                 </span>
               </li>
               <li class="d-lg-block">
@@ -145,7 +145,7 @@
     
               <li class="d-lg-block">
                 <span mat-icon-button [matMenuTriggerFor]="menu" class="rounded-circle bg-light p-2 mx-1" style="border-radius: 15px; border: 1px solid #fd7e14; cursor: pointer;">
-                  <i style="margin: 2px 5px 2px 5px;" class="fa-solid fa-user"></i>
+                  <i style="margin: 2px 5px 2px 5px; color: rgb(49, 48, 48);" class="fa-solid fa-user"></i>
                 </span>
                 <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
                   <button mat-menu-item *ngIf="isLoggedIn()" (click)="navigateTo('profile')">
