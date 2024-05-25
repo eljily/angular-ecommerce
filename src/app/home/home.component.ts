@@ -12,14 +12,14 @@ import { Category, SubCategory } from '../produit/service/Category';
 import { Product } from '../produit/service/model';
 import {ProductsService} from '../produit/service/products.service'
 import { SliderComponent } from '../slider/slider.component';
-import { LoadingComponent } from '../loading.service/loading.component';
+
 
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,IonicModule,RouterModule, NgFor ,SliderComponent,CarouselModule,LoadingComponent],
+  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,IonicModule,RouterModule, NgFor ,SliderComponent,CarouselModule,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

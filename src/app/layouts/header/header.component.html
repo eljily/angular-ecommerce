@@ -108,7 +108,7 @@
           <!-- Recherche de produits -->
           <div class="col-11 col-md-7" style="border: 1px solid #fd7e14; border-radius: 10px;">
             <form id="search-form" class="text-center d-flex" action="#" method="post">
-              <input type="text" class="form-control border-0 bg-transparent flex-grow-1" placeholder="Recherchez plus de 20 000 produits" name="searchKeyword" [(ngModel)]="searchKeyword" (input)="searchProducts()">
+              <input type="text" class="form-control border-0 bg-transparent flex-grow-1" placeholder="Recherchez plus de 20 000 produits" name="searchKeyword" [(ngModel)]="searchKeyword" >
               <button type="submit" style="background: none; border: none; padding: 0; margin-top: 5px;">
                 <i style="color: #fd7e14;" class="fa-solid fa-magnifying-glass fa-lg"></i>
               </button>
@@ -187,22 +187,19 @@
               </div>
               <div class="offcanvas-body" >
             
-                <select class="filter-categories border-1 mb-0 me-5" style="border-radius: 10px; border:1px solid #fd7e14;" (change)="navigateToSubCategory($event)">
-                    <option>Toutes les catégories</option>
-                    <!-- Boucle sur les catégories -->
-                    <optgroup *ngFor="let category of categories" label="{{ category.name }}">
-                        <!-- Boucle sur les sous-catégories de la catégorie actuelle -->
-                        <option *ngFor="let subCategory of category.subCategories" [value]="subCategory.id">
-                            {{ subCategory.name }}
-                        </option>
-                    </optgroup>
-                    <!-- Ajoutez d'autres options selon vos besoins -->
+                <select class="filter-categories border-1 mb-0 me-5" style="border-radius: 10px; border:1px solid #fd7e14;" (change)="navigateToSubCategory($event)" [(ngModel)]="selectedCategory">
+                  <option value="all">Toutes les catégories</option>
+                  <optgroup *ngFor="let category of categories" [label]="category.name" style="cursor: pointer;">
+                    <option *ngFor="let subCategory of category.subCategories" [value]="subCategory.id">
+                      {{ subCategory.name }}
+                    </option>
+                  </optgroup>
                 </select>
                 
 
                 <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
                     <li class="nav-item active" (click)="navigateTo('home')" style="cursor: pointer;">
-                      <a  class="nav-link custom-border" style="margin-bottom: 5px;">Accueil</a>
+                      <a  class="nav-link custom-border" data-bs-dismiss="offcanvas" style="margin-bottom: 5px;">Accueil</a>
                     </li>
                   </ul>
                                   
@@ -216,7 +213,7 @@
                       <ul class="dropdown-menu" aria-labelledby="categories">
                         <!-- Boucle sur les catégories -->
                         <li *ngFor="let subCategory of category.subCategories" [routerLink]="['/products', subCategory.id]">
-                          <a  class="dropdown-item custom-border" style="margin-bottom: 5px;" ><span class="badge bg-success text-dark ms-2">✔️</span> {{ subCategory.name }}</a>
+                          <a  class="dropdown-item custom-border"  data-bs-dismiss="offcanvas" style="margin-bottom: 5px; cursor: pointer;"   ><span class="badge bg-success text-dark ms-2">✔️</span> {{ subCategory.name }}</a>
                         </li>
                         <!-- Affichage du nom de la catégorie comme libellé du menu déroulant -->
                       </ul>
@@ -227,13 +224,7 @@
             </div>
             
           </nav>
-        <!--<div class="d-none d-lg-block">
-            <a href="https://therichpost.com" target="_blank" class="nav-link btn-coupon-code">
-              <img src="assets/images/gift.svg" alt="gift icon">
-              <strong class="ms-2 text-dark">Obtenez la version PRO</strong>
-            </a>
-          </div>
-        -->  
+
         </div>
       </div>
     </div>
@@ -242,271 +233,3 @@
 
 
 
-<!--
-
-<header class="section-header">
-
-    <section class="header-main border-bottom">
-        <div class="container">
-    <div class="row align-items-center">
-        <div class="col-lg-2 col-4" routerLink="/home">
-            Ssouqi
-        </div>
-        <div class="col-lg-6 col-sm-12">
-            <form action="#" class="search">
-                <div class="input-group w-100">
-                    <input type="text" class="form-control" placeholder="Recherche ...">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="submit">
-                        <i class="fa fa-search"></i>
-                      </button>
-                    </div>
-                </div>
-            </form> 
-        </div> 
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="widgets-wrap float-md-end">
-
-                <div class="widget-header icontext d-flex align-items-center">
-                    <div class="text">
-                        <span class="text-muted">Bienvenue!</span>
-                        <div *ngIf="isLoggedIn(); else notLoggedIn">
-                            <a *ngIf="currentUser">{{ currentUser?.data?.data?.name }}</a> |
-                            <a (click)="logout()">Se déconnecter</a>
-                        </div>
-
-                        <li>
-                            <a href="#" class="rounded-circle bg-light p-2 mx-1">
-                              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                            </a>
-                          </li>
-                
-                          <li>
-                              <a href="#" class="rounded-circle bg-light p-2 mx-1">
-                                <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#user"></use></svg>
-                              </a>
-                            </li>
-                        <ng-template #notLoggedIn>
-                            <a routerLink="/login">Se connecter</a> |
-                            <a routerLink="/signup">Créer un compte</a>
-                        </ng-template>
-                    </div>
-                    
-                    <div class="icon-container">
-                      <button mat-icon-button [matMenuTriggerFor]="menu" style="background-color: #ffff; margin: -10px; width: 100px;"  >
-                        <i class="fas fa-user" style="color: #0d6efd;"></i>
-                      </button>
-                      <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
-                        <button mat-menu-item (click)="navigateTo('profile')">
-                          Profil
-                        </button>
-                        <button mat-menu-item (click)="navigateTo('forgot-password')">
-                            Changer le mot de passe
-                          </button>
-                          <button mat-menu-item (click)="navigateTo('add')">
-                            add
-                          </button>
-                          <button mat-menu-item (click)="navigateTo('settings')">
-                            Paramètres
-                          </button>
-                        <button mat-menu-item (click)="navigateTo('poduit-user')">
-                         poduit-utilisateur
-                        </button>
-
-                        <button  style="color: red;" mat-menu-item (click)="navigateTo('delete-account')">
-                            Supprimer le compte
-                          </button>
-                      </mat-menu>
-                    </div>
-                  </div>
-                  
-                  
-                  
-                
-                  
-            </div> 
-        </div> 
-    </div> 
-        </div> 
-    </section> 
--->
-      
-
-
-
-
-
-
-
-
- <!-- Page Preloder -->
-
-
-<!-- Header Section Begin -->
-<!--
-
-<div class="container">
-    <div class="inner-header">
-        <div class="row">
-            <div class="col-lg-2 col-md-2">
-                <div class="logo">
-                    <a href="./index.html">
-                        <img src="img/logo.png" alt="">souqi
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-7 col-md-7">
-                <div class="advanced-search">
-                    <button type="button" class="category-btn">
-                      Toutes Catégories</button>
-                    <div class="input-group">
-                        <input type="text" placeholder="à quoi cherche vous?">
-                        <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 text-right col-md-3">
-                <ul class="nav-right">
-                    <li class="heart-icon">
-                        <a>
-                          <i class="fa-solid fa-heart"></i>
-                           
-                        </a>
-                    </li>
-                    <li class="cart-icon">
-                        <a >
-                          <button mat-icon-button [matMenuTriggerFor]="menu"  >
-                          <i class="fa-solid fa-user"></i>
-                        </button>
-                        <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
-                          <button mat-menu-item (click)="navigateTo('profile')">
-                            Profil
-                          </button>
-                          <button mat-menu-item (click)="navigateTo('forgot-password')">
-                              Changer le mot de passe
-                            </button>
-                            <button mat-menu-item (click)="navigateTo('add')">
-                              add
-                            </button>
-                            <button mat-menu-item (click)="navigateTo('settings')">
-                              Paramètres
-                            </button>
-                          <button mat-menu-item (click)="navigateTo('poduit-user')">
-                           poduit-utilisateur
-                          </button>
-  
-                          <button  style="color: red;" mat-menu-item (click)="navigateTo('delete-account')">
-                              Supprimer le compte
-                            </button>
-                        </mat-menu>
-                        </a>
-                       
-                    </li>
-                
-
-                  <span class="text-muted" style="margin-left: 20px;">Bienvenue!</span>
-                  <div *ngIf="isLoggedIn(); else notLoggedIn">
-                      <a *ngIf="currentUser">{{ currentUser?.data?.data?.name }}</a> |
-                      <a (click)="logout()">Se déconnecter</a>
-                  </div>
-                  <ng-template #notLoggedIn>
-                      <a routerLink="/login">Se connecter</a> |
-                      <a routerLink="/signup">Créer un compte</a>
-                  </ng-template>
-
-            </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="nav-item">
-  <div class="container">
-      <div class="nav-depart">
-          <div class="depart-btn">
-              <i class="ti-menu"></i>
-              <span>All departments</span>
-              <ul class="depart-hover">
-                  <li class="active"><a href="#">Women’s Clothing</a></li>
-                  <li><a href="#">Men’s Clothing</a></li>
-                  <li><a href="#">Underwear</a></li>
-                  <li><a href="#">Kid's Clothing</a></li>
-                  <li><a href="#">Brand Fashion</a></li>
-                  <li><a href="#">Accessories/Shoes</a></li>
-                  <li><a href="#">Luxury Brands</a></li>
-                  <li><a href="#">Brand Outdoor Apparel</a></li>
-              </ul>
-          </div>
-      </div>
-      <nav class="nav-menu mobile-menu">
-          <ul>
-              <li class="active"><a href="./index.html">Home</a></li>
-              <li><a href="./shop.html">Shop</a></li>
-              <li><a href="#">Collection</a>
-                  <ul class="dropdown">
-                      <li><a href="#">Men's</a></li>
-                      <li><a href="#">Women's</a></li>
-                      <li><a href="#">Kid's</a></li>
-                  </ul>
-              </li>
-              <li><a href="./blog.html">Blog</a></li>
-              <li><a href="./contact.html">Contact</a></li>
-              <li><a href="#">Pages</a>
-                  <ul class="dropdown">
-                      <li><a href="./blog-details.html">Blog Details</a></li>
-                      <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                      <li><a href="./check-out.html">Checkout</a></li>
-                      <li><a href="./faq.html">Faq</a></li>
-                      <li><a href="./register.html">Register</a></li>
-                      <li><a href="./login.html">Login</a></li>
-                  </ul>
-              </li>
-          </ul>
-      </nav>
-      <div id="mobile-menu-wrap"></div>
-  </div>
-</div>
--->
-
-
-
-<!-- Header End
-
-
-
-
-
-
-
-   
-
-
-  <div *ngIf="!isSmallScreen" class="categories">
-    <div class="wrapper">
-
-
-        <div class="category-navigation">
-            <button class="nav-button" (click)="previousCategory()">&lt;</button>
-            <div class="categories-container">
-                <div class="category" *ngFor="let category of categories | slice:startIndex:endIndex">
-                    <img src="../../../assets/img/logo.jpg" alt="">
-                    <div class="category-body"  >
-
-                        <h4 (click)="toggleSubMenu(category)" [ngClass]="categoryIconMappings[category.name]">{{ category.name }}</h4>
-                        
-                        <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
-                            <button mat-menu-item *ngFor="let subCategory of category.subCategories" [routerLink]="['/products', subCategory.id]">
-                                {{ subCategory.name }}
-                            </button>
-                        </mat-menu>
-                        <button mat-icon-button [matMenuTriggerFor]="menu" class="but" >sous category </button>
-                    </div>
-                </div>
-            </div>
-            <button class="nav-button" (click)="nextCategory()">&gt;</button>
-        </div>
-    </div>
-</div>
-
- -->

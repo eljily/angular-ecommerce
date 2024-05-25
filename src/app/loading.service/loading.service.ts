@@ -7,18 +7,20 @@ import { BehaviorSubject } from 'rxjs';
 export class LoadingService {
   private loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
-  private hasDataSubject = new BehaviorSubject<boolean>(false);
-  hasData$ = this.hasDataSubject.asObservable();
 
-  show() {
+  showLoadingSpinner() {
     this.loadingSubject.next(true);
+    console.log('Loading spinner shown');
   }
 
-  hide() {
+  hideLoadingSpinner() {
     this.loadingSubject.next(false);
+    console.log('Loading spinner hidden');
   }
 
-  setDataAvailable(hasData: boolean) {
-    this.hasDataSubject.next(hasData);
+  hideLoadingSpinnerWithDelay(delay: number = 10000) {
+    setTimeout(() => {
+      this.hideLoadingSpinner();
+    }, delay);
   }
 }

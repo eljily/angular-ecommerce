@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Inject, NgModule, PLATFORM_ID } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../../auth/service/auth.service';
 import { MenuItem } from 'primeng/api';
@@ -40,6 +40,7 @@ export class HeaderComponent implements OnInit {
   currentUserSubject: BehaviorSubject<any>;
   categories: CategoryWithSubMenu[] = [];
   products: any[] = [];
+  selectedCategory: string = 'all';
   category: SubCategoryResponse = {
     status: null,
     message: 'Retrieved Sub categories By Category ID.',
@@ -57,19 +58,7 @@ export class HeaderComponent implements OnInit {
     'Others': 'pi pi-user'
   };
 
-    // Fonction pour simuler la recherche de produits
-    searchProducts() {
-      // Vous devrez implémenter ici la logique de recherche réelle
-      // C'est là que vous ferez appel à votre service pour obtenir les résultats de la recherche
-      // Par exemple, si vous avez un service appelé "productService" :
-      // this.productService.search(this.searchKeyword).subscribe(results => this.searchResults = results);
-      // Ici, je simule juste la recherche avec quelques résultats de test
-      this.searchResults = [
-        { id: 1, name: 'Produit 1' },
-        { id: 2, name: 'Produit 2' },
-        { id: 3, name: 'Produit 3' }
-      ];
-    }
+
 
   isSmallScreen: boolean = false;
   startIndex: number = 0;
@@ -94,12 +83,17 @@ export class HeaderComponent implements OnInit {
       if (user && user.userId) {
         this.userService.getUserById(user.userId).subscribe((userDetails: any) => {
           this.currentUser = userDetails;
-          console.log('Détails  :', this.currentUser);
         });
       }
       this.sharedNavigationService.activeLink$.subscribe(link => {
         this.activeLink = link;
       });
+    });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && event.url === '/home') {
+        this.selectedCategory = 'all';
+      }
     });
 
     this.loadCategories();
@@ -114,10 +108,12 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([route]);
   }
 
-  navigateToSubCategory(event: any) {
+  navigateToSubCategory(event: any): void {
     const subCategoryId = event.target.value;
-    if (subCategoryId) {
-      this.router.navigateByUrl('/products/' + subCategoryId);
+    if (subCategoryId === 'all') {
+      this.router.navigate(['/home']);
+    } else {
+      this.router.navigate(['/products', subCategoryId]);
     }
   }
 

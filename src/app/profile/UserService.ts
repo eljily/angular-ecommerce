@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { RegisterDto, ResponseMessage } from './model';
+import { environment } from '../../environement/environement';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8081/api/users';
+  private apiUrl = environment.apiUrl + '/users';
 
   constructor(private http: HttpClient) {}
 
   getUserById(userId: number): Observable<ResponseMessage<RegisterDto>> {
-    return this.http.get<RegisterDto>(`${this.baseUrl}/${userId}`).pipe(
+    return this.http.get<RegisterDto>(`${this.apiUrl}/${userId}`).pipe(
       map((data: RegisterDto) => {
         return {
           status: 200,

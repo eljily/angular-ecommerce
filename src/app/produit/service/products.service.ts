@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from '../../../environement/environement';
 import { AuthService } from '../../auth/service/auth.service'
 
 @Injectable({
@@ -8,7 +9,7 @@ import { AuthService } from '../../auth/service/auth.service'
 })
 export class ProductsService {
 
-  private api = "http://localhost:8081/api";
+  private api = environment.apiUrl;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -37,6 +38,7 @@ export class ProductsService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+    
 
     return this.http.post<any>(`${this.api}/products/addProduct`, product, { headers }).pipe(
       catchError(error => {

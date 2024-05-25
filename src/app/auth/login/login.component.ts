@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       console.log('Formulaire valide. Tentative de connexion...');
-      this.errorMessage = "Veuillez remplir tous les champs correctement.";
+      
       
 
       const loginData = {

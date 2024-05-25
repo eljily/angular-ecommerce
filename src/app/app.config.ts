@@ -1,12 +1,15 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 
 
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideToastr } from 'ngx-toastr';
 import { provideRouter } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from './animations-util';
+import { loadingSpinnerInterceptorFunctional, loggingInterceptorFunctional, responseTimeInterceptorFunctional, retryInterceptorFunctional } from './loading.service/functional.interceptor';
+
+
 
 
 export const appConfig: ApplicationConfig = {
@@ -14,9 +17,14 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     importProvidersFrom(HttpClientModule),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(),withInterceptors([
+      loadingSpinnerInterceptorFunctional, 
+      responseTimeInterceptorFunctional,
+      retryInterceptorFunctional, 
+      loggingInterceptorFunctional, ])),
     provideAnimationsAsync(),
     provideToastr(),
+    
    
   ]
 };

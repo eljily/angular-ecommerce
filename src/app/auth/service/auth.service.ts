@@ -6,13 +6,14 @@ import { RegisterDto, AuthRequestDto, ResponseMessage, AuthResponseDto , } from 
 import { isPlatformBrowser } from '@angular/common';
 import { JwtDecoderService } from './jwt.service';
 import { UserService } from '../../profile/UserService';
+import { environment } from '../../../environement/environement';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8081/api/auth';
+  private apiUrl = environment.apiUrl + '/auth';
   private currentUserSubject: BehaviorSubject<AuthResponseDto | null>;
   public currentUser: Observable<AuthResponseDto | null>;
   private redirectUrl: string | null = null;
@@ -78,14 +79,14 @@ export class AuthService {
   }
 
   signup(registerDto: RegisterDto): Observable<ResponseMessage<AuthResponseDto>> {
-    return this.http.post<ResponseMessage<AuthResponseDto>>(`${this.baseUrl}/signup`, registerDto)
+    return this.http.post<ResponseMessage<AuthResponseDto>>(`${this.apiUrl}/signup`, registerDto)
       .pipe(
         catchError(this.handleError)
       );
   }
 
   login(authRequestDto: AuthRequestDto): Observable<AuthResponseDto> {
-    return this.http.post<AuthResponseDto>(`${this.baseUrl}/login`, authRequestDto).pipe(
+    return this.http.post<AuthResponseDto>(`${this.apiUrl}/login`, authRequestDto).pipe(
       tap((response: AuthResponseDto) => {
         const decodedToken = this.jwtDecoderService.decodeToken(response.jwt);
         const currentUser: AuthResponseDto = { ...response, decodedToken };

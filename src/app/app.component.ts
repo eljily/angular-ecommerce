@@ -1,16 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { BottomNavigationBarComponent } from './bottom-navigation-bar/bottom-navigation-bar.component';
-import { LoadingComponent } from './loading.service/loading.component';
-import { LoadingService } from './loading.service/loading.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoadingInterceptor } from './loading.service/loading.interceptor';
+
+import { HttpClient, HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoadingSpinnerComponent } from './loading.service/loading-spinner.component';
+
+
+
+
 
 
 
@@ -26,17 +29,28 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     BottomNavigationBarComponent,
-    LoadingComponent,
+    LoadingSpinnerComponent
 
 
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [
-    LoadingService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
-  ]
 })
+
+
 export class AppComponent {
   title = 'angular-ecommerce';
+
+  constructor(private http: HttpClient) {}
+
+  getData() {
+    this.http.get('http://localhost:8081').subscribe(
+      (response) => {
+        console.log('Response:', response);
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
+  }
 }
