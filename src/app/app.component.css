@@ -1,0 +1,17 @@
+/* Base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding-bottom: 90px; /* Adjust this value to match the height of the navbar */
+  }
+  
+  .content {
+    min-height: 100vh;
+    padding-bottom: 90px; /* Adjust this value to match the height of the navbar */
+  }

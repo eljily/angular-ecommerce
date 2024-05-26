@@ -1,5 +1,4 @@
-
-import { Routes } from '@angular/router';
+import { Routes, Router, NavigationEnd } from '@angular/router';
 import { AddProductComponent } from './add-product/add-product.component';
 import { authGuard } from './auth.guard';
 import { LoginComponent } from './auth/login/login.component';
@@ -13,7 +12,7 @@ import { ProduitComponent } from './produit/produit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserProductComponent } from './user-product/user-product.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent, data: { noHeaderFooter: true } },
@@ -29,5 +28,11 @@ const routes: Routes = [
   { path: '**', redirectTo: 'home' } // Redirect to home for any unknown paths
 ];
 
-export { routes };
-
+// Ajoutez l'écouteur d'événements de navigation
+export function scrollPageToTop(router: Router) {
+  router.events.subscribe(event => {
+    if (event instanceof NavigationEnd) {
+      window.scrollTo(0, 0);
+    }
+  });
+}

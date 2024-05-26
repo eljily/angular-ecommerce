@@ -14,6 +14,10 @@
 	color: #fff; /* Changement de couleur du texte au survol */
   }
   
+  
+  .col {
+    max-width: 100%;
+  }
 
 
 

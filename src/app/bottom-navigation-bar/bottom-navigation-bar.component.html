@@ -1,112 +1,88 @@
-<header class="header" id="header">
-  <nav class="nav container d-lg-none">
-      <div class="nav__menu" id="nav-menu" #navMenu>
-          <ul class="nav__list">
-              <li class="nav__item" (click)="navigateTo('home')" style="cursor: pointer;">
-                  <a class="nav__link active-link">
-                      <i class="fa-solid fa-house nav__icon"></i>
-                      <span class="nav__name">Accueil</span>
-                  </a>
-              </li>
-              
-              <li class="nav__item">
-                  <a class="nav__link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar1" aria-controls="offcanvasNavbar1">
-                      <i class="fa-solid fa-list nav__icon"></i>
-                      <span class="nav__name">Categories</span>
-                  </a>
-              </li>
 
-              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar1">
-                  <div class="offcanvas-header justify-content-center">
-                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
-                  </div>
-                  
-                  <div class="offcanvas-body">
-               
-                      
-                      <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                          <li class="nav-item active" (click)="navigateTo('home')">
-                              <a class="nav-link custom-border" style="margin-bottom: 5px;">Accueil</a>
-                          </li>
-                      </ul>
-                      
-                      <div class="offcanvas-body" style="margin-top: 50px;">
-                          <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0 d-lg-none">
-                              <li class="nav-item dropdown" *ngFor="let category of categories">
-                                  <a class="nav-link dropdown-toggle custom-border" role="button" id="categories" data-bs-toggle="dropdown" aria-expanded="false">{{ category.name }}</a>
-                                  <ul class="dropdown-menu" aria-labelledby="categories">
-                                      <li *ngFor="let subCategory of category.subCategories">
-                                          <a class="dropdown-item custom-border" data-bs-dismiss="offcanvas" [routerLink]="['/products', subCategory.id]">
-                                              <span class="badge bg-success text-dark ms-2">✔️</span> {{ subCategory.name }}
-                                          </a>
-                                      </li>
-                                  </ul>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-
-              <li class="nav__item">
-                  <a href="#skills" class="nav__link">
-                      <i class="fa-solid fa-magnifying-glass nav__icon"></i>
-                      <span class="nav__name">Recherche</span>
-                  </a>
+<div class="navbar">
+  <div class="nav-item" (click)="navigateTo('home')" style="cursor: pointer;">
+    <i class="fas fa-home"></i>
+    <span>Accueil</span>
+  </div>
+  <div class="nav-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar1" aria-controls="offcanvasNavbar1">
+    <i class="fa-solid fa-list"></i>
+    <span>Categories</span>
+  </div>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar1">
+    <div class="offcanvas-header justify-content-center">
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
+        <li class="nav-item active" (click)="navigateTo('home')">
+          <a class="nav-link custom-border" style="margin-bottom: 5px; cursor: pointer;" >Accueil</a>
+        </li>
+      </ul>
+      <div class="offcanvas-body" style="margin-top: 50px;">
+        <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0 d-lg-none">
+          <li class="nav-item dropdown" *ngFor="let category of categories">
+            <a class="nav-link dropdown-toggle custom-border" role="button" id="categories" data-bs-toggle="dropdown" aria-expanded="false">{{ category.name }}</a>
+            <ul class="dropdown-menu" aria-labelledby="categories">
+              <li *ngFor="let subCategory of category.subCategories">
+                <a class="dropdown-item custom-border" data-bs-dismiss="offcanvas" [routerLink]="['/products', subCategory.id]">
+                  <span class="badge bg-success text-dark ms-2">✔️</span> {{ subCategory.name }}
+                </a>
               </li>
-
-              <li class="nav__item" (click)="navigateTo('add-product')" style="cursor: pointer;">
-                  <a class="nav__link">
-                      <i class="fa-solid fa-circle-plus nav__icon"></i>
-                      <span class="nav__name">Publier</span>
-                  </a>
-              </li>
-
-              <li class="nav__item">
-                  <a class="nav__link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                      <i class="fa-solid fa-user nav__icon" ></i>
-                      <span class="nav__name" >Profil</span>
-                  </a>
-              </li>
-
-              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
-                  <div class="offcanvas-header" style="margin-right: 20px; margin-top: 15px;">
-                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
-                  </div>
-                  <div class="offcanvas-body" style="margin-top: 50px;">
-                      <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                          <li class="nav-item active" (click)="navigateTo('profile')" style="cursor: pointer;">
-                              <a class="nav-link custom-border" data-bs-dismiss="offcanvas" *ngIf="isLoggedIn()" style="margin-bottom: 5px;">Profil</a>
-                          </li>
-                      </ul>
-                      <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                          <li class="nav-item active" (click)="navigateTo('forgot-password')" style="cursor: pointer;">
-                              <a class="nav-link custom-border" data-bs-dismiss="offcanvas" *ngIf="isLoggedIn()" style="margin-bottom: 5px;">Changer le mot de passe</a>
-                          </li>
-                      </ul>
-                      <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                          <li class="nav-item active" (click)="navigateTo('add')" style="cursor: pointer;">
-                              <a class="nav-link custom-border" data-bs-dismiss="offcanvas" *ngIf="isLoggedIn()" style="margin-bottom: 5px;">Ajouter</a>
-                          </li>
-                      </ul>
-                      <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                          <li class="nav-item active" (click)="navigateTo('settings')" style="cursor: pointer;">
-                              <a class="nav-link custom-border" data-bs-dismiss="offcanvas" style="margin-bottom: 5px;">Paramètres</a>
-                          </li>
-                      </ul>
-                      <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                          <li class="nav-item active" (click)="navigateTo('user-product')" style="cursor: pointer;">
-                              <a class="nav-link custom-border" data-bs-dismiss="offcanvas" *ngIf="isLoggedIn()" style="margin-bottom: 5px;">Produit utilisateur</a>
-                          </li>
-                      </ul>
-                      <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                          <li class="nav-item active" (click)="navigateTo('delete-account')" style="cursor: pointer;">
-                              <a class="nav-link custom-border" data-bs-dismiss="offcanvas" *ngIf="isLoggedIn()" style="margin-bottom: 5px;">Supprimer le compte</a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-          </ul>
+            </ul>
+          </li>
+        </ul>
       </div>
-  </nav>
-</header>
+    </div>
+  </div>
+
+  <div class="nav-item"(click)="navigateTo('add-product')" style="cursor: pointer;">
+    <i class="fa-solid fa-square-plus"></i>
+    <span>Publier</span>
+  </div>
+
+
+  <div class="nav-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" >
+    <i class="fa-solid fa-user"></i>
+    <span>Profil</span>
+  </div> 
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+    <div class="offcanvas-header" style="margin-right: 20px; margin-top: 15px;">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+    </div>
+    <div class="offcanvas-body" style="margin-top: 5px;" >
+        <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
+            <li class="nav-item active" (click)="navigateTo('profile')" style="cursor: pointer;">
+                <a class="nav-link custom-border" data-bs-dismiss="offcanvas" *ngIf="isLoggedIn()">Profil</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
+            <li class="nav-item active" (click)="navigateTo('forgot-password')" style="cursor: pointer;">
+                <a class="nav-link custom-border" data-bs-dismiss="offcanvas" *ngIf="isLoggedIn()">Changer le mot de passe</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
+            <li class="nav-item active" (click)="navigateTo('add-product')" style="cursor: pointer;">
+                <a class="nav-link custom-border" data-bs-dismiss="offcanvas" *ngIf="isLoggedIn()" >Ajouter un produit </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
+            <li class="nav-item active" (click)="navigateTo('settings')" style="cursor: pointer;">
+                <a class="nav-link custom-border" data-bs-dismiss="offcanvas">Paramètres</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
+            <li class="nav-item active" (click)="navigateTo('user-product')" style="cursor: pointer;">
+                <a class="nav-link custom-border" data-bs-dismiss="offcanvas" *ngIf="isLoggedIn()" >Produit utilisateur</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
+            <li class="nav-item active" (click)="navigateTo('delete-account')" style="cursor: pointer;">
+                <a class="nav-link custom-border" data-bs-dismiss="offcanvas" *ngIf="isLoggedIn()" >Supprimer le compte</a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+</div>
+
 
