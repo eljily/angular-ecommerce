@@ -11,6 +11,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from './loading.service/loading-spinner.component';
 import { scrollPageToTop } from './app.routes';
+import { SearchResultsComponent } from './search/search-results.component';
 
 
 

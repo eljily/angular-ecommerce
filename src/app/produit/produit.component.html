@@ -10,7 +10,7 @@
       <div class="tab-content produit mx-md-5">
         <div id="tab-1" class="tab-pane fade show p-0 active">
           <div class="row flex-wrap flex-lg-nowrap g-2">
-            <div class="row g-2" *ngIf="pagedProducts.length > 0; else noProductTemplate">
+            <div class="row g-2" *ngIf="pagedProducts.length > 0; else noProductTemplate"  >
               <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2" [routerLink]="['/product-details', product.id]" *ngFor="let product of pagedProducts">
                 <div class="rounded position-relative produit-item" style="cursor: pointer;">
                   <div class="produit-img">

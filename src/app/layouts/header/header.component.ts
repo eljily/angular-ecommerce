@@ -15,6 +15,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 import { SharedNavigationService } from '../../bottom-navigation-bar/shared-navigation.service';
 import { FormsModule } from '@angular/forms';
+import { SearchService } from '../../search/search-service';
 
 
 // Interface pour représenter une catégorie avec le menu déroulant des sous-catégories
@@ -73,7 +74,8 @@ export class HeaderComponent implements OnInit {
     private sharedNavigationService: SharedNavigationService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private searchService: SearchService
   ) {
     this.currentUserSubject = new BehaviorSubject<any>(null);
   }
@@ -210,8 +212,9 @@ onSearch(event: Event): void {
   if (keyword) {
     this.productService.getProductsByKeyword(keyword).subscribe(
       (response: any[]) => {
-        this.products = response;
-        console.log('Résultats de la recherche:', this.products);
+        this.searchService.updateSearchResults(response); // Transmet les résultats au service partagé
+        console.log('Résultats de la recherche:', response);
+        this.router.navigate(['/search-results'], { queryParams: { keyword } }); // Redirige vers la page de résultats de recherche
       },
       (error: any) => {
         console.error('Erreur lors de la recherche de produits:', error);
@@ -219,7 +222,6 @@ onSearch(event: Event): void {
     );
   }
 }
-
 
 
 

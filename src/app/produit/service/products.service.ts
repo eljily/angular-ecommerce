@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, Subject, throwError } from 'rxjs';
 import { environment } from '../../../environement/environement';
 import { AuthService } from '../../auth/service/auth.service'
 
@@ -10,6 +10,8 @@ import { AuthService } from '../../auth/service/auth.service'
 export class ProductsService {
 
   private apiUrl = environment.apiUrl;
+  private searchResultsSubject = new Subject<any[]>();
+  searchResults$ = this.searchResultsSubject.asObservable();
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -80,7 +82,10 @@ export class ProductsService {
   }
 
   getProductsByKeyword(keyword: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/productsByKeyword/${keyword}`);
+    return this.http.get<any[]>(`${this.apiUrl}/products/productsByKeyword/${keyword}`);
+  }
+  updateSearchResults(results: any[]): void {
+    this.searchResultsSubject.next(results);
   }
 
   // Nouvelle méthode pour récupérer les catégories

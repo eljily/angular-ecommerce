@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProduitComponent } from './produit/produit.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SearchResultsComponent } from './search/search-results.component';
 import { UserProductComponent } from './user-product/user-product.component';
 
 export const routes: Routes = [
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'delete-account', component: DeleteAccountComponent },
   { path: 'category-products/:categoryId', component: CategoryProductsComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'search-results', component: SearchResultsComponent },
   { path: '**', redirectTo: 'home' } // Redirect to home for any unknown paths
 ];
 

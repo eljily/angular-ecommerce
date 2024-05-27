@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { SearchService } from '../search/search-service';
 import { Product } from './service/model';
 import { ProductsService } from './service/products.service';
 
@@ -20,12 +21,15 @@ export class ProduitComponent implements OnInit {
   totalProducts = 0;
   categoryId: number | undefined;
   pages: number[] = [];
+  searchResults: any[] = [];
 
   constructor(
     private productService: ProductsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private searchService: SearchService
   ) {}
+
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -37,6 +41,13 @@ export class ProduitComponent implements OnInit {
           this.fetchProducts(categoryId);
         }
       }
+    });
+
+    // Abonnez-vous aux résultats de recherche
+    this.searchService.searchResults$.subscribe((results: any[]) => {
+      this.pagedProducts = results;
+      this.totalProducts = results.length; // Mettez à jour le total des produits avec la longueur des résultats
+      this.calculatePages(); // Recalculez les pages en fonction du nouveau total des produits
     });
   }
 
