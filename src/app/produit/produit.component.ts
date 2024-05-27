@@ -16,9 +16,10 @@ import { ProductsService } from './service/products.service';
 export class ProduitComponent implements OnInit {
   pagedProducts: any[] = [];
   currentPage = 1;
-  rows = 30;
+  rows = 50; 
   totalProducts = 0;
   categoryId: number | undefined;
+  pages: number[] = [];
 
   constructor(
     private productService: ProductsService,
@@ -28,28 +29,18 @@ export class ProduitComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      console.log("Params:", params);
       const categoryIdParam = params.get('categoryId');
-     // console.log('categoryIdParam:', categoryIdParam); // Ajout de ce log pour vérifier la valeur de categoryIdParam
       if (categoryIdParam) {
         const categoryId = Number(categoryIdParam);
-     //   console.log('Parsed categoryId:', categoryId); // Ajout de ce log pour vérifier la valeur de categoryId après la conversion en nombre
         if (!isNaN(categoryId)) {
           this.categoryId = categoryId;
-          console.log('Assigned categoryId:', this.categoryId); // Ajout de ce log pour vérifier la valeur de categoryId après l'attribution à la propriété de classe
           this.fetchProducts(categoryId);
-      //    console.log("ngOnInit executed!")
-        } else {
-      //    console.error('Invalid categoryId:', categoryIdParam);
         }
-      } else {
-    //    console.error('Missing categoryId parameter in URL');
       }
     });
   }
 
   fetchProducts(categoryId: number) {
-    //console.log('Fetching products for categoryId:', categoryId); // Ajout de ce log pour vérifier que categoryId est utilisé dans fetchProducts
     let productsObservable: Observable<any>;
 
     if (categoryId === 0) {
@@ -62,23 +53,40 @@ export class ProduitComponent implements OnInit {
       (response: any) => {
         this.pagedProducts = response.data;
         this.totalProducts = response.meta.total;
-     //   console.log("paged products:", this.pagedProducts);
+        this.calculatePages();
       },
       error => {
-      //  console.error('Error fetching products:', error);
+        console.error('Error fetching products:', error);
       }
     );
+  }
+
+  calculatePages() {
+    const totalPages = Math.ceil(this.totalProducts / this.rows);
+    this.pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 
   onPageChange(event: any) {
     this.currentPage = event.page + 1;
     if (this.categoryId !== undefined) {
       this.fetchProducts(this.categoryId);
-    } else {
-   //   console.error('categoryId is undefined');
     }
   }
-  
+
+  shortenProductName(name: string): string {
+    const maxLength = 16;
+    if (name.length > maxLength) {
+      return name.substr(0, maxLength) + '...';
+    }
+    return name;
+  }
+
+  setPage(page: number): void {
+    if (page < 1 || page > this.pages.length) return;
+    this.currentPage = page;
+    this.fetchProducts(this.categoryId!);
+  }
+
   redirectToAddProduct() {
     this.router.navigateByUrl('/add');
   }

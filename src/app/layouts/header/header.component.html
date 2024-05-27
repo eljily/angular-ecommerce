@@ -44,7 +44,7 @@
             <ul class="d-flex justify-content-end gap-3 list-unstyled m-4">
             
               <li  *ngIf="isLoggedIn(); else notLoggedIn" >
-                <a *ngIf="currentUser" style="text-decoration:none">{{ currentUser?.data?.data?.name }}</a>
+                <a *ngIf="currentUser"class="custom-border" style="text-decoration:none">{{ currentUser?.data?.data?.name }}</a> |
                 <a href="#" class="custom-border" (click)="logout()" style="text-decoration:none">Se déconnecter </a>
               </li>
 

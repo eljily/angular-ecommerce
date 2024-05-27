@@ -9,28 +9,28 @@ import { AuthService } from '../../auth/service/auth.service'
 })
 export class ProductsService {
 
-  private api = environment.apiUrl;
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getAllProducts(): Observable<any> {
-    return this.http.get(`${this.api}/products`);
+    return this.http.get(`${this.apiUrl}/products`);
   }
 
   getProductsByCategoryId(categoryId: number): Observable<any> {
-    return this.http.get(`${this.api}/products/productsByCategoryId/${categoryId}`);
+    return this.http.get(`${this.apiUrl}/products/productsByCategoryId/${categoryId}`);
   }
 
   getAllProductsPaged(page: number = 0, size: number = 11): Observable<any> {
-    return this.http.get(`${this.api}/products?page=${page}&size=${size}`);
+    return this.http.get(`${this.apiUrl}/products?page=${page}&size=${size}`);
   }
 
   getAllProductsBySubCategoryId(categoryId: number, page: number = 0, size: number = 10): Observable<any> {
-    return this.http.get(`${this.api}/products/productsBySubCategoryId/${categoryId}?page=${page}&size=${size}`);
+    return this.http.get(`${this.apiUrl}/products/productsBySubCategoryId/${categoryId}?page=${page}&size=${size}`);
   }
 
   getProductDetails(productId: number): Observable<any> {
-    return this.http.get(`${this.api}/products/${productId}`);
+    return this.http.get(`${this.apiUrl}/products/${productId}`);
   }
 
   addProduct(product: FormData): Observable<any> {
@@ -40,7 +40,7 @@ export class ProductsService {
     });
     
 
-    return this.http.post<any>(`${this.api}/products/addProduct`, product, { headers }).pipe(
+    return this.http.post<any>(`${this.apiUrl}/products/addProduct`, product, { headers }).pipe(
       catchError(error => {
         console.error('Error adding product:', error);
         return throwError(error);
@@ -55,7 +55,7 @@ export class ProductsService {
       return throwError('Token not found');
     }
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(`${this.api}/users/myProducts`, { headers }).pipe(
+    return this.http.get<any>(`${this.apiUrl}/users/myProducts`, { headers }).pipe(
       catchError(error => {
         console.error('Error fetching user products:', error);
         return throwError(error);
@@ -64,31 +64,31 @@ export class ProductsService {
   }
 
   deleteProductById(productId:number) : Observable<any> {
-    return this.http.delete(`${this.api}/products/${productId}`);
+    return this.http.delete(`${this.apiUrl}/products/${productId}`);
   }
 
   getUserProfile(userId: number): Observable<any> {
-    return this.http.get(`${this.api}/users/${userId}`);
+    return this.http.get(`${this.apiUrl}/users/${userId}`);
   }
 
   getAllWithProducts(): Observable<any> {
-    return this.http.get(`${this.api}/categories/withProducts`);
+    return this.http.get(`${this.apiUrl}/categories/withProducts`);
   }
 
   getAllRegionsWithSubRegions(): Observable<any> {
-    return this.http.get(`${this.api}/regions`);
+    return this.http.get(`${this.apiUrl}/regions`);
   }
 
   getProductsByKeyword(keyword: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.api}/productsByKeyword/${keyword}`);
+    return this.http.get<any[]>(`${this.apiUrl}/productsByKeyword/${keyword}`);
   }
 
   // Nouvelle méthode pour récupérer les catégories
   getAllCategories(): Observable<any> {
-    return this.http.get(`${this.api}/categories`);
+    return this.http.get(`${this.apiUrl}/categories`);
   }
 
   AllgetProductsByCategoryId(categoryId: number): Observable<any> {
-    return this.http.get(`${this.api}/products/productsByCategoryId/${categoryId}`);
+    return this.http.get(`${this.apiUrl}/products/productsByCategoryId/${categoryId}`);
   }
 }

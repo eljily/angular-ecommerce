@@ -35,10 +35,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getAllWithProducts().subscribe(
       (data: any) => {
-        // Vérifier si les données sont correctement récupérées
         console.log('Données récupérées:', data);
 
-        // Assurez-vous que les données sont dans la bonne structure
         if (data && data.data && Array.isArray(data.data)) {
           this.productsData = data.data;
         } else {
@@ -47,19 +45,49 @@ export class HomeComponent implements OnInit {
       },
       (error: any) => {
         console.error('Erreur lors de la récupération des produits avec les catégories:', error);
-        // Vous pouvez également afficher un message d'erreur à l'utilisateur si nécessaire
       }
     );
 
-    // Récupération des catégories
     this.productService.getAllCategories().subscribe(
       (categories: any[]) => {
         this.categories = categories;
       },
       (error: any) => {
         console.error('Erreur lors de la récupération des catégories:', error);
-        // Vous pouvez également afficher un message d'erreur à l'utilisateur si nécessaire
       }
     );
+  }
+
+  canScrollLeft(categoryId: number): boolean {
+    const container = document.querySelector(`[data-category-id="${categoryId}"]`);
+    return container ? container.scrollLeft > 0 : false;
+  }
+
+  canScrollRight(categoryId: number): boolean {
+    const container = document.querySelector(`[data-category-id="${categoryId}"]`);
+    if (container) {
+      return container.scrollWidth > container.clientWidth && container.scrollLeft + container.clientWidth < container.scrollWidth;
+    }
+    return false;
+  }
+
+  scrollLeft(categoryId: number): void {
+    const container = document.querySelector(`[data-category-id="${categoryId}"]`);
+    if (container) {
+      container.scrollBy({
+        left: -200, // Défilement de 200 pixels vers la gauche
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  scrollRight(categoryId: number): void {
+    const container = document.querySelector(`[data-category-id="${categoryId}"]`);
+    if (container) {
+      container.scrollBy({
+        left: 200, // Défilement de 200 pixels vers la droite
+        behavior: 'smooth'
+      });
+    }
   }
 }

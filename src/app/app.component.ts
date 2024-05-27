@@ -1,4 +1,4 @@
-import { Component, Inject, Injector } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, Injector } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -35,6 +35,7 @@ import { scrollPageToTop } from './app.routes';
 
 
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [

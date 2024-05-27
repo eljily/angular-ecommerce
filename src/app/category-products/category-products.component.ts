@@ -14,15 +14,17 @@ import { CommonModule } from '@angular/common';
 export class CategoryProductsComponent implements OnInit {
   categoryId!: number;
   products: any[] = [];
+  pagedProducts: any[] = [];
+  currentPage: number = 1;
+  productsPerPage: number = 50;
+  pages: number[] = []; // Liste des pages
 
   constructor(private route: ActivatedRoute, private productService: ProductsService) { }
 
   ngOnInit(): void {
     const categoryIdParam = this.route.snapshot.paramMap.get('categoryId');
-    console.log('categoryIdParam:', categoryIdParam); // Vérifiez la valeur de categoryIdParam dans la console
     if (categoryIdParam) {
-      this.categoryId = +categoryIdParam; // Convertit la chaîne en nombre
-      console.log('categoryId:', this.categoryId); // Vérifiez la valeur de categoryId après la conversion
+      this.categoryId = +categoryIdParam;
       this.AllgetProductsByCategoryId(this.categoryId);
     }
   }
@@ -31,11 +33,28 @@ export class CategoryProductsComponent implements OnInit {
     this.productService.AllgetProductsByCategoryId(categoryId).subscribe(
       (data: any) => {
         this.products = data.data;
-        console.log('Products:', this.products); // Vérifiez les produits récupérés dans la console
+        this.pages = Array(Math.ceil(this.products.length / this.productsPerPage)).fill(0).map((_, i) => i + 1);
+        this.setPage(1); // Initialiser à la première page
       },
       (error: any) => {
         console.error('Error fetching products by category:', error);
       }
     );
+  }
+
+  setPage(page: number): void {
+    if (page < 1 || page > this.pages.length) return;
+    this.currentPage = page;
+    const startIndex = (page - 1) * this.productsPerPage;
+    const endIndex = startIndex + this.productsPerPage;
+    this.pagedProducts = this.products.slice(startIndex, endIndex);
+  }
+
+  shortenProductName(name: string): string {
+    const maxLength = 16;
+    if (name.length > maxLength) {
+      return name.substr(0, maxLength) + '...';
+    }
+    return name;
   }
 }

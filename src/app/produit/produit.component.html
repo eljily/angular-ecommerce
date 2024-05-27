@@ -1,4 +1,4 @@
-<div class="container-fluid produit py-4 ">
+<div class="container-fluid produit py-4">
   <div class="col-md-12 mx-md-50">
     <div class="title">
       <span>
@@ -17,14 +17,20 @@
                     <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name" class="img-fluid w-100 rounded-top" alt="">
                   </div>
                   <div class="text-white bg-secondary px-2 py-1 rounded position-absolute" style="top: 5px; right: 5px; font-size: 0.9rem;">
-                    <i class="fa-solid fa-share-nodes"></i>
+                    <i class="fa fa-eye fa-xs"></i> {{ product.hit }}
                   </div>
                   <div class="p-2 border-top-0 rounded-bottom products-border">
-                    <h6 class="text-dark fs-6 fw-bold mb-0" style="font-size: 1.0rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ product.name }}</h6>
-                    <p style="font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><i class="fa-solid fa-location-dot"></i> {{product.region}}, {{product.subRegion}}</p>
-                    <p style="font-size: 1.0rem;"><i class="fa fa-eye fa-xs"></i> {{ product.hit }} </p>
+                    <h6 class="text-dark fs-6 fw-bold mb-0" style="font-size: 1.0rem; text-overflow: ellipsis; white-space: nowrap;">
+                      {{ shortenProductName(product.name) }}
+                    </h6>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <p class="mb-0" style="font-size: 1.0rem;"></p>
+                      <p class="mb-0 text-right" style="font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <i class="fa-solid fa-location-dot fa-flip-horizontal" style="color: #fd7e14;"></i> {{product.region}},{{product.subRegion}}
+                      </p>
+                    </div>
                     <div class="product-border">
-                      <a class="btn rounded-pill px-2" style="font-size: 1.0rem; width: 100%; color: #fff;">{{ product.price + " MRU" }}</a>
+                      <a class="btn rounded-pill px-2" style="font-size: 1.0rem; width: 100%; color: #fff;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ product.price + " MRU" }}</a>
                     </div>
                   </div>
                 </div>
@@ -33,10 +39,17 @@
             <ng-template #noProductTemplate>
               <div class="col-12 text-center py-5">
                 <img src="../../assets/img/empty-box.png" alt="No products" class="img-fluid" style="max-width: 200px;">
-                <p class="text-center mt-3">Il n'y a pas de produit dans cette sous categories</p>
+                <p class="text-center mt-3">Il n'y a pas de produit dans cette sous catégorie</p>
               </div>
             </ng-template>
           </div>
+          <ul class="pagination">
+            <li><a href="#" (click)="setPage(currentPage - 1)" [class.disabled]="currentPage === 1" style="cursor: pointer;">&lt;</a></li>
+            <li *ngFor="let page of pages">
+              <a (click)="setPage(page)" [class.active]="page === currentPage" style="cursor: pointer;">{{ page }}</a>
+            </li>
+            <li><a (click)="setPage(currentPage + 1)" [class.disabled]="currentPage === pages.length" style="cursor: pointer;">&gt;</a></li>
+          </ul>
         </div>
       </div>
     </div>

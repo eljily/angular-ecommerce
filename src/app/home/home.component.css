@@ -103,7 +103,7 @@
 }
 .bootdey .box-product-outer {
     /* width: calc(20% - 10px); /* Pour que chaque produit occupe 25% de la largeur de son conteneur */
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     border-radius: 5px;
     border: 1px solid #f38a2e;
 }
@@ -273,6 +273,7 @@
     color: #fff; /* Couleur du texte */
     background-color: #f38a2e; /* Couleur de fond */
     transition: all 0.3s ease; /* Animation de transition */
+    margin-top: 10px;
 }
 
 
@@ -282,3 +283,65 @@
     border-top: 0;
 }
 
+
+/* CSS pour les boutons de navigation */
+.btn-nav {
+    width: 5%;
+    height: 50px;
+    margin-top: 170px;
+    border: 1px solid #fff;
+    background-color: #fd7e14;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.btn-nav:hover {
+    background-color: #f38a2e; /* Changement de couleur de fond au survol */
+    /* Changement de couleur du texte au survol */
+    border: 1px solid #fff;
+}
+
+
+/* Positionnement des boutons gauche et droit */
+.left-nav {
+    left: 0;
+}
+
+.right-nav {
+    right: 0;
+}
+
+/* Styles pour permettre le défilement horizontal */
+.products-row {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth; /* Animation de défilement lisse */
+}
+
+.products-row::-webkit-scrollbar {
+    display: none; /* Masquer la barre de défilement sur les navigateurs WebKit */
+}
+
+/* CSS pour réduire l'espace entre les produits */
+.produit-item {
+    margin: 0; /* Enlevez toute marge supplémentaire */
+    padding: 0; /* Ajustez le padding pour contrôler l'espace interne */
+  }
+  
+  .products-row .col-6, .products-row .col-sm-4, .products-row .col-md-4, .products-row .col-lg-3, .products-row .col-xl-2 {
+    padding: 5px;
+  }
+  
+  .products-row {
+    margin-left: 0.70rem; /* Compensez la réduction de padding des colonnes */
+    margin-right: 0.70rem; /* Compensez la réduction de padding des colonnes */
+  }
+
+
+
+  

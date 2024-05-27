@@ -80,50 +80,44 @@
 <!-- Affichage des produits par catégorie et sous-catégorie -->
 
 
-
-
-<div class="container-fluid produit py-4 ">
+<div class="container-fluid produit py-4">
   <div class="col-md-12 mx-md-50" *ngFor="let categoryItem of productsData">
     <div class="title">
       <div style="float: left;">
         <i class="fa-solid fa-list fa-beat-fade" style="color: #f08c00; border: 1px solid; padding: 0.1em;"></i>
         <span>{{ categoryItem.name }}</span>
       </div>
-      <div style="float: right; margin-right: 60px;">
-       
-        <span [routerLink]="'/category-products/' + categoryItem.id " style="color: #fd7e14; font-size: 0.8em; cursor: pointer;">Voir plus >></span>
+      <div style="float: right; margin-right: 60px;">       
+        <span [routerLink]="'/category-products/' + categoryItem.id" style="color: #fd7e14; font-size: 0.8em; cursor: pointer;">Voir plus >></span>
       </div>
-      
     </div>
-    <div class="tab-class text-center " >
-      <div class="tab-content produit mx-md-5 ">
-        <div id="tab-1" class="tab-pane fade show p-0 active">
-          <div class="row flex-wrap flex-lg-nowrap g-2 ">
-            <div class="row g-2 ">
-              <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 " [routerLink]="['/product-details', product.id]" *ngFor="let product of categoryItem.products">
-                <div class="rounded position-relative produit-item " style="cursor: pointer;">
-                  <div class="produit-img ">
-                    <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name" class="img-fluid w-100 rounded-top" alt="">
-                  </div>
 
-                  <div class="text-white bg-secondary px-2 py-1 rounded position-absolute" style="top: 5px; right: 5px; font-size: 0.9rem;"><i class="fa-solid fa-share-nodes"></i></div>
-                  <div class="p-2  border-top-0 rounded-bottom products-border">
-                    <h6 class="text-dark fs-6 fw-bold mb-0" style="font-size: 1.0rem;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ product.name }}</h6>
-                    <p style="font-size: 0.7rem;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><i class="fa-solid fa-location-dot"></i> {{product.region}},{{product.subRegion}}</p>
-                    <p  style="font-size: 1.0rem;"><i class="fa fa-eye fa-xs"></i> {{ product.hit }} </p>
-                    <div class="product-border">
-                      <a  class="btn  rounded-pill px-2  " style="font-size: 1.0rem; width: 100%; color: #fff;"> {{ product.price + " MRU" }}</a>
-                    </div>
-                  </div>
-                  
-                </div>
+    <!-- Conteneur des produits avec boutons de navigation -->
+    <div class="products-container position-relative">
+      <button *ngIf="canScrollLeft(categoryItem.id)" class="btn btn-primary btn-nav left-nav" (click)="scrollLeft(categoryItem.id)"><i class="fa fa-chevron-left"></i></button>
+      <div class="products-row row flex-nowrap overflow-hidden" [attr.data-category-id]="categoryItem.id">
+        <div class="col-6 col-sm-3 col-md-2" [routerLink]="['/product-details', product.id]" *ngFor="let product of categoryItem.products">
+          <div class="rounded position-relative produit-item" style="cursor: pointer;">
+            <div class="produit-img">
+              <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name" class="img-fluid w-100 rounded-top">
+            </div>
+            <div class="text-white bg-secondary px-2 py-1 rounded position-absolute" style="top: 5px; right: 5px; font-size: 0.9rem;"><i class="fa fa-eye fa-xs"></i> {{ product.hit }}</div>
+            <div class="p-2 border-top-0 rounded-bottom products-border">
+              <h6 class="text-dark fs-6 fw-bold mb-0" style="font-size: 1.0rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ product.name }}</h6>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="mb-0" style="font-size: 1.0rem;"></p>
+                <p class="mb-0 text-right" style="font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                  <i class="fa-solid fa-location-dot fa-flip-horizontal" style="color: #fd7e14;"></i> {{product.region}},{{product.subRegion}}
+                </p>
+              </div>
+              <div class="product-border">
+                <a class="btn rounded-pill px-2" style="font-size: 1.0rem; width: 100%; color: #fff;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ product.price + " MRU" }}</a>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <button *ngIf="canScrollRight(categoryItem.id)" class="btn btn-primary btn-nav right-nav" (click)="scrollRight(categoryItem.id)"><i class="fa fa-chevron-right"></i></button>
     </div>
   </div>
 </div>
-
-
