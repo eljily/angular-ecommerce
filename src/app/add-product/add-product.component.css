@@ -1,22 +1,95 @@
-.product-form {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
+/* Style pour les écrans plus grands */
+.form-card {
+  width: 100%; /* Par défaut, pleine largeur */
+  max-width: 800px; /* Largeur maximale sur les grands écrans */
+  margin: 0 auto; /* Centrer horizontalement */
 }
 
-.product-fieldset {
-  border: none;
-  padding: 0;
+/* Responsive design pour les appareils mobiles */
+@media (max-width: 576px) {
+  .form-card {
+    width: 100%; /* Pleine largeur sur les petits écrans */
+    max-width: none; /* Annuler la largeur maximale */
+  }
 }
 
-legend {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+/* Style des cartes */
+.card-header {
+  font-weight: 500;
+  padding: 1rem 1.35rem;
+  margin-bottom: 0;
+  background-color: rgba(33, 40, 50, 0.03);
+  border-bottom: 1px solid #fd7e14;
 }
+
+.card-header:first-child {
+  border-radius: 0.35rem 0.35rem 0 0;
+}
+
+.custom-border {
+  border: 1px solid #fd7e14; /* Bordure de 2px de large, couleur #333 */
+  border-radius: 10px; /* Coins arrondis */
+  padding: 10px 20px; /* Espace de remplissage */
+  color: #333; /* Couleur du texte */
+  background-color: #fff; /* Couleur de fond */
+  transition: all 0.3s ease; /* Animation de transition */
+}
+
+.custom-border:hover {
+  background-color: #f38a2e; /* Changement de couleur de fond au survol */
+  color: #fff; /* Changement de couleur du texte au survol */
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group-prepend .input-group-text {
+  background-color: #fff;
+  border-right: none;
+}
+
+.form-control {
+  border-left: none;
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #69707a;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #fd7e14;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.35rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-group .form-control:focus {
+  z-index: 3;
+}
+
+.input-group .input-group-prepend .input-group-text {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group-prepend .input-group-text, 
+.form-control {
+  height: calc(2.25rem + 2px); /* Ensuring the same height for both */
+  line-height: 1.5;
+}
+
+.input-group-text {
+  border: 1px solid #fd7e14;
+  background-color: #fff;
+  color: #fd7e14;
+}
+
+
+
 
 .form-group {
   margin-bottom: 20px;
@@ -56,31 +129,20 @@ select {
 }
 
 button {
-  background-color: #fb9339; /* Orange color */
-  color: #fff;
-  border: none;
+  background-color: #fff; /* Orange color */
+  color: #000;
+  border-radius: 10px;
+  width: 100%;
   border-radius: 4px;
   padding: 10px 20px;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #4caf50; /* Green color */
-}
 
 p-messages {
   margin-top: 20px;
 }
 
-.btn-primary {
-  background-color: #4caf50; /* Green color */
-  border-color: #4caf50; /* Green color */
-}
-
-.btn-primary:hover {
-  background-color: #66bb6a; /* Lighter green color */
-  border-color: #66bb6a; /* Lighter green color */
-}
 
 /* Additional styling for PrimeNG file upload component */
 .ui-fileupload-choose {

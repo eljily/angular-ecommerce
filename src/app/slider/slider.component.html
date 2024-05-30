@@ -1,15 +1,7 @@
 
 
-<div class="container-fluid produit py-4">
-  <div class="col-md-12">
-    <div class="tab-class text-center carousel-container">
-
-<carousel>
-  <slide *ngFor="let slide of slides">
-    <img [src]="slide.image" alt="Slide image" class="carousel-image" >
+<carousel class="carousel">
+  <slide *ngFor="let slide of slides" class="carousel-item">
+    <img style="height: 151; width: 100%;" [src]="slide.image" alt="Ad" class="d-block w-100">
   </slide>
 </carousel>
-
-</div>
-</div>
-</div>

@@ -1,9 +1,14 @@
-import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Router, RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 import { AuthService } from '../auth/service/auth.service';
+import { CategoryService } from '../layouts/header/category.service';
+import { UserService } from '../profile/UserService';
+import { SearchService } from '../search/search-service';
+import { SharedNavigationService } from './shared-navigation.service';
 
 @Component({
   selector: 'app-bottom-navigation-bar',
@@ -13,25 +18,68 @@ import { AuthService } from '../auth/service/auth.service';
   templateUrl: './bottom-navigation-bar.component.html',
   styleUrl: './bottom-navigation-bar.component.css'
 })
-export class BottomNavigationBarComponent {
-  categories: any[] = []; 
-  constructor(private router: Router,private authService: AuthService) {}
+export class BottomNavigationBarComponent implements OnInit {
+  categories: any[] = [];
   isMenuOpen: boolean = false;
   selectedTab: string = 'home';
+  currentUser: any;
+  currentUserSubject: BehaviorSubject<any>;
+  activeLink: string = '';
 
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private categoryService: CategoryService,
+    private userService: UserService,
+    private sharedNavigationService: SharedNavigationService,
 
-  isLoggedIn(): boolean {
-    return this.authService.isAuthenticated();
+  private cdr: ChangeDetectorRef,
+  @Inject(PLATFORM_ID) private platformId: Object,
+  private searchService: SearchService
+) {
+  this.currentUserSubject = new BehaviorSubject<any>(null);
+}
+
+  ngOnInit(): void {
+    this.authService.currentUser.subscribe(user => {
+      if (user && user.userId) {
+        this.userService.getUserById(user.userId).subscribe((userDetails: any) => {
+          this.currentUser = userDetails;
+        });
+      }
+      this.sharedNavigationService.activeLink$.subscribe(link => {
+        this.activeLink = link;
+      });
+      this.isMenuOpen = !!user; // Met à jour l'état de connexion de l'utilisateur
+    });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && event.url === '/home') {
+        this.selectedTab = 'all';
+      }
+    });
+
+    this.loadCategories();
   }
-  
+
+  logout(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('currentUser');
+      this.router.navigate(['/login']);
+    }
+    this.authService.logout();
+    this.currentUser = null;
+    this.cdr.detectChanges();
+    console.log('Utilisateur déconnecté avec succès.');
+  }
+
+
+  isUserLoggedIn(): boolean {
+    return !!this.authService.currentUserValue;
+  }
+
   closeMenu(): void {
     this.isMenuOpen = false; // Fermer le menu en mettant la variable à false
-  }
-
-
-  navigateToSubCategory(event: any) {
-    const subCategoryId = event.target.value;
-    this.router.navigateByUrl(subCategoryId);
   }
 
   navigateTo(route: string): void {
@@ -39,8 +87,33 @@ export class BottomNavigationBarComponent {
     this.closeMenu();
   }
 
-  selectTab(tab: string) {
+  selectTab(tab: string): void {
     this.selectedTab = tab;
   }
 
+  navigateToSubCategory(event: any): void {
+    const subCategoryId = event.target.value;
+    this.router.navigateByUrl(subCategoryId);
+  }
+
+  async loadCategories(): Promise<void> {
+    try {
+      const categories = await this.categoryService.getAllCategories().toPromise();
+      if (categories) {
+        for (const category of categories) {
+          const subCategories = await this.categoryService.getSubCategoriesByCategoryId(category.id).toPromise();
+          if (subCategories) {
+            const categoryWithSubMenu = {
+              ...category,
+              isSubMenuOpen: false,
+              subCategories: subCategories
+            };
+            this.categories.push(categoryWithSubMenu);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  }
 }

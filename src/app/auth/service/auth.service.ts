@@ -1,7 +1,7 @@
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { RegisterDto, AuthRequestDto, ResponseMessage, AuthResponseDto , } from '../../profile/model'; 
 import { isPlatformBrowser } from '@angular/common';
 import { JwtDecoderService } from './jwt.service';
@@ -132,6 +132,65 @@ export class AuthService {
     }
     this.currentUserSubject.next(null);
   }
+
+
+  verifyCurrentPassword(currentPassword: string): Observable<any> {
+    const token = this.getToken();
+    if (!token) {
+      return throwError('Token not found');
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const body = {
+      currentPassword: currentPassword
+    };
+
+    return this.http.post<any>(`${this.apiUrl}/verify-current-password`, body, { headers })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Erreur lors de la vérification du mot de passe actuel', error);
+          let errorMsg = 'Une erreur est survenue lors de la vérification du mot de passe actuel';
+          if (error.status === 401) {
+            errorMsg = 'Mot de passe actuel incorrect.';
+          }
+          return throwError(errorMsg);
+        })
+      );
+  }
+
+  // Méthode pour changer le mot de passe
+  changePassword(currentPassword: string, newPassword: string, retypedPassword: string): Observable<any> {
+    // Effectuer directement la demande de changement de mot de passe
+    const token = this.getToken();
+    if (!token) {
+      return throwError('Token not found');
+    }
+    
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const body = {
+      oldPassword: currentPassword,
+      newPassword: newPassword,
+      retypedPassword: retypedPassword
+    };
+  
+    return this.http.post(`${this.apiUrl}/change-password`, body, { headers })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          console.error('Erreur lors du changement de mot de passe', error);
+          let errorMsg = 'Une erreur est survenue lors du changement de mot de passe';
+          if (error.status === 400) {
+            errorMsg = 'Mot de passe actuel incorrect';
+          } else if (error.status === 401) {
+            errorMsg = 'Requête invalide. Vérifiez les données fournies.';
+          } else if (error.status === 500) {
+            errorMsg = 'Erreur serveur. Réessayez plus tard.';
+          }
+          return throwError(errorMsg);
+        })
+      );
+  }
+  
+
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     let errorMessage = 'Unknown error occurred';

@@ -19,6 +19,7 @@ import { SliderComponent } from '../slider/slider.component';
 @Component({
   selector: 'app-home',
   standalone: true,
+  
   imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,IonicModule,RouterModule, NgFor ,SliderComponent,CarouselModule,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -29,6 +30,27 @@ import { SliderComponent } from '../slider/slider.component';
 export class HomeComponent implements OnInit {
   productsData: any[] = []; // Initialiser la variable pour stocker les données des produits
   categories: any[] = [];
+  adGroups = [
+    [
+      { imageUrl: '../../assets/slider1/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-free-vector.jpg' },
+    
+    ],
+    [
+      { imageUrl: '../../assets/slider2/ecommerce-website-banner-template-presents-260nw-2252124451.webp' },
+      { imageUrl: '../../assets/slider2/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-vector.jpg' }
+    ],
+
+  ];
+
+
+  slides = [
+    { image: '../../assets/slider3/ecommerce-banner.jpg' },
+    { image: '../../assets/slider3/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-vector.jpg' },
+
+  ];
+
+  isDesktopView: boolean = false;
+
 
   constructor(private productService: ProductsService) {}
 
@@ -56,6 +78,18 @@ export class HomeComponent implements OnInit {
         console.error('Erreur lors de la récupération des catégories:', error);
       }
     );
+
+    // Vérifier la taille de l'écran lors de l'initialisation du composant
+    this.checkScreenSize();
+    // Ajouter un écouteur d'événement pour vérifier la taille de l'écran lors du redimensionnement
+    window.addEventListener('resize', () => {
+      this.checkScreenSize();
+    });
+  }
+
+  // Méthode pour vérifier la taille de l'écran et définir isDesktopView en conséquence
+  checkScreenSize() {
+    this.isDesktopView = window.innerWidth >= 768;
   }
 
   canScrollLeft(categoryId: number): boolean {

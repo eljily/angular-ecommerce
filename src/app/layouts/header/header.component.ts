@@ -16,6 +16,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { SharedNavigationService } from '../../bottom-navigation-bar/shared-navigation.service';
 import { FormsModule } from '@angular/forms';
 import { SearchService } from '../../search/search-service';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 // Interface pour représenter une catégorie avec le menu déroulant des sous-catégories
@@ -24,11 +25,12 @@ interface CategoryWithSubMenu {
   name: string;
   subCategories: SubCategory[];
   isSubMenuOpen: boolean;
+  
 }
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink,CommonModule,MatMenuModule ,HttpClientModule,FormsModule ],
+  imports: [RouterLink,CommonModule,MatMenuModule ,HttpClientModule,FormsModule,  NgbDropdownModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -42,6 +44,8 @@ export class HeaderComponent implements OnInit {
   categories: CategoryWithSubMenu[] = [];
   products: any[] = [];
   selectedCategory: string = 'all';
+  isLoggedIn: boolean = false;
+  
   category: SubCategoryResponse = {
     status: null,
     message: 'Retrieved Sub categories By Category ID.',
@@ -90,6 +94,7 @@ export class HeaderComponent implements OnInit {
       this.sharedNavigationService.activeLink$.subscribe(link => {
         this.activeLink = link;
       });
+      this.isLoggedIn = !!user; // Met à jour l'état de connexion de l'utilisateur
     });
 
     this.router.events.subscribe(event => {
@@ -102,9 +107,7 @@ export class HeaderComponent implements OnInit {
     this.loadProducts();
   }
 
-  isLoggedIn(): boolean {
-    return !!this.currentUser;
-  }
+
 
   navigateTo(route: string): void {
     this.router.navigate([route]);

@@ -1,13 +1,13 @@
 <div class="container-xl px-4 mt-4">
-  <hr class="mt-0 mb-4">
+  <hr class="mt-0 mb-4 form-card">
   <div class="row">
-    <div class="col-xl-8">
-      <div class="card mb-4">
+    <div class="col-xl-8 mx-auto">
+      <div class="card mb-4 form-card">
         <div class="card-header">Ajouter votre Annonce Gratuit!!</div>
         <div class="card-body">
           <form #productForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-              <label class="small mb-1" for="inputUsername">Nom du produit*</label>
+              <label class="small mb-1 " for="inputUsername">Nom du produit*</label>
               <input class="form-control" id="inputUsername" [(ngModel)]="product.name" name="name" type="text" placeholder="Entrez le nom du produit" required>
               <div *ngIf="productForm.submitted && !product.name" class="text-danger">Ce champ est obligatoire</div>
             </div>
@@ -75,7 +75,7 @@
               <div class="row">
                 <div class="col-lg-6 col-md-12">
                   <div class="pro-img-list">
-                    <ng-container *ngFor="let image of selectedImages">
+                    <ng-container *ngFor="let image of selectedImages" style="width: 100%;">
                       <a>
                         <img [src]="image.url" class="product-image img-fluid">
                       </a>
@@ -84,7 +84,7 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary" type="submit" [disabled]="!productForm.form.valid || selectedImages.length === 0">Save changes</button>
+            <button class="custom-border" type="submit" [disabled]="!productForm.form.valid || selectedImages.length === 0">Save changes</button>
           </form>
         </div>
       </div>

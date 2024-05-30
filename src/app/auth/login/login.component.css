@@ -1,114 +1,89 @@
-
-
-/* signup.component.css */
-
-.style {
-    display: grid;
-    place-items: center;
-    margin: 0 auto;
-    min-block-size: 90vh;
-    background-image: url(../../../assets/img/pub/wp7347703.webp) ;
-    color: #000000;
+/* Style pour les écrans plus grands */
+.form-card {
+  width: 100%; /* Par défaut, pleine largeur */
+  max-width: 800px; /* Largeur maximale sur les grands écrans */
+  margin: 0 auto; /* Centrer horizontalement */
 }
 
-  #sign_in,
-  #sign_up {
-    inline-size: 90%;
-    max-inline-size: 23rem;
-    margin-inline: auto;
+/* Responsive design pour les appareils mobiles */
+@media (max-width: 576px) {
+  .form-card {
+    width: 100%; /* Pleine largeur sur les petits écrans */
+    max-width: none; /* Annuler la largeur maximale */
   }
-  
-  span {
-    color: #eee;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 3px;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin: 0 auto;
-  }
-  
-  form {
-    display: grid;
-    gap: 0.875rem;
-  }
-  #field {
-    display: flex;
-  }
-  
-  label,
-  input {
-    border-radius: 0.35rem;
-    padding: 1rem;
-    outline: 0;
-  }
-  
-  label {
-    background-color: #f38a2e;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-  }
-  
-  .forget{
-    color: #fff;
-  }
-  
-  input {
-    
-    border: 1px solid #f38a2e;
-    transition: background-color 0.3s;
-    inline-size: 100%;
-    color: #000000;
-    vertical-align: center;
-  }
-  
-  input::placeholder {
-    vertical-align: center;
-    
-  }
-  
-  
-  input:not(input[type="submit"]):hover,
-  input:not(input[type="submit"]):focus {
-   
-  }
-  
-  input[type="submit"] {
-    
-    cursor: pointer;
-    background-color: #ffff;
-    color: #363636;
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 1.2;
-  }
-  
-  input[type="submit"]:focus,
-  input[type="submit"]:hover {
-    background-color: #f38a2e;
-  }
-  
-  p {
-    margin-block: 1.5rem;
-    text-align: center;
-  }
-  button {
-    background: transparent;
-    border: none;
-  }
-  
-  a {
-    cursor: pointer;
-    color: #eee;
-    outline: 0;
-    text-decoration: none;
-    padding: 0 0.3rem;
-  }
-  
-  a:focus,
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  
-  
+}
+
+/* Style des cartes */
+.card-header {
+  font-weight: 500;
+  padding: 1rem 1.35rem;
+  margin-bottom: 0;
+  background-color: rgba(33, 40, 50, 0.03);
+  border-bottom: 1px solid #fd7e14;
+}
+
+.card-header:first-child {
+  border-radius: 0.35rem 0.35rem 0 0;
+}
+
+.custom-border {
+  border: 1px solid #fd7e14; /* Bordure de 2px de large, couleur #333 */
+  border-radius: 10px; /* Coins arrondis */
+  padding: 10px 20px; /* Espace de remplissage */
+  color: #333; /* Couleur du texte */
+  background-color: #fff; /* Couleur de fond */
+  transition: all 0.3s ease; /* Animation de transition */
+}
+
+.custom-border:hover {
+  background-color: #f38a2e; /* Changement de couleur de fond au survol */
+  color: #fff; /* Changement de couleur du texte au survol */
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group-prepend .input-group-text {
+  background-color: #fff;
+  border-right: none;
+}
+
+.form-control {
+  border-left: none;
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #69707a;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #fd7e14;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.35rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-group .form-control:focus {
+  z-index: 3;
+}
+
+.input-group .input-group-prepend .input-group-text {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group-prepend .input-group-text, 
+.form-control {
+  height: calc(2.25rem + 2px); /* Ensuring the same height for both */
+  line-height: 1.5;
+}
+
+.input-group-text {
+  border: 1px solid #fd7e14;
+  background-color: #fff;
+  color: #fd7e14;
+}

@@ -101,46 +101,20 @@
     text-overflow: ellipsis; /* Ajouter des points de suspension pour indiquer qu'il y a plus de contenu que ce qui est visible */
     white-space: nowrap; /* Empêcher le texte de se mettre à la ligne */
 }
-.bootdey .box-product-outer {
-    /* width: calc(20% - 10px); /* Pour que chaque produit occupe 25% de la largeur de son conteneur */
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #f38a2e;
-}
 
-.padding-bottom-sm {
-    padding-bottom: 10px;
-}
 
-.box-product-outer {
-    width: calc(18% - 40px);
-    margin-right: 10px;
-    margin-bottom: 20px;
-}
 
-@media (max-width: 1199.98px) {
-    .box-product-outer {
-        width: calc(33.33% - 10px);
-    }
-}
-
-@media (max-width: 991.98px) {
-    .box-product-outer {
-        width: calc(50% - 10px);
-    }
-}
 
 @media (max-width: 767.98px) {
-    .box-product-outer {
-        width: calc(50% - 10px);
+    .products-row .col-6, 
+    .products-row .col-sm-4, 
+    .products-row .col-md-3, 
+    .products-row .col-lg-2 {
+      padding: 0; /* Enlever le padding */
     }
-}
+  }
+  
 
-.box-product-outer:hover {
-    outline: 1px solid #aaa;
-    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-}
 
 .tab-content .box-product-outer {
     margin-bottom: 0;
@@ -173,15 +147,6 @@
 
 
 
-.nameproduct {
-    margin-top: 10px;
-    font-size: 1.0em;
-    color: #000;
-    max-width: 100%; /* Limiter la largeur du titre à 100% de son conteneur */
-    overflow: hidden; /* Masquer tout contenu dépassant de la zone */
-    text-overflow: ellipsis; /* Ajouter des points de suspension pour indiquer qu'il y a plus de contenu que ce qui est visible */
-    white-space: nowrap; /* Empêcher le texte de se mettre à la ligne */
-}
 .localisation  i {
     font-size: 0.8em;
 }
@@ -205,29 +170,15 @@
 }
 
 
-.eyes {
-    /*display: flex; 
-    align-items: center; 
-    margin-left: 40%;
-    margin-bottom: 10px;
-    background-color:#5161ce ;*/
-    align-self: flex-end;
-    margin-left: 40%;
-    color: #000;
-    padding: 5px 10px;
-    font-size: 14px;
-    margin-right: auto;
-    z-index: 1; 
-}
-
 /*------category*/
 
   
-.col-xl-1-5 {
-    flex: 0 0 12.5%; /* 12.5% = 1/8 pour 8 éléments sur une ligne */
-    max-width: 12.5%;
-}
-
+@media (min-width: 1200px) {
+    .col-lg-1-5 {
+      flex: 0 0 auto;
+      width: 12.5%;
+    }
+  }
 
 /*** Fruits Start ***/
 
@@ -272,8 +223,8 @@
     border-radius: 10px; /* Coins arrondis */
     color: #fff; /* Couleur du texte */
     background-color: #f38a2e; /* Couleur de fond */
-    transition: all 0.3s ease; /* Animation de transition */
-    margin-top: 10px;
+ 
+    margin-top: 5px;
 }
 
 
@@ -337,11 +288,18 @@
     padding: 5px;
   }
   
-  .products-row {
-    margin-left: 0.70rem; /* Compensez la réduction de padding des colonnes */
-    margin-right: 0.70rem; /* Compensez la réduction de padding des colonnes */
+
+  .carousel-item img {
+    max-width: 100%; /* La largeur maximale de l'image est de 100% de la largeur du parent */
+    height: 200px; /* La hauteur s'ajuste automatiquement pour conserver les proportions */
   }
+  @media (max-width: 992.00px) {
+    .carousel-item img {
+        max-width: 100%;
+        height: 151px; 
+       
+    }
 
 
+}
 
-  

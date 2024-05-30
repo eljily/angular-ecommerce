@@ -13,12 +13,52 @@
 	background-color: #f38a2e; /* Changement de couleur de fond au survol */
 	color: #fff; /* Changement de couleur du texte au survol */
   }
+
+  .custom-border2 {
+    border: 1px solid #fd7e14; /* Bordure de 2px de large, couleur #333 */
+    border-radius: 10px; /* Coins arrondis */
+    padding: 10px 10px; /* Espace de remplissage */
+    color: #333; /* Couleur du texte */
+    background-color: #fff; /* Couleur de fond */
+    transition: all 0.3s ease; /* Animation de transition */
+    }
+
+
+    
+
+  .custom-border1 {
+    border: 1px solid #fd7e14; /* Bordure de 2px de large, couleur #333 */
+    border-radius: 10px; /* Coins arrondis */
+    color: #333; /* Couleur du texte */
+    background-color: #fff; /* Couleur de fond */
+    transition: all 0.3s ease; /* Animation de transition */
+    cursor: pointer;
+    }
+    .custom-border1:hover {
+      background-color: #f38a2e; /* Changement de couleur de fond au survol */
+      color: #fff; /* Changement de couleur du texte au survol */
+      }
+    
+    .dropdown-menu .dropdown-item {
+      margin-bottom: 0; /* Espace entre les items */
+  }
+  
+  .dropdown-menu .dropdown-item:last-child {
+      margin-bottom: 8px; /* Supprime l'espace après le dernier item */
+  }
+  
+  .dropdown-toggle::after {
+      display: none; /* Supprime la flèche du bouton dropdown */
+  }
+  
+  .dropdown-menu {
+      min-width: 200px; /* Largeur minimale du dropdown */
+  }
   
   
   .col {
     max-width: 100%;
   }
-
 
 
 
@@ -54,6 +94,7 @@
     .filter-categories {
       display: inline-block;
     }
+
   }
 
   .dropdown-menu {
@@ -125,3 +166,11 @@ margin-left: 10px;
   .btn {
     cursor: pointer;
   }
+
+  .flag-icon {
+    width: 20px; 
+    height: 20px; 
+  }
+
+  /*---------------------*/
+  

@@ -10,7 +10,7 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
-  padding-bottom: 0px; /* To avoid content being hidden under the navigation bar */
+  padding-bottom: 0px; 
 }
 
 /* Navigation bar styles */
@@ -86,3 +86,12 @@ body {
 	color: #fff; /* Changement de couleur du texte au survol */
   }
   
+
+  .dropdown-menu  {
+    width: 100%;
+  }
+
+  .dropdown-item{
+    margin-left: 18px;
+  }
+

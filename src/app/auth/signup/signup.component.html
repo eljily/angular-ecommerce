@@ -1,33 +1,72 @@
+<div class="container-xl px-4 mt-4">
+  <hr class="mt-0 mb-4 form-card">
+  <div class="card mb-4 form-card">
+    <div class="card-header">Créer un nouveau compte</div>
+    <div class="card-body">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- Afficher le message d'erreur -->
+        <div *ngIf="errorMessage" class="mb-3">
+          <div class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+        </div>
 
-<div class="style">
-  <div id="sign_in">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <span style="color: #363636;" >SSOUQI</span>
+        <div class="mb-3">
+          <label class="small mb-1" for="name">Nom utilisateur</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input class="form-control" id="name" formControlName="name" type="text" placeholder="Entrez votre nom d'utilisateur" required>
+          </div>
+          <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)">
+            <small class="text-danger">Nom d'utilisateur requis</small>
+          </div>
+        </div>
 
-      <div id="field">
-        <label><i class="fas fa-user"></i></label>
-        <input type="text" formControlName="name" placeholder="Nom utilisateur" required />
-      </div>
+        <div class="mb-3">
+          <label class="small mb-1" for="email">E-mail</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input class="form-control" id="email" formControlName="email" type="email" placeholder="Entrez votre e-mail" required>
+          </div>
+          <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+            <small class="text-danger">E-mail requis</small>
+          </div>
+        </div>
 
-      <div id="field">
-        <label><i class="fas fa-user"></i></label>
-        <input type="email" formControlName="email" placeholder="E-mail" required />
-      </div>
+        <div class="mb-3">
+          <label class="small mb-1" for="phoneNumber">Numéro de téléphone</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-phone"></i></span>
+            </div>
+            <input class="form-control" id="phoneNumber" formControlName="phoneNumber" type="tel" placeholder="Entrez votre numéro de téléphone" required>
+          </div>
+          <div *ngIf="registerForm.get('phoneNumber')?.invalid && (registerForm.get('phoneNumber')?.dirty || registerForm.get('phoneNumber')?.touched)">
+            <small class="text-danger">Numéro de téléphone requis</small>
+          </div>
+        </div>
 
-      <div id="field">
-        <label><i class="fas fa-phone"></i></label>
-        <input type="tel" formControlName="phoneNumber" placeholder="Numéro de téléphone" required />
-      </div>
+        <div class="mb-3">
+          <label class="small mb-1" for="password">Mot de passe</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            </div>
+            <input class="form-control" id="password" formControlName="password" type="password" placeholder="Entrez votre mot de passe" required>
+          </div>
+          <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+            <small class="text-danger">Mot de passe requis</small>
+          </div>
+        </div>
 
-      <div id="field">
-        <label><i class="fas fa-lock"></i></label>
-        <input type="password" formControlName="password" placeholder="Mot de passe" required />
-      </div>
-
-      <div class="field">
-        <input type="submit" value="Créer nouveau compte" />
-      </div>
-      <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
-    </form>
+        <div class="d-flex justify-content-end mb-3">
+          <button class="btn btn-primary custom-border" type="submit">Créer nouveau compte</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

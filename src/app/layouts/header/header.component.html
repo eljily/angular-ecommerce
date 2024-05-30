@@ -1,236 +1,251 @@
-
-
-  <header id="header" class="site-header text-black" style="background-color: rgb(248, 246, 246);">
-    <div class="header-top border-bottom py-2">
-        <div class="row justify-content-evenly">
-  <div class="col-auto d-none d-md-block mt-3 mb-3  "  >
-            <ul class=" d-flex  gap-3 list-unstyled ">
-                <li class="pe-1  footer-social-icon ">
-                <a href="#">
-                    <i class="fab fa-facebook-f facebook-bg"></i>
-                </a>
-                </li>
-              <li class="pe-1 footer-social-icon">
-                <a href="#">
-                    <i  class="fa-brands fa-instagram"></i>
-                </a>
-              </li>
-              <li class="pe-1 footer-social-icon">
-                <a href="#">
-                  
-                    <i  class="fa-brands fa-tiktok"></i>
-                 
-                </a>
-              </li>
-              <li class="pe-1 footer-social-icon">
-                <a href="#">
-                    <i  class="fa-brands fa-twitter"></i>
-                </a>
-              </li>
-
-              <li class="pe-1 footer-social-icon">
-                <a href="#">
-                    <i  class="fa-brands fa-google"></i>
-                </a>
-              </li>
-            </ul>
-        </div>
-
-
-          <div class="col-auto d-none d-md-block mt-3 mb-3  " (click)="navigateTo('add-product')" style="position: relative; left: 12%; transform: translateX(-50%);">
-            <a class="scrollto btn btn-outline-light custom-border"><i class="fa-solid fa-circle-plus nav__icon"></i> Publier annonce</a>
-        </div>
-          <div class="col">
-            <ul class="d-flex justify-content-end gap-3 list-unstyled m-4">
-            
-              <li  *ngIf="isLoggedIn(); else notLoggedIn" >
-                <a *ngIf="currentUser"class="custom-border" style="text-decoration:none">{{ currentUser?.data?.data?.name }}</a> |
-                <a href="#" class="custom-border" (click)="logout()" style="text-decoration:none">Se déconnecter </a>
-              </li>
-
-              <ng-template #notLoggedIn>
-                <li>
-                <a routerLink="/login" class="custom-border" style="text-decoration:none" >Se connecter</a> |
-                <a routerLink="/signup" class="custom-border" style="text-decoration:none">Créer un compte</a>
-              </li>
-             </ng-template>
-             
-            </ul>
-          </div>
-        </div>
-
-    </div>
-</header>
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-<header style="border: 1px solid #fd7e14; border-radius: 10px; background-color: rgb(248, 246, 246);"  >
-
-    
-  
-    
-  <div class="container-fluid">
-    <div class="row py-3 border-bottom head">
-      <!-- Logo -->
-      <div class="col-sm-4 col-lg-3 text-center text-sm-start">
-        <div class="main-logo" style="margin-left: 50px;">
-          <a href="#">
-            <img src="../../../assets/img/logo.jpeg" alt="" style="width: 90px; height: 60px; margin-right: 40px;">
-          </a>
-        </div>
-      </div>
-  
-      <!-- Barre de recherche -->
-      <div class="col-sm-12 offset-md-0 col-lg-5 d-lg-block">
-        <div class="search-bar row bg-light p-2 my-2 rounded-4" style="border-radius: 15px; border: 1px solid #fd7e14;">
-          <!-- Sélection de catégorie -->
-          <div class="col-md-4 d-none d-md-block">
-            <select class="form-select border-0 bg-transparent" (change)="navigateToSubCategory($event)">
-              <option>Toutes les catégories</option>
-              <!-- Boucle sur les catégories -->
-              <optgroup *ngFor="let category of categories" label="{{ category.name }}">
-                <!-- Boucle sur les sous-catégories de la catégorie actuelle -->
-                <option *ngFor="let subCategory of category.subCategories" [value]="subCategory.id">{{ subCategory.name }}</option>
-              </optgroup>
-            </select>
-          </div>
-          <!-- Recherche de produits -->
-          <div class="col-11 col-md-7" style="border: 1px solid #fd7e14; border-radius: 10px;">
-            <form id="search-form" class="text-center d-flex" (ngSubmit)="onSearch($event)">
-              <input type="text" class="form-control border-0 bg-transparent flex-grow-1" placeholder="Recherchez plus de 20 000 produits" name="searchKeyword" [(ngModel)]="searchKeyword">
-              <button type="submit" style="background: none; border: none; padding: 0; margin-top: 5px;">
-                  <i style="color: #fd7e14;" class="fa-solid fa-magnifying-glass fa-lg"></i>
-              </button>
-          </form>
-          
-            <!-- Dropdown des produits -->
-            <select id="search-results" class="form-select border-0 bg-transparent mt-2" style="display: none;">
-              <option disabled selected hidden>Résultats de la recherche</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-        
-        <div class="col-sm-8 col-lg-4 d-flex ipad justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
-  
-          <ul class="d-flex justify-content-end list-unstyled m-0">
-  
-            <li >
-                <a href="#" class="rounded-circle bg-light p-2 mx-1 " style="border-radius: 15px; border: 1px solid #fd7e14;">
-                    <i style="margin: 2px 5px 2px 5px;color: rgb(49, 48, 48);" class="fa-solid fa-heart"></i>
-                </a>
-              </li>
-
-              <li class="d-lg-block">
-                <span  class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch" >
-                  <svg width="24" height="24" viewBox="0 0 24 24" ><use xlink:href="#search"></use></svg>
-                </span>
-              </li>
-              <li class="d-lg-block">
-                <span  class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
-                  <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#search"></use></svg>
-                </span>
-              </li>
-    
-              <li class="d-lg-block">
-                <span mat-icon-button [matMenuTriggerFor]="menu" class="rounded-circle bg-light p-2 mx-1" style="border-radius: 15px; border: 1px solid #fd7e14; cursor: pointer;">
-                  <i style="margin: 2px 5px 2px 5px; color: rgb(49, 48, 48);" class="fa-solid fa-user"></i>
-                </span>
-                <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
-                  <button mat-menu-item *ngIf="isLoggedIn()" (click)="navigateTo('profile')">
-                    Profil
-                  </button>
-                  <button mat-menu-item *ngIf="isLoggedIn()" (click)="navigateTo('forgot-password')">
-                    Changer le mot de passe
-                  </button>
-                  <button mat-menu-item *ngIf="isLoggedIn()" (click)="navigateTo('add-product')">
-                    Ajouter
-                  </button>
-                  <button mat-menu-item (click)="navigateTo('settings')">
-                    Paramètres
-                  </button>
-                  <button mat-menu-item *ngIf="isLoggedIn()" (click)="navigateTo('user-product')">
-                    Produit utilisateur
-                  </button>
-                  <button mat-menu-item *ngIf="isLoggedIn()" style="color: red;" (click)="navigateTo('delete-account')">
-                    Supprimer le compte
-                  </button>
-                </mat-menu>
-              </li>
-              
-            
-          </ul>
-          
-        
-        </div>
-      </div>
-    </div>
-    <div class="container-fluid" >
-      <div class="row py-3">
-        <div class="d-flex  ">
-          <nav class="main-menu d-flex navbar navbar-expand-lg" style="margin-left: 120px;">
-
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar1">
-              <div class="offcanvas-header justify-content-center">
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
-              </div>
-              <div class="offcanvas-body" >
-            
-                <select class="filter-categories border-1 mb-0 me-5" style="border-radius: 10px; border:1px solid #fd7e14;" (change)="navigateToSubCategory($event)" [(ngModel)]="selectedCategory">
-                  <option value="all">Toutes les catégories</option>
-                  <optgroup *ngFor="let category of categories" [label]="category.name" style="cursor: pointer;">
-                    <option *ngFor="let subCategory of category.subCategories" [value]="subCategory.id">
-                      {{ subCategory.name }}
-                    </option>
-                  </optgroup>
-                </select>
-                
-
-                <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-                    <li class="nav-item active" (click)="navigateTo('home')" style="cursor: pointer;">
-                      <a  class="nav-link custom-border" data-bs-dismiss="offcanvas" style="margin-bottom: 5px;">Accueil</a>
-                    </li>
-                  </ul>
-                                  
-                  
-                
-            
-                <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0 d-lg-none">
-                    <li class="nav-item dropdown" *ngFor="let category of categories">
-                      <!-- Utilisation de la variable category.name pour afficher le nom de chaque catégorie -->
-                      <a class="nav-link dropdown-toggle custom-border"   style="margin-bottom: 5px;" role="button" id="categories" data-bs-toggle="dropdown" aria-expanded="false">{{ category.name }}</a>
-                      <ul class="dropdown-menu" aria-labelledby="categories">
-                        <!-- Boucle sur les catégories -->
-                        <li *ngFor="let subCategory of category.subCategories" [routerLink]="['/products', subCategory.id]">
-                          <a  class="dropdown-item custom-border"  data-bs-dismiss="offcanvas" style="margin-bottom: 5px; cursor: pointer;"   ><span class="badge bg-success text-dark ms-2">✔️</span> {{ subCategory.name }}</a>
-                        </li>
-                        <!-- Affichage du nom de la catégorie comme libellé du menu déroulant -->
-                      </ul>
-                    </li>
-                  </ul>
-                
-              </div>
+<!-- Header section that is hidden on screens 992px and below -->
+<div id="header" class="site-header text-black d-none d-lg-block" style="background-color: rgb(248, 246, 246);">
+  <div class="header-top border-bottom py-2">
+    <div class="row justify-content-evenly">
+      <div class="col-auto d-none d-md-block">
+        <div class="col-auto">
+          <div class="col-sm-4 col-lg-3 text-center text-sm-start" >
+            <div class="main-logo" >
+              <a >
+                <img src="../../../assets/img/logo.jpeg" alt="" style="width: 90px; height: 60px; ">
+              </a>
             </div>
-            
-          </nav>
+          </div>
+        </div>
+      </div>
 
+      <div class="col-auto d-none d-md-block" (click)="navigateTo('add-product')">
+        <a class="scrollto btn btn-outline-light custom-border">
+          <i class="fa-solid fa-circle-plus nav__icon"></i> Publier annonce
+        </a>
+      </div>
+
+      <div class="col" style="padding: 10px; margin-right: 5px;">
+        <ul class="d-flex justify-content-end gap-3 list-unstyled">
+          <li *ngIf="isLoggedIn; else notLoggedIn">
+            <a *ngIf="currentUser" class="custom-border" style="text-decoration:none">{{ currentUser?.data?.data?.name }}</a> |
+            <a class="custom-border" (click)="logout()" style="text-decoration:none; cursor: pointer;">Se déconnecter</a>
+          </li>
+
+          <ng-template #notLoggedIn>
+            <li>
+              <a routerLink="/login" class="custom-border" style="text-decoration:none">Se connecter</a> |
+              <a routerLink="/signup" class="custom-border" style="text-decoration:none">Créer un compte</a>
+            </li>
+          </ng-template>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Alternate content for screens 992px and below -->
+<div id="header-mobile" class="site-header text-black d-lg-none" style="background-color: rgb(248, 246, 246);">
+  <div class="header-top border-bottom py-2">
+    <div class="row justify-content-evenly">
+      <div class="col-auto">
+        <div class="col-sm-4 col-lg-3 text-center text-sm-start" >
+          <div class="main-logo" >
+            <a >
+              <img src="../../../assets/img/logo.jpeg" alt="" style="width: 90px; height: 60px; ">
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col " style="padding: 10px; margin-right: 5px;">
+        <ul class="d-flex justify-content-end gap-3 list-unstyled">
+    
+          <div  class="lang_box dropdown custom-border2" style="margin-right: 10px;" ngbDropdown> <!-- Utilisez ngbDropdown pour activer le menu déroulant -->
+            <a  title="Language" class="nav-link dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle> <!-- Ajoutez l'attribut ngbDropdownToggle -->
+              <img src="../../../assets/united-arab-emirates.png" alt="flag" class="mr-2 flag-icon" title="United Kingdom"> العربية <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+            </a>
+            
+            <div class="dropdown-menu custom-border2 " ngbDropdownMenu> <!-- Ajoutez l'attribut ngbDropdownMenu -->
+              <a  class="dropdown-item custom-border1">
+                <img src="../../../assets/france.png" class="mr-2 flag-icon" alt="flag">
+                Francais
+              </a>
+              <a  class="dropdown-item custom-border1">
+                <img src="../../../assets/circle.png" class="mr-2 flag-icon" alt="flag">
+                English
+              </a>
+              
+              <!-- Ajoutez des liens pour d'autres langues ici si nécessaire -->
+            </div>
+          </div>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="header-mobile" style="border: 1px solid #fd7e14; border-radius: 10px; background-color: rgb(248, 246, 246);"  >
+  <div class="row py-3 border-bottom head">
+
+    <!-- Section visible uniquement sur les écrans de plus de 992 pixels -->
+<div class="col-sm-8 col-lg-4 d-flex ipad justify-content-end align-items-center mt-sm-0 justify-content-center justify-content-sm-end d-none d-lg-flex">
+  <div class="lang_box dropdown custom-border2" style="margin-right: 10px;" ngbDropdown>
+    <a title="Language" class="nav-link dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
+      <img src="../../../assets/united-arab-emirates.png" alt="flag" class="mr-2 flag-icon" title="United Kingdom"> العربية <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+    </a>
+    <div class="dropdown-menu custom-border2" ngbDropdownMenu>
+      <a class="dropdown-item custom-border1">
+        <img src="../../../assets/france.png" class="mr-2 flag-icon" alt="flag">
+        Francais
+      </a>
+      <a class="dropdown-item custom-border1">
+        <img src="../../../assets/circle.png" class="mr-2 flag-icon" alt="flag">
+        English
+      </a>
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-lg-3 text-center text-sm-start"></div>
+
+  <ul class="d-flex justify-content-end list-unstyled m-0" style="margin-left: 50px;">
+    <li class="d-lg-block">
+      <div class="dropdown">
+        <button class="btn dropdown-toggle rounded-circle bg-light p-2 mx-1 d-flex justify-content-center align-items-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 15px; border: 1px solid #fd7e14; width: 40px; height: 40px;">
+          <i class="fa-solid fa-user"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end custom-border2" aria-labelledby="dropdownMenuButton">
+          <li *ngIf="isLoggedIn" (click)="navigateTo('profile')">
+            <a class="dropdown-item custom-border1">Profil</a>
+          </li>
+          <li *ngIf="isLoggedIn" (click)="navigateTo('forgot-password')">
+            <a class="dropdown-item custom-border1">Changer le mot de passe</a>
+          </li>
+          <li *ngIf="isLoggedIn" (click)="navigateTo('add-product')">
+            <a class="dropdown-item custom-border1">Ajouter</a>
+          </li>
+          <li (click)="navigateTo('settings')">
+            <a class="dropdown-item custom-border1">Paramètres</a>
+          </li>
+          <li *ngIf="isLoggedIn" (click)="navigateTo('user-product')">
+            <a class="dropdown-item custom-border1">Produit utilisateur</a>
+          </li>
+          <li *ngIf="isLoggedIn" style="color: red;" (click)="navigateTo('delete-account')">
+            <a class="dropdown-item custom-border1">Supprimer le compte</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <span class="rounded-circle bg-light p-2 mx-1 d-flex justify-content-center align-items-center" style="border-radius: 15px; border: 1px solid #fd7e14; width: 40px; height: 40px; cursor: pointer;">
+        <i class="fa-solid fa-heart"></i>
+      </span>
+    </li>
+  </ul>
+</div>
+
+<!-- Section visible uniquement sur les écrans de 992 pixels et moins -->
+<div class="col-12 d-lg-none text-center ">
+
+</div>
+
+
+
+    <!-- Barre de recherche -->
+    <div class="col-sm-12 offset-md-0 col-lg-5 d-lg-block">
+      <div class="search-bar row bg-light p-2 my-2 rounded-4" style="border-radius: 15px; border: 1px solid #fd7e14;  ">
+        <!-- Sélection de catégorie -->
+        <div class="col-md-4 d-none d-md-block">
+          <select class="form-select border-0 bg-transparent" (change)="navigateToSubCategory($event)">
+            <option>Toutes les catégories</option>
+            <!-- Boucle sur les catégories -->
+            <optgroup *ngFor="let category of categories" label="{{ category.name }}">
+              <!-- Boucle sur les sous-catégories de la catégorie actuelle -->
+              <option *ngFor="let subCategory of category.subCategories" [value]="subCategory.id">{{ subCategory.name }}</option>
+            </optgroup>
+          </select>
+        </div>
+        <!-- Recherche de produits -->
+        <div class="col-11 col-md-7" style="border: 1px solid #fd7e14; border-radius: 10px; margin-left: 15px;">
+          <form id="search-form" class="text-center d-flex" (ngSubmit)="onSearch($event)">
+            <input type="text" class="form-control border-0 bg-transparent flex-grow-1" placeholder="Recherchez plus de 20 000 produits" name="searchKeyword" [(ngModel)]="searchKeyword">
+            <button type="submit" style="background: none; border: none; padding: 0; margin-top: 5px;">
+                <i style="color: #fd7e14;" class="fa-solid fa-magnifying-glass fa-lg"></i>
+            </button>
+        </form>
+        
+          <!-- Dropdown des produits -->
+          <select id="search-results" class="form-select border-0 bg-transparent mt-2" style="display: none;">
+            <option disabled selected hidden>Résultats de la recherche</option>
+          </select>
         </div>
       </div>
     </div>
-  </header>
-  
+    </div>
 
+    
 
+  <div class="container-fluid" >
+    <div class="row py-3 d-none d-lg-flex">
+      <div class="d-flex  ">
+        <nav class="main-menu d-flex navbar navbar-expand-lg" style="margin-left: 120px;">
 
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar1">
+            <div class="offcanvas-header justify-content-center">
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+            </div>
+            <div class="offcanvas-body" >
+          
+              <select class="filter-categories border-1 mb-0 me-5" style="border-radius: 10px; border:1px solid #fd7e14;" (change)="navigateToSubCategory($event)" [(ngModel)]="selectedCategory">
+                <option value="all">Toutes les catégories</option>
+                <optgroup *ngFor="let category of categories" [label]="category.name" style="cursor: pointer;">
+                  <option *ngFor="let subCategory of category.subCategories" [value]="subCategory.id">
+                    {{ subCategory.name }}
+                  </option>
+                </optgroup>
+              </select>
+              
+
+              <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
+                  <li class="nav-item active" (click)="navigateTo('home')" style="cursor: pointer;">
+                    <a  class="nav-link custom-border" data-bs-dismiss="offcanvas" style="margin-bottom: 5px;">Accueil</a>
+                  </li>
+                </ul>
+                                
+                
+              
+          
+              <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0 d-lg-none">
+                  <li class="nav-item dropdown" *ngFor="let category of categories">
+                    <!-- Utilisation de la variable category.name pour afficher le nom de chaque catégorie -->
+                    <a class="nav-link dropdown-toggle custom-border"   style="margin-bottom: 5px;" role="button" id="categories" data-bs-toggle="dropdown" aria-expanded="false">{{ category.name }}</a>
+                    <ul class="dropdown-menu" aria-labelledby="categories">
+                      <!-- Boucle sur les catégories -->
+                      <li *ngFor="let subCategory of category.subCategories" [routerLink]="['/products', subCategory.id]">
+                        <a  class="dropdown-item custom-border"  data-bs-dismiss="offcanvas" style="margin-bottom: 5px; cursor: pointer;"   ><span class="badge bg-success text-dark ms-2">✔️</span> {{ subCategory.name }}</a>
+                      </li>
+                      <!-- Affichage du nom de la catégorie comme libellé du menu déroulant -->
+                    </ul>
+                  </li>
+                </ul>
+              
+            </div>
+          </div>
+          
+        </nav>
+
+      </div>
+    </div>
+  </div>
+</header>
