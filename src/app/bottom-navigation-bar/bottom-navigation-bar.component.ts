@@ -91,10 +91,7 @@ export class BottomNavigationBarComponent implements OnInit {
     this.selectedTab = tab;
   }
 
-  navigateToSubCategory(event: any): void {
-    const subCategoryId = event.target.value;
-    this.router.navigateByUrl(subCategoryId);
-  }
+
 
   async loadCategories(): Promise<void> {
     try {

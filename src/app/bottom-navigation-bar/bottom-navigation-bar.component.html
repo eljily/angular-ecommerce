@@ -19,11 +19,11 @@
     <div class="offcanvas-body">
       <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
         <li class="nav-item active" (click)="navigateTo('home')">
-          <a class="nav-link custom-border" style=" cursor: pointer;">Accueil</a>
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas" style=" cursor: pointer;">Accueil</a>
         </li>
       </ul>
       <div class="offcanvas-body" >
-        <ul class="navbar-nav justify-content-end menu-list  d-lg-none">
+        <ul class="navbar-nav justify-content-end menu-list ">
           <li class="nav-item dropdown" *ngFor="let category of categories">
             <a class="nav-link dropdown-toggle custom-border" role="button" id="categories" data-bs-toggle="dropdown" aria-expanded="false">{{ category.name }}</a>
             <ul class="dropdown-menu" aria-labelledby="categories">

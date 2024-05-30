@@ -244,7 +244,6 @@
     background-color: #fd7e14;
     top: 0;
     bottom: 0;
-    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -299,7 +298,6 @@
         height: 151px; 
        
     }
-
 
 }
 

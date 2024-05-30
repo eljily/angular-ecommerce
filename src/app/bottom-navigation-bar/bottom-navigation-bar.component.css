@@ -36,7 +36,8 @@ body {
   justify-content: center;
   color: var(--ion-color-medium);
   transition: color 0.3s;
-  padding: 10px 0;
+  margin-top: 5px;
+  padding: 5px 0;
   position: relative;
 }
 
@@ -71,6 +72,7 @@ body {
 }
 
 
+
 .custom-border {
   width: 90%;
 	border: 1px solid #fd7e14; /* Bordure de 2px de large, couleur #333 */
@@ -95,3 +97,7 @@ body {
     margin-left: 18px;
   }
 
+
+  .offcanvas-header {
+    z-index: 2; /* ou une valeur plus élevée si nécessaire */
+}
