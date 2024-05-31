@@ -5,7 +5,6 @@ import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from
 import { routes } from './app.routes';
 import { provideToastr } from 'ngx-toastr';
 import { provideRouter } from '@angular/router';
-import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from './animations-util';
 import { loadingSpinnerInterceptorFunctional, loggingInterceptorFunctional, responseTimeInterceptorFunctional, retryInterceptorFunctional } from './loading.service/functional.interceptor';
 

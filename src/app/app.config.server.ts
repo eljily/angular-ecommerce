@@ -6,6 +6,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
+    provideClientHydration()
     
   ]
 };
