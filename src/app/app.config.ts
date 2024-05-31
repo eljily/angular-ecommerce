@@ -15,17 +15,14 @@ import { loadingSpinnerInterceptorFunctional, loggingInterceptorFunctional, resp
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideClientHydration(),
     importProvidersFrom(HttpClientModule),
     provideHttpClient(withFetch(),withInterceptors([
-      loadingSpinnerInterceptorFunctional, 
-      responseTimeInterceptorFunctional,
-      retryInterceptorFunctional, 
-      loggingInterceptorFunctional, ])),
+    loadingSpinnerInterceptorFunctional, 
+    responseTimeInterceptorFunctional,
+    retryInterceptorFunctional, 
+    loggingInterceptorFunctional, ])),
     provideAnimationsAsync(),
     provideToastr(),
-    
-   
   ]
 };
 
