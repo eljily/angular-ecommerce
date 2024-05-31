@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, Injector } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, Injector,HostListener } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from './loading.service/loading-spinner.component';
 import { scrollPageToTop } from './app.routes';
 import { SearchResultsComponent } from './search/search-results.component';
+
+
+
 
 
 
@@ -76,4 +79,23 @@ export class AppComponent {
       }
     });
   }
+
+  @HostListener('window:unload', ['$event'])
+  unloadHandler(event: Event) {
+    // Logique pour gérer l'événement de déchargement
+    console.log('Window is about to be unloaded');
+    // Supprimer les écouteurs d'événements de l'extension Chrome
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
+      try {
+        chrome.runtime.onMessage.removeListener(handleExtensionEvents);
+      } catch (error) {
+        console.error('Error removing listener:', error);
+      }
+    }
+  }
+}
+
+// Fonction de gestion des événements de l'extension
+function handleExtensionEvents(message: any, sender: any, sendResponse: any) {
+  // Votre logique de gestion des messages
 }
