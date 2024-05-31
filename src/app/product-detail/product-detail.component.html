@@ -32,29 +32,29 @@
       <div class="col-lg-6 col-md-12">
         <div class="card product-box">
             <div class="d-flex justify-content-between align-items-center">
-                <strong class="name">{{ productDetails.name }}</strong>
-                <span class="pro-price">{{ productDetails.price }} MRU</span>
+                <strong class="name">{{ productDetails?.name }}</strong>
+                <span class="pro-price">{{ productDetails?.price }} MRU</span>
             </div>
           <div class="card-body">
             <div class="product_meta">
             <div>
       
-              <p> <i class="fa-solid fa-location-dot fa-beat" style="color: #fd7e14;"> </i> {{ productDetails.region }} , {{ productDetails.subRegion }}</p>
+              <p> <i class="fa-solid fa-location-dot fa-beat" style="color: #fd7e14;"> </i> {{ productDetails?.region }} , {{ productDetails?.subRegion }}</p>
             </div>
      
             <div class="product_meta">
               <span class="posted_in">
-                <strong>date : {{ productDetails.createDate }}</strong>
+                <strong>date : {{ productDetails?.createDate }}</strong>
               </span>
               <span class="tagged_as">
-                <strong>Vue : {{ productDetails.hit }}</strong>
+                <strong>Vue : {{ productDetails?.hit }}</strong>
               </span>
             </div>
             <p >
-              <button class="btn btn-round custom-border" type="button"><i class="fa fa-phone"></i> Numéro de téléphone :  {{ productDetails.vendorDetails.phoneNumber }}</button>
+              <button class="btn btn-round custom-border" type="button"><i class="fa fa-phone"></i> Numéro de téléphone :  {{ productDetails?.vendorDetails?.phoneNumber }}</button>
             </p>
            <p>
-            <button class="btn btn-round custom-border2" type="button"><i class="fa-brands fa-square-whatsapp"></i> Numéro WhatsApp :  {{ productDetails.vendorDetails.whatsappNumber }}</button>
+            <button class="btn btn-round custom-border2" type="button"><i class="fa-brands fa-square-whatsapp"></i> Numéro WhatsApp :  {{ productDetails?.vendorDetails?.whatsappNumber }}</button>
             </p>
           </div>
         </div>
@@ -67,7 +67,7 @@
             <div>
                 <strong>Description :</strong>
                 <div class="card-body">
-                <p>{{ productDetails.description }}</p>
+                <p>{{ productDetails?.description }}</p>
 
         </div>
       </div>
@@ -106,7 +106,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="xp-social-profile-title">
-                                        <h5 class="my-1 text-black">{{ productDetails.vendorDetails.name }}</h5>
+                                        <h5 class="my-1 text-black">{{ productDetails?.vendorDetails?.name }}</h5>
                                     </div>
                                 </div>
                             </div>

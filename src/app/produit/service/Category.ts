@@ -1,11 +1,9 @@
-interface CategoryWithSubMenu extends Category {
-  subCategories: SubCategory[];
-}
 
 export interface Category {
   id: number;
   name: string;
   subCategories: SubCategory[];
+  imageUrl: string;
 }
 
 export interface SubCategory {
@@ -14,7 +12,8 @@ export interface SubCategory {
   nameAr: string;
   createDate: Date;
   updateDate: Date;
-  categoryName: string; // Nom de la catégorie parente
+  categoryName: string; 
+  isSubMenuOpen: boolean;
 }
   
   export interface SubCategoryResponse {

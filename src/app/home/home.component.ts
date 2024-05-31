@@ -1,7 +1,7 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { forkJoin, mergeMap } from 'rxjs';
 import { FooterComponent } from '../layouts/footer/footer.component';
@@ -20,7 +20,7 @@ import { SliderComponent } from '../slider/slider.component';
   selector: 'app-home',
   standalone: true,
   
-  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,IonicModule,RouterModule, NgFor ,SliderComponent,CarouselModule,],
+  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,RouterModule, NgFor ,SliderComponent,CarouselModule,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

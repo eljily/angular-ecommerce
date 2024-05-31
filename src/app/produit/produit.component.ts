@@ -1,7 +1,7 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+
 import { Observable } from 'rxjs';
 import { SearchService } from '../search/search-service';
 import { Product } from './service/model';
@@ -10,7 +10,7 @@ import { ProductsService } from './service/products.service';
 @Component({
   selector: 'app-produit',
   standalone: true,
-  imports: [RouterModule, NgFor ,IonicModule,CommonModule],
+  imports: [RouterModule, NgFor ,CommonModule],
   templateUrl: './produit.component.html',
   styleUrls: ['./produit.component.css']
 })

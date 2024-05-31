@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-
-import { IonicModule } from '@ionic/angular';
 import { Product } from '../produit/service/model';
 import { CarouselModule } from 'primeng/carousel';
 import { ProductsService } from '../produit/service/products.service';
@@ -11,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [IonicModule ,CommonModule,CarouselModule ],
+  imports: [ CommonModule,CarouselModule ],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })

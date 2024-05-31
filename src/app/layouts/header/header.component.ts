@@ -19,14 +19,7 @@ import { SearchService } from '../../search/search-service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
-// Interface pour représenter une catégorie avec le menu déroulant des sous-catégories
-interface CategoryWithSubMenu {
-  id: number;
-  name: string;
-  subCategories: SubCategory[];
-  isSubMenuOpen: boolean;
-  
-}
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -41,11 +34,11 @@ export class HeaderComponent implements OnInit {
   searchResults: any[] = [];
   searchKeyword: string = '';
   currentUserSubject: BehaviorSubject<any>;
-  categories: CategoryWithSubMenu[] = [];
+  categories: Category[] = [];
   products: any[] = [];
   selectedCategory: string = 'all';
   isLoggedIn: boolean = false;
-  
+
   category: SubCategoryResponse = {
     status: null,
     message: 'Retrieved Sub categories By Category ID.',
@@ -62,8 +55,6 @@ export class HeaderComponent implements OnInit {
     'Home': 'pi pi-home',
     'Others': 'pi pi-user'
   };
-
-
 
   isSmallScreen: boolean = false;
   startIndex: number = 0;
@@ -106,8 +97,6 @@ export class HeaderComponent implements OnInit {
     this.loadCategories();
     this.loadProducts();
   }
-
-
 
   navigateTo(route: string): void {
     this.router.navigate([route]);
@@ -155,44 +144,38 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/products-details', productId]);
   }
 
-  toggleSubMenu(category: CategoryWithSubMenu): void {
-    console.log('Before toggle:', category.isSubMenuOpen);
+  toggleSubMenu(category: Category): void {
+    console.log('Before toggle:', category);
     console.log('Category:', category);
     if (category.subCategories && category.subCategories.length > 0) {
-      console.log('Subcategories:', category.subCategories);
-      category.isSubMenuOpen = !category.isSubMenuOpen;
+        console.log('Subcategories:', category.subCategories);
+        // Supprimez la logique qui utilise isSubMenuOpen
+        console.log('After toggle:', category);
     } else {
-      console.log('No subcategories found.');
+        console.log('No subcategories found.');
     }
-    console.log('After toggle:', category.isSubMenuOpen);
     this.cdr.detectChanges();
-  }
+}
+
 
   async loadCategories(): Promise<void> {
     try {
       const categories = await this.categoryService.getAllCategories().toPromise();
-      console.log('Categories:', categories);
       if (categories) {
         for (const category of categories) {
           const subCategories = await this.categoryService.getSubCategoriesByCategoryId(category.id).toPromise();
-          console.log('Subcategories for category', category.id, ':', subCategories);
-          if (subCategories) {
-            const categoryWithSubMenu: CategoryWithSubMenu = {
-              ...category,
-              isSubMenuOpen: false,
-              subCategories: subCategories
-            };
-            this.categories.push(categoryWithSubMenu);
-          } else {
-            console.log('No subcategories found for category', category.id);
-          }
+          const categoryWithSubCategories: Category = {
+            ...category,
+            subCategories: subCategories || [] // Assurez-vous que subCategories est un tableau même s'il est null
+          };
+          this.categories.push(categoryWithSubCategories);
         }
-        console.log('Categories with subcategories:', this.categories);
       }
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
   }
+  
 
   private loadProducts(): void {
     this.productService.getAllProducts().subscribe(
@@ -205,28 +188,27 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-// Méthode de recherche
-onSearch(event: Event): void {
-  event.preventDefault();
-  const form = event.target as HTMLFormElement;
-  const input = form.elements.namedItem('searchKeyword') as HTMLInputElement;
-  const keyword = input.value.trim();
+  // Méthode de recherche
+  onSearch(event: Event): void {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const input = form.elements.namedItem('searchKeyword') as HTMLInputElement;
+    const keyword = input.value.trim();
 
-  if (keyword) {
-    this.productService.getProductsByKeyword(keyword).subscribe(
-      (response: any[]) => {
-        this.searchService.updateSearchResults(response); // Transmet les résultats au service partagé
-        console.log('Résultats de la recherche:', response);
-        this.router.navigate(['/search-results'], { queryParams: { keyword } }); // Redirige vers la page de résultats de recherche
-      },
-      (error: any) => {
-        console.error('Erreur lors de la recherche de produits:', error);
-      }
-    );
+    if (keyword) {
+      this.productService.getProductsByKeyword(keyword).subscribe(
+        (response: any[]) => {
+          this.searchService.updateSearchResults(response); // Transmet les résultats au service partagé
+          console.log('Résultats de la recherche:', response);
+          this.router.navigate(['/search-results'], { queryParams: { keyword } }); // Redirige vers la page de résultats de recherche
+          this.router.navigate(['/search-results'], { queryParams: { keyword } }); // Redirige vers la page de résultats de recherche
+        },
+        (error: any) => {
+          console.error('Erreur lors de la recherche de produits:', error);
+        }
+      );
+    }
   }
-}
-
-
 
   // Méthodes pour la navigation par catégorie
   previousCategory() {

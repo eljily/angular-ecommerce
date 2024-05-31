@@ -1,7 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, Injector } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { BottomNavigationBarComponent } from './bottom-navigation-bar/bottom-navigation-bar.component';
@@ -27,7 +27,6 @@ import { SearchResultsComponent } from './search/search-results.component';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    IonicModule,
     HeaderComponent,
     FooterComponent,
     BottomNavigationBarComponent,

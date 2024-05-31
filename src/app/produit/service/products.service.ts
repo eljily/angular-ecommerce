@@ -88,7 +88,7 @@ export class ProductsService {
     this.searchResultsSubject.next(results);
   }
 
-  // Nouvelle méthode pour récupérer les catégories
+ 
   getAllCategories(): Observable<any> {
     return this.http.get(`${this.apiUrl}/categories`);
   }
