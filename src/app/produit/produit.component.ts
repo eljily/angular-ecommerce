@@ -4,8 +4,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { SearchService } from '../search/search-service';
-import { Product } from './service/model';
-import { ProductsService } from './service/products.service';
+import { Product } from '../service/model/model';
+import { ProductsService } from '../service/products.service';
 
 @Component({
   selector: 'app-produit',

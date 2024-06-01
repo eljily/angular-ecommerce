@@ -2,14 +2,14 @@ import { ChangeDetectorRef, Inject, NgModule, PLATFORM_ID } from '@angular/core'
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { AuthService } from '../../auth/service/auth.service';
+import { AuthService } from '../../service/auth.service';
 import { MenuItem } from 'primeng/api';
-import { Category, SubCategory, SubCategoryResponse } from '../../produit/service/Category';
-import { CategoryService } from './category.service';
-import { ProductsService } from '../../produit/service/products.service';
+import { Category, SubCategory, SubCategoryResponse } from '../../service/model/Category';
+import { CategoryService } from '../../service/category.service';
+import { ProductsService } from '../../service/products.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
-import { UserService } from '../../profile/UserService';
+import { UserService } from '../../service/UserService';
 import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 

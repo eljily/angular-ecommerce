@@ -6,7 +6,7 @@ import { routes } from './app.routes';
 import { provideToastr } from 'ngx-toastr';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from './animations-util';
-import { loadingSpinnerInterceptorFunctional, loggingInterceptorFunctional, responseTimeInterceptorFunctional, retryInterceptorFunctional } from './loading.service/functional.interceptor';
+import { loadingSpinnerInterceptorFunctional, loggingInterceptorFunctional, newPrefixInterceptorFunctional, responseTimeInterceptorFunctional } from './loading.service/functional.interceptor';
 
 
 
@@ -16,9 +16,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     importProvidersFrom(HttpClientModule),
     provideHttpClient(withFetch(),withInterceptors([
+    newPrefixInterceptorFunctional,
     loadingSpinnerInterceptorFunctional, 
     responseTimeInterceptorFunctional,
-    retryInterceptorFunctional, 
     loggingInterceptorFunctional, ])),
     provideAnimationsAsync(),
     provideToastr(),

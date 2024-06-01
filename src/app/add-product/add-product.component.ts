@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { ProductsService } from '../produit/service/products.service';
-import { CategoryService } from '../layouts/header/category.service';
+import { ProductsService } from '../service/products.service';
+import { CategoryService } from '../service/category.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Category, SubCategory } from '../produit/service/Category';
+import { Category, SubCategory } from '../service/model/Category';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FieldsetModule } from 'primeng/fieldset';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/service/auth.service';
+import { AuthService } from '../service/auth.service';
 
 import { ToastrService } from 'ngx-toastr';
 

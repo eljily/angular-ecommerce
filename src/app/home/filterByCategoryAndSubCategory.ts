@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Product } from '../produit/service/model';
+import { Product } from '../service/model/model';
  // Assurez-vous d'importer votre modèle de produit
 
 @Pipe({

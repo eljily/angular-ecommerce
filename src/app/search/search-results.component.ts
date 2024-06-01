@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ProductsService } from '../produit/service/products.service';
+import { ProductsService } from '../service/products.service';
 import { SearchService } from './search-service';
 
 

@@ -5,12 +5,12 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { forkJoin, mergeMap } from 'rxjs';
 import { FooterComponent } from '../layouts/footer/footer.component';
-import { CategoryService } from '../layouts/header/category.service';
+import { CategoryService } from '../service/category.service';
 import { HeaderComponent } from '../layouts/header/header.component';
 import { ProduitComponent } from '../produit/produit.component';
-import { Category, SubCategory } from '../produit/service/Category';
-import { Product } from '../produit/service/model';
-import {ProductsService} from '../produit/service/products.service'
+import { Category, SubCategory } from '../service/model/Category';
+import { Product } from '../service/model/model';
+import {ProductsService} from '../service/products.service'
 import { SliderComponent } from '../slider/slider.component';
 
 
@@ -52,13 +52,12 @@ export class HomeComponent implements OnInit {
   isDesktopView: boolean = false;
 
 
-  constructor(private productService: ProductsService) {}
+  constructor(private productService: ProductsService,private categoryService: CategoryService) {}
 
   ngOnInit(): void {
     this.productService.getAllWithProducts().subscribe(
       (data: any) => {
         console.log('Données récupérées:', data);
-
         if (data && data.data && Array.isArray(data.data)) {
           this.productsData = data.data;
         } else {
@@ -70,7 +69,7 @@ export class HomeComponent implements OnInit {
       }
     );
 
-    this.productService.getAllCategories().subscribe(
+    this.categoryService.getAllCategories().subscribe(
       (categories: any[]) => {
         this.categories = categories;
       },

@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from './loading.service/loading-spinner.component';
 import { scrollPageToTop } from './app.routes';
 import { SearchResultsComponent } from './search/search-results.component';
+import { environment } from '../environement/environement';
 
 
 
@@ -61,7 +62,7 @@ export class AppComponent {
   ) {}
 
   getData() {
-    this.http.get('http://localhost:8081').subscribe(
+    this.http.get(`${environment.apiUrl}/data`).subscribe(
       (response) => {
         console.log('Response:', response);
       },

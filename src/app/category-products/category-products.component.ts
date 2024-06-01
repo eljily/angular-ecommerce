@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ProductsService } from '../produit/service/products.service';
-import { Category } from '../produit/service/Category';
+import { ProductsService } from '../service/products.service';
+import { Category } from '../service/model/Category';
 import { CommonModule } from '@angular/common';
 
 @Component({

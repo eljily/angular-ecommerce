@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AuthService } from '../auth/service/auth.service';
+import { AuthService } from '../service/auth.service';
 import { RegisterDto, ResponseMessage } from './model';
-import { UserService } from './UserService';
+import { UserService } from '../service/UserService';
 
 
 

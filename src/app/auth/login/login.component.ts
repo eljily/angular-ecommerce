@@ -3,7 +3,7 @@ import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup ,Validators,ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '../../layouts/header/header.component';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../../service/auth.service';
 import { JwtDecoderService } from '../service/jwt.service';
 import { ToastrService } from 'ngx-toastr';
 

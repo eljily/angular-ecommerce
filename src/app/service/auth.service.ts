@@ -2,11 +2,11 @@ import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-import { RegisterDto, AuthRequestDto, ResponseMessage, AuthResponseDto , } from '../../profile/model'; 
+import { RegisterDto, AuthRequestDto, ResponseMessage, AuthResponseDto , } from '../profile/model'; 
 import { isPlatformBrowser } from '@angular/common';
-import { JwtDecoderService } from './jwt.service';
-import { UserService } from '../../profile/UserService';
-import { environment } from '../../../environement/environement';
+import { JwtDecoderService } from '../auth/service/jwt.service';
+import { UserService } from './UserService';
+import { environment } from '../../environement/environement';
 
 
 @Injectable({

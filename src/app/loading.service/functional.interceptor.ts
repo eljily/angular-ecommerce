@@ -3,6 +3,25 @@ import { inject } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError, finalize, retry } from 'rxjs/operators';
 import { LoadingService } from './loading.service';
+import { environment } from '../../environement/environement';
+
+
+
+
+
+export const newPrefixInterceptorFunctional: HttpInterceptorFn = (req, next) => {
+  const apiUrl = environment.apiUrl;
+
+  // Vérifier si l'URL de la requête est relative
+  const isRelativeUrl = !req.url.startsWith('http://') && !req.url.startsWith('https://');
+
+  // Ajouter le préfixe uniquement si l'URL est relative
+  const apiReq = isRelativeUrl ? req.clone({ url: `${apiUrl}/${req.url}` }) : req;
+
+  return next(apiReq);
+};
+
+
 
 // Server Response Time Interceptor
 export const responseTimeInterceptorFunctional: HttpInterceptorFn = (req, next) => {
@@ -28,18 +47,6 @@ export const loadingSpinnerInterceptorFunctional: HttpInterceptorFn = (req, next
   );
 };
 
-
-export const retryInterceptorFunctional: HttpInterceptorFn = (req, next) => {
-  const maxRetries = 3;
-
-  return next(req).pipe(
-    retry(maxRetries),
-    catchError((error: HttpErrorResponse) => {
-      console.error('Retry Interceptor Functional Error:', error);
-      return throwError(()=> error);
-    })
-  );
-};
 
 
 export const loggingInterceptorFunctional: HttpInterceptorFn = (req, next) => {

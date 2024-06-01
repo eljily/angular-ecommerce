@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, Subject, throwError } from 'rxjs';
-import { environment } from '../../../environement/environement';
-import { AuthService } from '../../auth/service/auth.service'
+import { environment } from '../../environement/environement';
+import { AuthService } from './auth.service'
 
 @Injectable({
   providedIn: 'root'
@@ -89,10 +89,6 @@ export class ProductsService {
   }
 
  
-  getAllCategories(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/categories`);
-  }
-
   AllgetProductsByCategoryId(categoryId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/products/productsByCategoryId/${categoryId}`);
   }

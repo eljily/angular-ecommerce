@@ -4,9 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
-import { AuthService } from '../auth/service/auth.service';
-import { CategoryService } from '../layouts/header/category.service';
-import { UserService } from '../profile/UserService';
+import { AuthService } from '../service/auth.service';
+import { CategoryService } from '../service/category.service';
+import { UserService } from '../service/UserService';
 import { SearchService } from '../search/search-service';
 import { SharedNavigationService } from './shared-navigation.service';
 

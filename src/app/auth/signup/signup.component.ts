@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { HeaderComponent } from '../../layouts/header/header.component';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from '../../service/auth.service';
 import { RegisterDto } from '../../profile/model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
