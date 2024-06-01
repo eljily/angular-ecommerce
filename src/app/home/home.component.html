@@ -1,6 +1,5 @@
 <app-slider></app-slider>
 
-
 <section>
   <div class="pt-5" style="padding: 30px;">
     <div class="container-fluid">
@@ -41,47 +40,42 @@
   </div>
 </section>
 
-
-
-
-
 <carousel class="carousel">
   <slide *ngFor="let slide of slides" class="carousel-item">
-    <img style="height: 151; width: 100%;" [src]="slide.image" alt="Ad" class="d-block w-100">
+    <img style="height: 151px; width: 100%;" [src]="slide.image" alt="Ad" class="d-block w-100">
   </slide>
 </carousel>
-
-  
-
-<!-- Affichage de tous les produits sans catégorie spécifique -->
-
 
 <!-- Affichage des produits par catégorie et sous-catégorie -->
 
 <div class="container-fluid produit py-4">
-  <div class="col-md-12 mx-md-50" *ngFor="let categoryItem of productsData; let i = index">
+  <div class="col-md-12 mx-md-50" *ngFor="let category of productsData; let i = index">
     <div class="title">
       <div style="float: left;">
-        <i class="fa-solid fa-list fa-beat-fade" style="color: #f08c00; border: 1px solid; padding: 0.1em;"></i>
-        <span>{{ categoryItem.name }}</span>
+        <img [src]="category.imageUrl" alt="Category Image"
+          style="max-width: 20px; max-height: 20px; border: 1px solid #f08c00; padding: 0.1em;">
+        <span>{{ category.name }}</span>
       </div>
       <div style="float: right;">
-        <span [routerLink]="'/category-products/' + categoryItem.id" style="color: #fd7e14; font-size: 0.8em; cursor: pointer;">Voir plus >></span>
+        <span [routerLink]="'/category-products/' + category.id" style="color: #fd7e14; font-size: 0.8em; cursor: pointer;">Voir
+          plus >></span>
       </div>
     </div>
 
     <!-- Conteneur des produits avec défilement à partir de 768px -->
     <div class="products-container position-relative" *ngIf="isDesktopView">
-      <button *ngIf="canScrollLeft(categoryItem.id)" class="btn btn-primary btn-nav left-nav" (click)="scrollLeft(categoryItem.id)"><i class="fa fa-chevron-left"></i></button>
-      <div class="products-row row flex-nowrap overflow-hidden" [attr.data-category-id]="categoryItem.id">
-        <div class="col-6 col-sm-4 col-md-3 col-lg-2" [routerLink]="['/product-details', product.id]" *ngFor="let product of categoryItem.products">
+      <button *ngIf="canScrollLeft(category.id)" class="btn btn-primary btn-nav left-nav" (click)="scrollLeft(category.id)"><i
+          class="fa fa-chevron-left"></i></button>
+      <div class="products-row row flex-nowrap overflow-hidden" [attr.data-category-id]="category.id">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2" [routerLink]="['/product-details', product.id]"
+          *ngFor="let product of category.products">
           <div class="rounded position-relative produit-item" style="cursor: pointer;">
             <div class="produit-img">
               <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name" class="img-fluid w-100 rounded-top">
             </div>
             <div class="text-white bg-secondary px-2 py-1 rounded position-absolute" style="top: 5px; right: 5px; font-size: 0.9rem;"><i class="fa fa-eye fa-xs"></i> {{ product.hit }}</div>
             <div class="p-2 border-top-0 rounded-bottom products-border">
-              <p class="text-dark  fw-bold mb-0"
+              <p class="text-dark fw-bold mb-0"
                 style="font-size: 0.8rem; letter-spacing: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700">
                 {{ product.name }}</p>
               <div class="d-flex justify-content-between align-items-center">
@@ -91,19 +85,22 @@
                 </p>
               </div>
               <div class="product-border">
-                <a class="btn rounded-pill px-2" style="font-size: 0.8rem; width: 100%; color: #fff;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ product.price + " MRU" }}</a>
+                <a class="btn rounded-pill px-2"
+                  style="font-size: 0.8rem; width: 100%; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{
+                  product.price + " MRU" }}</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button *ngIf="canScrollRight(categoryItem.id)" class="btn btn-primary btn-nav right-nav" (click)="scrollRight(categoryItem.id)"><i class="fa fa-chevron-right"></i></button>
+      <button *ngIf="canScrollRight(category.id)" class="btn btn-primary btn-nav right-nav"
+        (click)="scrollRight(category.id)"><i class="fa fa-chevron-right"></i></button>
     </div>
 
     <!-- Affichage des produits sans défilement sur mobile -->
     <div class="row" *ngIf="!isDesktopView">
       <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-1 px-1" [routerLink]="['/product-details', product.id]"
-        *ngFor="let product of categoryItem.products">
+        *ngFor="let product of category.products">
         <div class="rounded position-relative produit-item" style="cursor: pointer;">
           <div class="produit-img">
             <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name" class="img-fluid w-100 rounded-top">
@@ -115,7 +112,7 @@
 
           <div class="p-2 border-top-0 rounded-bottom products-border">
             <p class="text-dark fw-bold mb-0"
-              style="font-size: 0.7rem; letter-spacing: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700">
+               style="font-size: 0.7rem; letter-spacing: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700">
               {{ product.name }}
             </p>
             <div class="d-flex justify-content-between align-items-center">
@@ -127,7 +124,7 @@
             </div>
             <div class="product-border">
               <a class="btn rounded-pill px-2"
-                style="font-size: 12px; width: 100%; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                 style="font-size: 12px; width: 100%; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                 {{ product.price + " MRU" }}
               </a>
             </div>
@@ -136,18 +133,13 @@
       </div>
     </div>
     
-
     <!-- Publicité après chaque 2 catégories -->
     <div *ngIf="(i + 1) % 4 === 0 && (i + 1) / 4 - 1 < adGroups.length" class="advertisement my-4">
       <carousel class="carousel">
         <slide *ngFor="let ad of adGroups[(i + 1) / 4 - 1]" class="carousel-item">
-          <img style="height: 151; width: 100%;" [src]="ad.imageUrl" alt="Ad" class="d-block w-100">
+          <img style="height: 151px; width: 100%;" [src]="ad.imageUrl" alt="Ad" class="d-block w-100">
         </slide>
       </carousel>
     </div>
   </div>
 </div>
-
-
-
-

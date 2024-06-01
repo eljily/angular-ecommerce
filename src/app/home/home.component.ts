@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.productService.getAllWithProducts().subscribe(
       (data: any) => {
-        console.log('Données récupérées:', data);
+        console.log('Données récupérées data:', data);
         if (data && data.data && Array.isArray(data.data)) {
           this.productsData = data.data;
         } else {
@@ -85,6 +85,8 @@ export class HomeComponent implements OnInit {
       this.checkScreenSize();
     });
   }
+
+  
 
   // Méthode pour vérifier la taille de l'écran et définir isDesktopView en conséquence
   checkScreenSize() {

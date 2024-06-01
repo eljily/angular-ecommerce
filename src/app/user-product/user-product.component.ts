@@ -62,18 +62,15 @@ export class UserProductComponent  implements OnInit {
       }
     }
 
-    deleteAd(ad: any): void {
-      if (confirm('Are you sure you want to delete this ad?')) {
-        this.productService.deleteProductById(ad.id).subscribe(
-          () => {
-            // Supprimer l'annonce supprimée du tableau des annonces
-            this.userProducts = this.userProducts.filter((item) => item.id !== ad.id);
-          },
-          (error) => {
-            console.error('Error deleting ad:', error);
-          }
-        );
-      }
+    deleteProduct(product: any): void {
+      this.productService.deleteProductById(product.id).subscribe(
+        () => {
+          // Supprimer le produit supprimé du tableau des produits de l'utilisateur
+          this.userProducts = this.userProducts.filter((item) => item.id !== product.id);
+        },
+        (error) => {
+          console.error('Error deleting product:', error);
+        }
+      );
     }
-    
-  }
+  }    
