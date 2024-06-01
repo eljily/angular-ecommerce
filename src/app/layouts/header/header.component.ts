@@ -17,13 +17,15 @@ import { SharedNavigationService } from '../../bottom-navigation-bar/shared-navi
 import { FormsModule } from '@angular/forms';
 import { SearchService } from '../../search/search-service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { Region } from '../../service/model/Region';
+import { RegionService } from '../../service/region.service';
 
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink,CommonModule,MatMenuModule ,HttpClientModule,FormsModule,  NgbDropdownModule],
+  imports: [RouterLink,CommonModule,MatMenuModule ,HttpClientModule,FormsModule,  NgbDropdownModule ,CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -36,6 +38,7 @@ export class HeaderComponent implements OnInit {
   currentUserSubject: BehaviorSubject<any>;
   categories: Category[] = [];
   products: any[] = [];
+  regions: Region[] = [];
   selectedCategory: string = 'all';
   isLoggedIn: boolean = false;
 
@@ -68,6 +71,7 @@ export class HeaderComponent implements OnInit {
     private productService: ProductsService,
     private sharedNavigationService: SharedNavigationService,
     private router: Router,
+    private regionService: RegionService,
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object,
     private searchService: SearchService
@@ -95,8 +99,22 @@ export class HeaderComponent implements OnInit {
     });
 
     this.loadCategories();
+    this.loadRegions();
     this.loadProducts();
   }
+
+  loadRegions(): void {
+    this.regionService.getAllRegions().subscribe(
+      (response: any) => {
+        this.regions = response.data; // Peuplez regions avec les données récupérées du service
+        console.log('Regions loaded:', this.regions); // Vérifiez les données dans la console
+      },
+      (error: any) => {
+        console.error('Error fetching regions:', error);
+      }
+    );
+  }
+  
 
   navigateTo(route: string): void {
     this.router.navigate([route]);
@@ -209,6 +227,21 @@ export class HeaderComponent implements OnInit {
       );
     }
   }
+
+  navigateToSubRegion(event: any): void {
+    const subRegionId = event.target.value;
+    console.log('Selected subregion ID:', subRegionId); // Vérifiez la valeur de subRegionId dans la console
+    if (subRegionId === 'all') {
+        this.router.navigate(['/home']);
+    } else {
+        this.router.navigate(['/sub-region-products', subRegionId]);
+    }
+}
+
+  
+
+
+  
 
   // Méthodes pour la navigation par catégorie
   previousCategory() {

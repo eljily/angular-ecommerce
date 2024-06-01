@@ -42,7 +42,7 @@ export const loadingSpinnerInterceptorFunctional: HttpInterceptorFn = (req, next
 
   return next(req).pipe(
     finalize(() => {
-      loadingService.hideLoadingSpinnerWithDelay(1000);
+      loadingService.hideLoadingSpinnerWithDelay(0);
     })
   );
 };

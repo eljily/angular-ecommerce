@@ -55,4 +55,29 @@ export class ProductDetailComponent implements OnInit {
   addToggle() {
     this.status = !this.status;
   }
+  calculateDateAgo(createDate: Date | undefined): string{
+    if (!createDate) {
+      return ''; // Si la date est undefined, retourner une chaîne vide
+    }
+    // Convertir la chaîne createDate en objet Date
+    const createDateObj = new Date(createDate);
+  
+    // Obtenir la date actuelle
+    const currentDate = new Date();
+  
+    // Calculer la différence en millisecondes entre les deux dates
+    const differenceInMs = currentDate.getTime() - createDateObj.getTime();
+  
+    // Convertir la différence en jours
+    const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+  
+    // Soustraire 3 jours de la différence pour obtenir la date il y a 3 jours
+    const dateAgo = new Date(currentDate.getTime() - (3 * 24 * 60 * 60 * 1000));
+  
+    // Formater la date en format lisible
+    const formattedDateAgo = `${dateAgo.toLocaleDateString('fr-FR')}`;
+  
+    return formattedDateAgo;
+  }
+  
 }

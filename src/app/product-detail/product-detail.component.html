@@ -32,29 +32,33 @@
       <div class="col-lg-6 col-md-12">
         <div class="card product-box">
             <div class="d-flex justify-content-between align-items-center">
-                <strong class="name">{{ productDetails?.name }}</strong>
+                <strong class="name" style="max-width: 50%;">{{ productDetails?.name }}</strong>
                 <span class="pro-price">{{ productDetails?.price }} MRU</span>
             </div>
           <div class="card-body">
             <div class="product_meta">
             <div>
       
-              <p> <i class="fa-solid fa-location-dot fa-beat" style="color: #fd7e14;"> </i> {{ productDetails?.region }} , {{ productDetails?.subRegion }}</p>
+              <p> <i class="fa-solid fa-location-dot fa-beat" style="color: #fd7e14;"> </i> {{ productDetails?.region }} , {{
+                productDetails?.subRegion }}</p>
             </div>
      
             <div class="product_meta">
               <span class="posted_in">
-                <strong>date : {{ productDetails?.createDate }}</strong>
+                <strong> <i class="fa-solid fa-calendar-days" style="color: #fd7e14;"></i> {{ productDetails?.createDate ?
+                  calculateDateAgo(productDetails?.createDate) : '' }}</strong>
               </span>
               <span class="tagged_as">
-                <strong>Vue : {{ productDetails?.hit }}</strong>
+                <strong><i class="fa-solid fa-eye" style="color: #fd7e14;"></i> {{ productDetails?.hit }}</strong>
               </span>
             </div>
             <p >
-              <button class="btn btn-round custom-border" type="button"><i class="fa fa-phone"></i> Numéro de téléphone :  {{ productDetails?.vendorDetails?.phoneNumber }}</button>
+              <button class="btn btn-round custom-border" type="button"><i class="fa fa-phone"></i> +222 {{
+                productDetails?.vendorDetails?.phoneNumber }}</button>
             </p>
            <p>
-            <button class="btn btn-round custom-border2" type="button"><i class="fa-brands fa-square-whatsapp"></i> Numéro WhatsApp :  {{ productDetails?.vendorDetails?.whatsappNumber }}</button>
+            <button class="btn btn-round custom-border2" type="button"><i class="fa-brands fa-square-whatsapp"></i> +222 {{
+              productDetails?.vendorDetails?.whatsappNumber }}</button>
             </p>
           </div>
         </div>
@@ -65,7 +69,7 @@
         <div class="card product-box">
 
             <div>
-                <strong>Description :</strong>
+                <strong style="color: #fd7e14;">Description</strong>
                 <div class="card-body">
                 <p>{{ productDetails?.description }}</p>
 
@@ -122,7 +126,7 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="xp-social-profile-followers pt-3">
-                                        <h5 class="text-black my-1">278k</h5>
+                                        <h5 class="text-black my-1">278</h5>
                                         <p class="mb-0 text-muted">Annonces</p>
                                     </div>
                                 </div>
