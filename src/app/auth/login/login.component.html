@@ -1,7 +1,7 @@
 <div class="container-xl px-4 mt-4">
   <hr class="mt-0 mb-4 form-card">
   <div class="card mb-4 form-card">
-    <div class="card-header">Se connecter</div>
+    <div class="card-header">{{ 'connexion.login' | translate }}</div>
     <div class="card-body">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <!-- Afficher le message d'erreur -->
@@ -11,32 +11,34 @@
           </div>
         </div>
         <div class="mb-3">
-          <label class="small mb-1" for="phoneNumber">Numéro de téléphone</label>
+          <label class="small mb-1" for="phoneNumber">{{ 'connexion.phone_number' | translate }}</label>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-phone"></i></span>
             </div>
-            <input class="form-control" id="phoneNumber" formControlName="phoneNumber" type="tel" placeholder="Entrez votre numéro de téléphone" required>
+            <input class="form-control" id="phoneNumber" formControlName="phoneNumber" type="tel"
+              placeholder="{{ 'connexion.enter_phone_number' | translate }}" required>
           </div>
           <div *ngIf="loginForm.get('phoneNumber')?.invalid && (loginForm.get('phoneNumber')?.dirty || loginForm.get('phoneNumber')?.touched)">
-            <small class="text-danger">Numéro de téléphone requis</small>
+            <small class="text-danger">{{ 'connexion.phone_number_required' | translate }}</small>
           </div>
         </div>
         <div class="mb-3">
-          <label class="small mb-1" for="password">Mot de passe</label>
+          <label class="small mb-1" for="password">{{ 'connexion.password' | translate }}</label>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-lock"></i></span>
             </div>
-            <input class="form-control" id="password" formControlName="password" type="password" placeholder="Entrez votre mot de passe" required>
+            <input class="form-control" id="password" formControlName="password" type="password"
+              placeholder="{{ 'connexion.enter_password' | translate }}" required>
           </div>
           <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
-            <small class="text-danger">Mot de passe requis</small>
+            <small class="text-danger">{{ 'connexion.password_required' | translate }}</small>
           </div>
         </div>
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <a href="#">Mot de passe oublié?</a>
-          <button class="btn btn-primary custom-border" type="submit">Se connecter</button>
+          <a href="#">{{ 'connexion.forgot_password' | translate }}</a>
+          <button class="btn btn-primary custom-border" type="submit">{{ 'connexion.login_button' | translate }}</button>
         </div>
       </form>
     </div>

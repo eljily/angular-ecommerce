@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, Injector,HostListener } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, Injector,HostListener, inject, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
@@ -13,6 +13,8 @@ import { LoadingSpinnerComponent } from './loading.service/loading-spinner.compo
 import { scrollPageToTop } from './app.routes';
 import { SearchResultsComponent } from './search/search-results.component';
 import { environment } from '../environement/environement';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 
 
 
@@ -35,6 +37,7 @@ import { environment } from '../environement/environement';
     FooterComponent,
     BottomNavigationBarComponent,
     LoadingSpinnerComponent,
+    TranslateModule
     
 
 
@@ -52,8 +55,10 @@ import { environment } from '../environement/environement';
   ]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angular-ecommerce';
+
+  translateService= inject(TranslateService);
 
   constructor(
     private http: HttpClient,
@@ -79,7 +84,10 @@ export class AppComponent {
         this.scrollPageToTop();
       }
     });
+
+    this.translateService.setDefaultLang('ar');
   }
+
 
   @HostListener('window:unload', ['$event'])
   unloadHandler(event: Event) {

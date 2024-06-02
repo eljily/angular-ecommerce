@@ -9,19 +9,6 @@ import { environment } from '../../environement/environement';
 
 
 
-export const newPrefixInterceptorFunctional: HttpInterceptorFn = (req, next) => {
-  const apiUrl = environment.apiUrl;
-
-  // Vérifier si l'URL de la requête est relative
-  const isRelativeUrl = !req.url.startsWith('http://') && !req.url.startsWith('https://');
-
-  // Ajouter le préfixe uniquement si l'URL est relative
-  const apiReq = isRelativeUrl ? req.clone({ url: `${apiUrl}/${req.url}` }) : req;
-
-  return next(apiReq);
-};
-
-
 
 // Server Response Time Interceptor
 export const responseTimeInterceptorFunctional: HttpInterceptorFn = (req, next) => {

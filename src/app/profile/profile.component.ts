@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { RegisterDto, ResponseMessage } from './model';
 import { UserService } from '../service/UserService';
+import { TranslateMessageFormatDebugCompiler } from 'ngx-translate-messageformat-compiler';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [  FormsModule ,CommonModule],
+  imports: [  FormsModule ,CommonModule,TranslateModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

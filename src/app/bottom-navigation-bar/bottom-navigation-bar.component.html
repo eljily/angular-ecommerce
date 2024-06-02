@@ -1,29 +1,29 @@
 <div class="navbar">
   <div class="nav-item" (click)="navigateTo('home')" style="cursor: pointer;">
     <i class="fas fa-home"></i>
-    <span>Accueil</span>
+    <span>{{ 'button-mobile.home' | translate }}</span>
   </div>
 
   <!-- Menu Categories -->
   <div class="nav-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCategories" aria-controls="offcanvasCategories">
     <i class="fa-solid fa-list"></i>
-    <span>Categories</span>
+    <span>{{ 'button-mobile.categories' | translate }}</span>
   </div>
   
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCategories" >
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCategories">
     <div class="offcanvas-header justify-content-center" style="margin-right: 20px; margin-top: 15px;">
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="ferme"></button>
     </div>
-
 
     <div class="offcanvas-body">
       <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
         <li class="nav-item active" (click)="navigateTo('home')">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas" style=" cursor: pointer;">Accueil</a>
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas" style=" cursor: pointer;">{{ 'button-mobile.home' |
+            translate }}</a>
         </li>
       </ul>
-      <div class="offcanvas-body" >
-        <ul class="navbar-nav justify-content-end menu-list ">
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end menu-list">
           <li class="nav-item dropdown" *ngFor="let category of categories">
             <a class="nav-link dropdown-toggle custom-border" role="button" id="categories" data-bs-toggle="dropdown" aria-expanded="false">{{ category.name }}</a>
             <ul class="dropdown-menu" aria-labelledby="categories">
@@ -39,62 +39,57 @@
     </div>
   </div>
 
-
-  
-
-
   <div class="nav-item" (click)="navigateTo('add-product')" style="cursor: pointer;">
     <i class="fa-solid fa-square-plus"></i>
-    <span>Publier</span>
+    <span>{{ 'button-mobile.publish' | translate }}</span>
   </div>
 
   <!-- Menu Profil -->
   <div class="nav-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasProfil" aria-controls="offcanvasProfil">
     <i class="fa-solid fa-user"></i>
-    <span>Profil</span>
+    <span>{{ 'button-mobile.profile' | translate }}</span>
   </div> 
 
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasProfil">
     <div class="offcanvas-header justify-content-center" style="margin-right: 20px; margin-top: 15px;">
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="ferme"></button>
     </div>
     <div class="offcanvas-body" style="margin-top: 5px;">
       <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
         <li class="nav-item active" (click)="navigateTo('profile')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">Profil</a>
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.profile' | translate }}</a>
         </li>
         <li class="nav-item active" (click)="navigateTo('forgot-password')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">Changer le mot de passe</a>
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.change_password' | translate }}</a>
         </li>
         <li class="nav-item active" (click)="navigateTo('add-product')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">Ajouter un produit</a>
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.add_product' | translate }}</a>
         </li>
         <li class="nav-item active" (click)="navigateTo('settings')" style="cursor: pointer;">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">Paramètres</a>
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.settings' | translate }}</a>
         </li>
         <li class="nav-item active" (click)="navigateTo('user-product')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">Produit utilisateur</a>
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.user_product' | translate }}</a>
         </li>
         <li class="nav-item active" (click)="navigateTo('delete-account')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">Supprimer le compte</a>
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.delete_account' | translate }}</a>
         </li>
 
-        <li *ngIf="isUserLoggedIn(); else notLoggedIn" class="d-flex align-items-center  ma">
+        <li *ngIf="isUserLoggedIn(); else notLoggedIn" class="d-flex align-items-center ma">
           <a *ngIf="currentUser" class="custom-border" data-bs-dismiss="offcanvas"
             style="text-decoration:none;cursor: pointer;">{{ currentUser?.data?.data?.name }}</a> |
-          <a class="custom-border" (click)="logout()" data-bs-dismiss="offcanvas" style="text-decoration:none; cursor: pointer;">Se déconnecter</a>
-      </li>
-      <ng-template #notLoggedIn>
+          <a class="custom-border" (click)="logout()" data-bs-dismiss="offcanvas"
+            style="text-decoration:none; cursor: pointer;">{{ 'button-mobile.logout' | translate }}</a>
+        </li>
+        <ng-template #notLoggedIn>
           <li class="d-flex align-items-center">
-              <a routerLink="/login" class="custom-border" data-bs-dismiss="offcanvas" style="text-decoration:none">Se connecter</a> |
-              <a routerLink="/signup" class="custom-border" data-bs-dismiss="offcanvas" style="text-decoration:none">Créer un compte</a>
+            <a routerLink="/login" class="custom-border" data-bs-dismiss="offcanvas" style="text-decoration:none">{{
+              'button-mobile.login' | translate }}</a> |
+            <a routerLink="/signup" class="custom-border" data-bs-dismiss="offcanvas" style="text-decoration:none">{{
+              'button-mobile.signup' | translate }}</a>
           </li>
-      </ng-template>
-          </ul>
-      
-   
+        </ng-template>
+        </ul>
     </div>
   </div>
-
-
 </div>

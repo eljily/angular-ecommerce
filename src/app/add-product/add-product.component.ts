@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-add-product',
   standalone: true,
-  imports: [FormsModule,CommonModule,FieldsetModule,FileUploadModule ],
+  imports: [FormsModule,CommonModule,FieldsetModule,FileUploadModule, TranslateModule ],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css',
   providers: [MessageService],
@@ -44,6 +45,7 @@ export class AddProductComponent implements OnInit {
     private router: Router,
     private messageService: MessageService,
     private authService: AuthService,
+    public translate:TranslateService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);

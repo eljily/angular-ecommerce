@@ -3,7 +3,7 @@
     <div class="title">
       <span>
         <i class="fa-solid fa-list fa-beat-fade" style="color: #f08c00; border: 1px solid; padding: 0.1em;"></i>
-        produit
+        {{ 'produit.titre' | translate }} <!-- Utilisation de la clé de traduction 'produit.titre' -->
       </span>
     </div>
     <div class="tab-class text-center">
@@ -42,7 +42,8 @@
             <ng-template #noProductTemplate>
               <div class="col-12 text-center py-5">
                 <img src="../../assets/img/empty-box.png" alt="No products" class="img-fluid" style="max-width: 200px;">
-                <p class="text-center mt-3">Il n'y a pas de produit dans cette sous catégorie</p>
+                <p class="text-center mt-3">{{ 'produit.aucun_produit' | translate }}</p>
+                <!-- Utilisation de la clé de traduction 'produit.aucun_produit' -->
               </div>
             </ng-template>
           </div>

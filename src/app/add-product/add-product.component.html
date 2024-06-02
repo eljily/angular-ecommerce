@@ -3,73 +3,86 @@
   <div class="row">
     <div class="col-xl-8 mx-auto">
       <div class="card mb-4 form-card">
-        <div class="card-header">Ajouter votre Annonce Gratuit!!</div>
+        <div class="card-header">{{ 'ajouter_annonce.titre' | translate }}</div>
         <div class="card-body">
           <form #productForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-              <label class="small mb-1 " for="inputUsername">Nom du produit*</label>
-              <input class="form-control" id="inputUsername" [(ngModel)]="product.name" name="name" type="text" placeholder="Entrez le nom du produit" required>
-              <div *ngIf="productForm.submitted && !product.name" class="text-danger">Ce champ est obligatoire</div>
+              <label class="small mb-1" for="inputUsername">{{ 'ajouter_annonce.nom_produit' | translate }}*</label>
+              <input class="form-control" id="inputUsername" [(ngModel)]="product.name" name="name" type="text"
+                placeholder="{{ 'ajouter_annonce.entrer_nom_produit' | translate }}" required>
+              <div *ngIf="productForm.submitted && !product.name" class="text-danger">{{ 'ajouter_annonce.champ_obligatoire' |
+                translate }}</div>
             </div>
             <div class="row gx-3 mb-3">
               <div class="col-md-6">
-                <label for="inputState5">Catégorie</label>
+                <label for="inputState5">{{ 'ajouter_annonce.categorie' | translate }}</label>
                 <select id="inputState5" class="form-control" [(ngModel)]="selectedCategory" name="category" required (change)="onCategoryChange(selectedCategory)">
-                  <option disabled value="">Sélectionner une catégorie...</option>
+                  <option disabled value="">{{ 'ajouter_annonce.selectionner_categorie' | translate }}</option>
                   <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
                 </select>
-                <div *ngIf="productForm.submitted && !selectedCategory" class="text-danger">Ce champ est obligatoire</div>
+                <div *ngIf="productForm.submitted && !selectedCategory" class="text-danger">{{ 'ajouter_annonce.champ_obligatoire' |
+                  translate }}</div>
               </div>
               <div class="col-md-6">
-                <label for="subcategory">Sous Catégorie</label>
+                <label for="subcategory">{{ 'ajouter_annonce.sous_categorie' | translate }}</label>
                 <select id="subcategory" class="form-control" [(ngModel)]="selectedSubcategory" name="subcategory" required>
-                  <option disabled value="">Sélectionner une sous-catégorie...</option>
+                  <option disabled value="">{{ 'ajouter_annonce.selectionner_sous_categorie' | translate }}</option>
                   <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.name }}</option>
                 </select>
-                <div *ngIf="productForm.submitted && !selectedSubcategory" class="text-danger">Ce champ est obligatoire</div>
+                <div *ngIf="productForm.submitted && !selectedSubcategory" class="text-danger">{{ 'ajouter_annonce.champ_obligatoire' |
+                  translate }}</div>
               </div>
             </div>
             <div class="row gx-3 mb-3">
               <div class="col-md-6">
-                <label for="inputState5">Région</label>
+                <label for="inputState5">{{ 'ajouter_annonce.region' | translate }}</label>
                 <select id="inputState5" class="form-control" [(ngModel)]="selectedRegionId" name="region" required (change)="onRegionChange(selectedRegionId)">
-                  <option disabled value="">Sélectionner une région...</option>
+                  <option disabled value="">{{ 'ajouter_annonce.selectionner_region' | translate }}</option>
                   <option *ngFor="let region of regions" [value]="region.id">{{ region.name }}</option>
                 </select>
-                <div *ngIf="productForm.submitted && !selectedRegionId" class="text-danger">Ce champ est obligatoire</div>
+                <div *ngIf="productForm.submitted && !selectedRegionId" class="text-danger">{{ 'ajouter_annonce.champ_obligatoire' |
+                  translate }}</div>
               </div>
               <div class="col-md-6">
-                <label for="inputState6">Sous-région</label>
+                <label for="inputState6">{{ 'ajouter_annonce.sous_region' | translate }}</label>
                 <select id="inputState6" class="form-control" [(ngModel)]="selectedSubregion" name="subregion" required>
-                  <option disabled value="">Sélectionner une sous-région...</option>
+                  <option disabled value="">{{ 'ajouter_annonce.selectionner_sous_region' | translate }}</option>
                   <option *ngFor="let subregion of subregions" [value]="subregion.id">{{ subregion.name }}</option>
                 </select>
-                <div *ngIf="productForm.submitted && !selectedSubregion" class="text-danger">Ce champ est obligatoire</div>
+                <div *ngIf="productForm.submitted && !selectedSubregion" class="text-danger">{{ 'ajouter_annonce.champ_obligatoire' |
+                  translate }}</div>
               </div>
             </div>
             <div class="row gx-3 mb-3">
               <div class="col-md-6">
-                <label class="small mb-1" for="inputFirstName">Marque</label>
-                <input class="form-control" id="inputFirstName" type="text" [(ngModel)]="product.mark" name="mark" placeholder="Entrez la marque" required>
-                <div *ngIf="productForm.submitted && !product.mark" class="text-danger">Ce champ est obligatoire</div>
+                <label class="small mb-1" for="inputFirstName">{{ 'ajouter_annonce.marque' | translate }}</label>
+                <input class="form-control" id="inputFirstName" type="text" [(ngModel)]="product.mark" name="mark"
+                  placeholder="{{ 'ajouter_annonce.entrer_marque' | translate }}" required>
+                <div *ngIf="productForm.submitted && !product.mark" class="text-danger">{{ 'ajouter_annonce.champ_obligatoire' |
+                  translate }}</div>
               </div>
               <div class="col-md-6">
-                <label class="small mb-1" for="inputLastName">Prix en MRU</label>
+                <label class="small mb-1" for="inputLastName">{{ 'ajouter_annonce.prix_mru' | translate }}</label>
                 <div class="input-group">
-                  <input class="form-control" id="inputLastName" type="number" [(ngModel)]="product.price" name="price" placeholder="MRU" required>
+                  <input class="form-control" id="inputLastName" type="number" [(ngModel)]="product.price" name="price"
+                    placeholder="{{ 'ajouter_annonce.entrer_prix_mru' | translate }}" required>
                 </div>
-                <div *ngIf="productForm.submitted && !product.price" class="text-danger">Ce champ est obligatoire</div>
+                <div *ngIf="productForm.submitted && !product.price" class="text-danger">{{ 'ajouter_annonce.champ_obligatoire' |
+                  translate }}</div>
               </div>
             </div>
             <div class="mb-3">
-              <label class="small mb-1" for="inputOrgName">Description</label>
-              <textarea class="form-control" id="inputOrgName" [(ngModel)]="product.description" name="description" placeholder="Entrez une description" required></textarea>
-              <div *ngIf="productForm.submitted && !product.description" class="text-danger">Ce champ est obligatoire</div>
+              <label class="small mb-1" for="inputOrgName">{{ 'ajouter_annonce.description' | translate }}</label>
+              <textarea class="form-control" id="inputOrgName" [(ngModel)]="product.description" name="description"
+                placeholder="{{ 'ajouter_annonce.entrer_description' | translate }}" required></textarea>
+              <div *ngIf="productForm.submitted && !product.description" class="text-danger">{{ 'ajouter_annonce.champ_obligatoire' |
+                translate }}</div>
             </div>
             <div class="form-group">
               <input type="file" id="images" name="images" multiple (change)="onFileSelect($event)" accept="image/*" class="form-control-file" required>
-              <small class="form-text text-muted">Sélectionnez jusqu'à 2 images.</small>
-              <div *ngIf="productForm.submitted && selectedImages.length === 0" class="text-danger">Ce champ est obligatoire</div>
+              <small class="form-text text-muted">{{ 'ajouter_annonce.selectionner_images' | translate }}</small>
+              <div *ngIf="productForm.submitted && selectedImages.length === 0" class="text-danger">{{
+                'ajouter_annonce.champ_obligatoire' | translate }}</div>
             </div>
             <div class="container bootdey">
               <div class="row">
@@ -84,7 +97,8 @@
                 </div>
               </div>
             </div>
-            <button class="custom-border" type="submit" [disabled]="!productForm.form.valid || selectedImages.length === 0">Save changes</button>
+            <button class="custom-border" type="submit" [disabled]="!productForm.form.valid || selectedImages.length === 0">{{
+              'ajouter_annonce.bouton_enregistrer' | translate }}</button>
           </form>
         </div>
       </div>

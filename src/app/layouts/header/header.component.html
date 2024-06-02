@@ -1,4 +1,4 @@
-<!-- Header section that is hidden on screens 992px and below -->
+<!-- Section du header qui est cachée sur les écrans de 992px et moins -->
 <div id="header" class="site-header text-black d-none d-lg-block" style="background-color: rgb(248, 246, 246);">
   <div class="header-top border-bottom py-2">
     <div class="row justify-content-evenly">
@@ -16,7 +16,7 @@
 
       <div class="col-auto d-none d-md-block" (click)="navigateTo('add-product')">
         <a class="scrollto btn btn-outline-light custom-border">
-          <i class="fa-solid fa-circle-plus nav__icon"></i> Publier annonce
+          <i class="fa-solid fa-circle-plus nav__icon"></i> {{ 'header.publish_ad' | translate }}
         </a>
       </div>
 
@@ -24,13 +24,14 @@
         <ul class="d-flex justify-content-end gap-3 list-unstyled">
           <li *ngIf="isLoggedIn; else notLoggedIn">
             <a *ngIf="currentUser" class="custom-border" style="text-decoration:none">{{ currentUser?.data?.data?.name }}</a> |
-            <a class="custom-border" (click)="logout()" style="text-decoration:none; cursor: pointer;">Se déconnecter</a>
+            <a class="custom-border" (click)="logout()" style="text-decoration:none; cursor: pointer;">{{ 'header.logout' |
+              translate }}</a>
           </li>
 
           <ng-template #notLoggedIn>
             <li>
-              <a routerLink="/login" class="custom-border" style="text-decoration:none">Se connecter</a> |
-              <a routerLink="/signup" class="custom-border" style="text-decoration:none">Créer un compte</a>
+              <a routerLink="/login" class="custom-border" style="text-decoration:none">{{ 'header.login' | translate }}</a> |
+              <a routerLink="/signup" class="custom-border" style="text-decoration:none">{{ 'header.create_account' | translate }}</a>
             </li>
           </ng-template>
         </ul>
@@ -39,7 +40,7 @@
   </div>
 </div>
 
-<!-- Alternate content for screens 992px and below -->
+<!-- Contenu alternatif pour les écrans de 992px et moins -->
 <div id="header-mobile" class="site-header text-black d-lg-none" style="background-color: rgb(248, 246, 246);">
   <div class="header-top border-bottom py-2">
     <div class="row justify-content-evenly">
@@ -56,25 +57,28 @@
 
       <div class="col " style="padding: 10px; margin-right: 5px;">
         <ul class="d-flex justify-content-end gap-3 list-unstyled">
-    
-          <div  class="lang_box dropdown custom-border2" style="margin-right: 10px;" ngbDropdown> <!-- Utilisez ngbDropdown pour activer le menu déroulant -->
-            <a  title="Language" class="nav-link dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle> <!-- Ajoutez l'attribut ngbDropdownToggle -->
-              <img src="../../../assets/united-arab-emirates.png" alt="flag" class="mr-2 flag-icon" title="United Kingdom"> العربية <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+          <div class="lang_box dropdown custom-border2" style="margin-right: 10px;" ngbDropdown>
+            <a title="Language" class="nav-link dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
+              <img [src]="getFlagImage(translateService.currentLang)" alt="flag" class="mr-2 flag-icon">
+              {{ getLanguageName() }}
+              <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
             </a>
-            
-            <div class="dropdown-menu custom-border2 " ngbDropdownMenu> <!-- Ajoutez l'attribut ngbDropdownMenu -->
-              <a  class="dropdown-item custom-border1">
-                <img src="../../../assets/france.png" class="mr-2 flag-icon" alt="flag">
-                Francais
+            <div class="dropdown-menu custom-border2 " ngbDropdownMenu>
+              <a class="dropdown-item custom-border1" (click)="changeLanguage('ar')">
+                <img [src]="getFlagImage('ar')" class="mr-2 flag-icon" alt="flag">
+                {{ 'header.language_arabic' | translate }}
               </a>
-              <a  class="dropdown-item custom-border1">
-                <img src="../../../assets/circle.png" class="mr-2 flag-icon" alt="flag">
-                English
+              <a class="dropdown-item custom-border1" (click)="changeLanguage('fr')">
+                <img [src]="getFlagImage('fr')" class="mr-2 flag-icon" alt="flag">
+                {{ 'header.language_french' | translate }}
               </a>
-              
-              <!-- Ajoutez des liens pour d'autres langues ici si nécessaire -->
+              <a class="dropdown-item custom-border1" (click)="changeLanguage('en')">
+                <img [src]="getFlagImage('en')" class="mr-2 flag-icon" alt="flag">
+                {{ 'header.language_english' | translate }}
+              </a>
             </div>
           </div>
+          
           
         </ul>
       </div>
@@ -82,20 +86,7 @@
   </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Section du header visible uniquement sur les écrans de plus de 992 pixels -->
 <header class="header-mobile" style="border: 1px solid #fd7e14; border-radius: 10px; background-color: rgb(248, 246, 246);"  >
   <div class="row py-3 border-bottom head">
 
@@ -103,19 +94,26 @@
 <div class="col-sm-8 col-lg-4 d-flex ipad justify-content-end align-items-center mt-sm-0 justify-content-center justify-content-sm-end d-none d-lg-flex">
   <div class="lang_box dropdown custom-border2" style="margin-right: 10px;" ngbDropdown>
     <a title="Language" class="nav-link dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
-      <img src="../../../assets/united-arab-emirates.png" alt="flag" class="mr-2 flag-icon" title="United Kingdom"> العربية <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+      <img [src]="getFlagImage(translateService.currentLang)" alt="flag" class="mr-2 flag-icon">
+      {{ getLanguageName() }}
+      <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
     </a>
-    <div class="dropdown-menu custom-border2" ngbDropdownMenu>
-      <a class="dropdown-item custom-border1">
-        <img src="../../../assets/france.png" class="mr-2 flag-icon" alt="flag">
-        Francais
+    <div class="dropdown-menu custom-border2 " ngbDropdownMenu>
+      <a class="dropdown-item custom-border1" (click)="changeLanguage('ar')">
+        <img [src]="getFlagImage('ar')" class="mr-2 flag-icon" alt="flag">
+        {{ 'header.language_arabic' | translate }}
       </a>
-      <a class="dropdown-item custom-border1">
-        <img src="../../../assets/circle.png" class="mr-2 flag-icon" alt="flag">
-        English
+      <a class="dropdown-item custom-border1" (click)="changeLanguage('fr')">
+        <img [src]="getFlagImage('fr')" class="mr-2 flag-icon" alt="flag">
+        {{ 'header.language_french' | translate }}
+      </a>
+      <a class="dropdown-item custom-border1" (click)="changeLanguage('en')">
+        <img [src]="getFlagImage('en')" class="mr-2 flag-icon" alt="flag">
+        {{ 'header.language_english' | translate }}
       </a>
     </div>
   </div>
+  
 
   <div class="col-sm-4 col-lg-3 text-center text-sm-start"></div>
 
@@ -127,22 +125,22 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-end custom-border2" aria-labelledby="dropdownMenuButton">
           <li *ngIf="isLoggedIn" (click)="navigateTo('profile')">
-            <a class="dropdown-item custom-border1">Profil</a>
+            <a class="dropdown-item custom-border1">{{ 'header.profile' | translate }}</a>
           </li>
           <li *ngIf="isLoggedIn" (click)="navigateTo('forgot-password')">
-            <a class="dropdown-item custom-border1">Changer le mot de passe</a>
+            <a class="dropdown-item custom-border1">{{ 'header.change_password' | translate }}</a>
           </li>
           <li *ngIf="isLoggedIn" (click)="navigateTo('add-product')">
-            <a class="dropdown-item custom-border1">Ajouter</a>
+            <a class="dropdown-item custom-border1">{{ 'header.add_product' | translate }}</a>
           </li>
           <li (click)="navigateTo('settings')">
-            <a class="dropdown-item custom-border1">Paramètres</a>
+            <a class="dropdown-item custom-border1">{{ 'header.settings' | translate }}</a>
           </li>
           <li *ngIf="isLoggedIn" (click)="navigateTo('user-product')">
-            <a class="dropdown-item custom-border1">Produit utilisateur</a>
+            <a class="dropdown-item custom-border1">{{ 'header.user_product' | translate }}</a>
           </li>
           <li *ngIf="isLoggedIn" style="color: red;" (click)="navigateTo('delete-account')">
-            <a class="dropdown-item custom-border1">Supprimer le compte</a>
+            <a class="dropdown-item custom-border1">{{ 'header.delete_account' | translate }}</a>
           </li>
         </ul>
       </div>
@@ -168,7 +166,7 @@
           <!-- Sélection de catégorie -->
           <div class="col-md-4 col-3 mb-2">
             <select class="form-select  bg-transparent " style="border: 1px solid #fd7e14;" (change)="navigateToSubRegion($event)">
-              <option>Toutes les régions</option>
+              <option>{{ 'header.all_regions' | translate }}</option>
               <!-- Boucle sur les régions -->
               <optgroup *ngFor="let region of regions" label="{{ region.name }}">
                 <!-- Boucle sur les sous-régions de la région actuelle -->
@@ -180,7 +178,8 @@
           <!-- Recherche de produits -->
           <div class="col-md col">
               <form id="search-form" class="text-center d-flex" (ngSubmit)="onSearch($event)">
-                  <input type="text" class="form-control border-0 bg-transparent flex-grow-1" placeholder="Recherchez plus de 20 000 produits" name="searchKeyword" [(ngModel)]="searchKeyword">
+                  <input type="text" class="form-control border-0 bg-transparent flex-grow-1"
+                    placeholder="{{ 'header.search_products' | translate }}" name="searchKeyword" [(ngModel)]="searchKeyword">
                   <button type="submit" style="background: none; border: none; padding: 0; margin-top: 5px;">
                       <i style="color: #fd7e14;" class="fa-solid fa-magnifying-glass fa-lg"></i>
                   </button>
@@ -188,7 +187,7 @@
               
               <!-- Dropdown des produits -->
               <select id="search-results" class="form-select border-0 bg-transparent mt-2" style="display: none;">
-                  <option disabled selected hidden>Résultats de la recherche</option>
+                  <option disabled selected hidden>{{ 'header.search_results' | translate }}</option>
               </select>
           </div>
       </div>
@@ -212,7 +211,7 @@
             <div class="offcanvas-body" >
           
               <select class="filter-categories border-1 mb-0 me-5" style="border-radius: 10px; border:1px solid #fd7e14;" (change)="navigateToSubCategory($event)" [(ngModel)]="selectedCategory">
-                <option value="all">Toutes les catégories</option>
+                <option value="all">{{ 'header.all_categories' | translate }}</option>
                 <optgroup *ngFor="let category of categories" [label]="category.name" style="cursor: pointer;">
                   <option *ngFor="let subCategory of category.subCategories" [value]="subCategory.id">
                     {{ subCategory.name }}
@@ -223,7 +222,8 @@
 
               <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
                   <li class="nav-item active" (click)="navigateTo('home')" style="cursor: pointer;">
-                    <a  class="nav-link custom-border" data-bs-dismiss="offcanvas" style="margin-bottom: 5px;">Accueil</a>
+                    <a class="nav-link custom-border" data-bs-dismiss="offcanvas" style="margin-bottom: 5px;">{{ 'header.home' | translate
+                      }}</a>
                   </li>
                 </ul>
                                 
@@ -253,3 +253,4 @@
     </div>
   </div>
 </header>
+

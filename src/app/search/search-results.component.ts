@@ -5,13 +5,14 @@ import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductsService } from '../service/products.service';
 import { SearchService } from './search-service';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-search-results',
   standalone: true,
   templateUrl: './search-results.component.html',
-  imports: [FormsModule ,CommonModule,RouterLink,RouterModule],
+  imports: [FormsModule ,CommonModule,RouterLink,RouterModule,TranslateModule],
   styleUrls: ['./search-results.component.css']
 })
 export class SearchResultsComponent implements OnInit {

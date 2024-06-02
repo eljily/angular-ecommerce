@@ -4,11 +4,12 @@ import { RegionService } from '../service/region.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SearchService } from '../search/search-service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sub-region-products',
   standalone: true,
-  imports: [RouterLink,CommonModule],
+  imports: [RouterLink,CommonModule,TranslateModule],
   templateUrl: './sub-region-products.component.html',
   styleUrl: './sub-region-products.component.css'
 })

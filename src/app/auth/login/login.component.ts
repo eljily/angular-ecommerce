@@ -6,11 +6,12 @@ import { HeaderComponent } from '../../layouts/header/header.component';
 import { AuthService } from '../../service/auth.service';
 import { JwtDecoderService } from '../service/jwt.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [HeaderComponent,ReactiveFormsModule,CommonModule],
+  imports: [HeaderComponent,ReactiveFormsModule,CommonModule,TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

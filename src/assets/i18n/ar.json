@@ -1,0 +1,215 @@
+{
+    "dir":"rtl",
+    "ajouter_annonce": {
+      "titre": "أضف إعلانك مجانًا!!",
+      "nom_produit": "اسم المنتج",
+      "entrer_nom_produit": "أدخل اسم المنتج",
+      "categorie": "الفئة",
+      "selectionner_categorie": "اختر فئة...",
+      "sous_categorie": "الفئة الفرعية",
+      "selectionner_sous_categorie": "اختر فئة فرعية...",
+      "region": "المنطقة",
+      "selectionner_region": "اختر منطقة...",
+      "sous_region": "المنطقة الفرعية",
+      "selectionner_sous_region": "اختر منطقة فرعية...",
+      "marque": "العلامة التجارية",
+      "entrer_marque": "أدخل العلامة التجارية",
+      "prix_mru": "السعر بالريال الموريتاني",
+      "entrer_prix_mru": "أدخل السعر بالريال الموريتاني",
+      "description": "الوصف",
+      "entrer_description": "أدخل وصفًا",
+      "selectionner_images": "اختر الصور",
+      "champ_obligatoire": "هذا الحقل إلزامي",
+      "bouton_enregistrer": "حفظ التغييرات"
+    },
+    "connexion": {
+        "login": "تسجيل الدخول",
+        "phone_number": "رقم الهاتف",
+        "enter_phone_number": "أدخل رقم الهاتف",
+        "phone_number_required": "رقم الهاتف مطلوب",
+        "password": "كلمة المرور",
+        "enter_password": "أدخل كلمة المرور",
+        "password_required": "كلمة المرور مطلوبة",
+        "forgot_password": "نسيت كلمة المرور؟",
+        "login_button": "تسجيل الدخول",
+        "error_message": "هناك خطأ في النموذج"
+      },
+      "inscription": {
+        "create_new_account": "إنشاء حساب جديد",
+        "username": "اسم المستخدم",
+        "enter_username": "أدخل اسم المستخدم",
+        "username_required": "اسم المستخدم مطلوب",
+        "email": "البريد الإلكتروني",
+        "enter_email": "أدخل البريد الإلكتروني",
+        "email_required": "البريد الإلكتروني مطلوب",
+        "phone_number": "رقم الهاتف",
+        "enter_phone_number": "أدخل رقم الهاتف",
+        "phone_number_required": "رقم الهاتف مطلوب",
+        "password": "كلمة المرور",
+        "enter_password": "أدخل كلمة المرور",
+        "password_required": "كلمة المرور مطلوبة",
+        "create_account": "إنشاء حساب",
+        "error_message": "هناك خطأ في النموذج"
+      },
+        "button-mobile": {
+          "home": "الصفحة الرئيسية",
+          "categories": "الفئات",
+          "close": "إغلاق",
+          "publish": "نشر",
+          "profile": "الملف الشخصي",
+          "change_password": "تغيير كلمة المرور",
+          "add_product": "إضافة منتج",
+          "settings": "الإعدادات",
+          "user_product": "منتجات المستخدم",
+          "delete_account": "حذف الحساب",
+          "logout": "تسجيل الخروج",
+          "login": "تسجيل الدخول",
+          "signup": "إنشاء حساب"
+        },
+        "category-product": {
+            "product": "المنتج",
+            "no_products": "لا توجد منتجات",
+            "no_products_in_subcategory": "لا يوجد منتجات في هذه الفئة الفرعية"
+          },
+
+            "delete-account": {
+              "header": "حذف الحساب",
+              "warning": "حذف حسابك هو إجراء دائم ولا يمكن التراجع عنه. إذا كنت متأكدًا من أنك تريد حذف حسابك، حدد الزر أدناه.",
+              "confirm_button": "أفهم، احذف حسابي"
+            },
+            "forgot-password": {
+                "header": "تغيير كلمة المرور",
+                "current_password_label": "كلمة المرور الحالية",
+                "current_password_placeholder": "أدخل كلمة المرور الحالية",
+                "current_password_error": "كلمة المرور الحالية مطلوبة",
+                "new_password_label": "كلمة المرور الجديدة",
+                "new_password_placeholder": "أدخل كلمة المرور الجديدة",
+                "new_password_error": "كلمة المرور الجديدة مطلوبة (حد أدنى 6 أحرف)",
+                "retyped_password_label": "تأكيد كلمة المرور الجديدة",
+                "retyped_password_placeholder": "أكد كلمة المرور الجديدة",
+                "retyped_password_error": "تأكيد كلمة المرور الجديدة مطلوب",
+                "submit_button": "حفظ"
+              },
+          
+                "home": {
+                  "see_more": "شاهد المزيد"
+                },
+
+                    "footer": {
+                      "find_us": "اعثر علينا",
+                      "address": "1 allée du mont sarcelles, فرنسا",
+                      "call_us": "اتصل بنا",
+                      "phone": "+33695185210",
+                      "email_us": "أرسل لنا بريدًا إلكترونيًا",
+                      "email": "ssouqi.com",
+                      "welcome_text": "مرحبًا بك في سوقي، منصتك المرجعية لجميع إعلاناتك! سواء كنت تبحث عن شراء أو بيع أو تبادل السلع والخدمات، فإن موقعنا مصمم لتقديم تجربة مستخدم سهلة وسريعة وفعالة.",
+                      "follow_us": "تابعنا",
+                      "useful_links": "روابط مفيدة",
+                      "home": "الصفحة الرئيسية",
+                      "about": "حول",
+                      "services": "الخدمات",
+                      "portfolio": "المعرض",
+                      "contact": "اتصل بنا",
+                      "about_us": "معلومات عنا",
+                      "team": "الفريق",
+                      "subscribe": "اشترك",
+                      "subscribe_text": "لا تفوت الاشتراك في خلاصاتنا الجديدة، يرجى ملء النموذج أدناه.",
+                      "email_placeholder": "عنوان البريد الإلكتروني",
+                      "copyright": "حقوق الطبع والنشر © 2024، جميع الحقوق محفوظة",
+                      "brand_name": "سوقي"
+                    },
+                    "header": {
+                        "publish_ad": "نشر إعلان",
+                        "logout": "تسجيل الخروج",
+                        "login": "تسجيل الدخول",
+                        "create_account": "إنشاء حساب",
+                        "language_arabic": "العربية",
+                        "language_french": "الفرنسية",
+                        "language_english": "الإنجليزية",
+                        "profile": "الملف الشخصي",
+                        "change_password": "تغيير كلمة المرور",
+                        "add_product": "إضافة منتج",
+                        "settings": "الإعدادات",
+                        "user_product": "منتج المستخدم",
+                        "delete_account": "حذف الحساب",
+                        "all_regions": "جميع المناطق",
+                        "search_products": "البحث عن المنتجات",
+                        "search_results": "نتائج البحث",
+                        "all_categories": "جميع الفئات",
+                        "home": "الصفحة الرئيسية"
+                      },
+                      "product-detail": {
+                        "product_image": "صورة المنتج",
+                        "main_image": "الصورة الرئيسية",
+                        "other_images": "الصور الأخرى",
+                        "details_section": "قسم التفاصيل",
+                        "product_name": "اسم المنتج",
+                        "product_price": "السعر",
+                        "location": "الموقع",
+                        "date_created": "تاريخ الإنشاء",
+                        "views": "المشاهدات",
+                        "contact_vendor": "الاتصال بالبائع",
+                        "phone": "الهاتف",
+                        "whatsapp": "واتساب",
+                        "description_section": "قسم الوصف",
+                        "description": "الوصف",
+                        "security_tips_section": "نصائح الأمان ",
+                        "security_tips": "هناك ملايين الفرص المثيرة على سوقي، ولكن سلامة مستخدمينا هي أولويتنا. إليك بعض النصائح لمساعدتك في التصفح بأمان: كن حذرًا مع العروض التي تبدو جيدة للغاية لتكون حقيقية، تحقق من الصور، تبادل المعلومات شخصيًا في مكان آمن، اطرح الأسئلة، وقم بالبحث الدقيق قبل إتمام المعاملة.",
+                        "seller_info_section": "معلومات البائع",
+                        "about_seller": "عن البائع",
+                        "seller_name": "اسم البائع",
+                        "seller_rating": "تقييم البائع",
+                        "seller_ads": "إعلانات",
+                        "seller_phone": "الهاتف",
+                        "seller_whatsapp": "واتساب"
+                      },
+                      "produit": {
+                        "titre": "المنتج",
+                        "aucun_produit": "لا يوجد منتج في هذا الفئة الفرعية" 
+                      },
+                      "profile":  {
+                        "photo_title": "صورة الملف الشخصي",
+                        "upload_new_image": "تحميل صورة جديدة",
+                        "username": "اسم المستخدم",
+                        "enter_username": "ادخل اسم المستخدم",
+                        "first_name": "الاسم الأول",
+                        "enter_first_name": "ادخل الاسم الأول",
+                        "last_name": "الاسم الأخير",
+                        "enter_last_name": "ادخل الاسم الأخير",
+                        "location": "الموقع",
+                        "enter_location": "ادخل الموقع",
+                        "email_address": "عنوان البريد الإلكتروني",
+                        "enter_email_address": "ادخل عنوان البريد الإلكتروني",
+                        "phone_number": "رقم الهاتف",
+                        "enter_phone_number": "ادخل رقم الهاتف",
+                        "birthday": "تاريخ الميلاد",
+                        "enter_birthday": "ادخل تاريخ الميلاد",
+                        "save_changes": "حفظ التغييرات"
+                        },
+                        "search": {
+                            "results_title": "نتائج البحث عن { searchKeyword }",
+                            "no_product_found": "لم يتم العثور على منتجات لـ { searchKeyword }."
+                          },
+                          "product-subregion": {
+                            "title": "المنتج",
+                            "no_product_found": "لا يوجد منتج في هذه المدينة"
+                          },
+                          "user-product": {
+                            "id": "المعرف",
+                            "image": "الصورة",
+                            "name": "الاسم",
+                            "description": "الوصف",
+                            "price": "السعر",
+                            "date": "التاريخ",
+                            "category": "الفئة",
+                            "actions": "الإجراءات",
+                            "confirmation": {
+                                "delete_title": "تأكيد الحذف",
+                                "delete_message": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
+                                "cancel": "إلغاء",
+                                "delete": "حذف"
+                            }
+                        }
+ 
+  }
+  

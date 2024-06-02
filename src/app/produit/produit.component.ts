@@ -6,11 +6,12 @@ import { Observable } from 'rxjs';
 import { SearchService } from '../search/search-service';
 import { Product } from '../service/model/model';
 import { ProductsService } from '../service/products.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-produit',
   standalone: true,
-  imports: [RouterModule, NgFor ,CommonModule],
+  imports: [RouterModule, NgFor ,CommonModule,TranslateModule],
   templateUrl: './produit.component.html',
   styleUrls: ['./produit.component.css']
 })

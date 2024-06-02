@@ -1,76 +1,82 @@
 <div class="container-xl px-4 mt-4">
-    <hr class="mt-0 mb-4"  >
-    <div class="row" >
+    <hr class="mt-0 mb-4">
+    <div class="row">
         <div class="col-xl-4">
             <!-- Carte de photo de profil -->
             <div class="card mb-4 mb-xl-0">
-                <div class="card-header">Photo de profil</div>
+                <div class="card-header">{{ 'profile.photo_title' | translate }}</div>
                 <div class="card-body text-center">
                     <!-- Image de photo de profil -->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" >
+                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                     <!-- Bloc d'aide pour la photo de profil -->
                     <div class="small font-italic text-muted mb-4">JPG ou PNG ne dépassant pas 5 Mo</div>
                     <!-- Bouton de téléchargement de nouvelle image -->
-                    <button class="btn btn-primary custom-border" type="button">Télécharger une nouvelle image</button>
+                    <button class="btn btn-primary custom-border" type="button">{{ 'profile.upload_new_image' | translate }}</button>
                 </div>
             </div>
         </div>
         <div class="col-xl-8">
             <!-- Carte de détails du compte -->
             <div class="card mb-4">
-                <div class="card-header">Détails du compte</div>
+                <div class="card-header">{{ 'profile.account_details' | translate }}</div>
                 <div class="card-body">
                     <form>
                         <!-- Groupe de formulaire (nom d'utilisateur) -->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">Nom d'utilisateur</label>
-                            <input class="form-control" id="inputUsername" name="username" type="text" placeholder="Entrez votre nom d'utilisateur" [value]="user?.data?.name || 'Entrez votre nom '" (input)="updateUserName($event)">
+                            <label class="small mb-1" for="inputUsername">{{ 'profile.username' | translate }}</label>
+                            <input class="form-control" id="inputUsername" name="username" type="text"
+                                placeholder="{{ 'profile.enter_username' | translate }}">
                         </div>
                         <div class="row gx-3 mb-3">    
                             <!-- Groupe de formulaire (prénom) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">Prénom</label>
-                                <input class="form-control" id="inputFirstName" name="firstName" type="text" placeholder="Entrez votre prénom" [value]="user?.data?.firstName" (input)="updateFirstName($event)">
+                                <label class="small mb-1" for="inputFirstName">{{ 'profile.first_name' | translate }}</label>
+                                <input class="form-control" id="inputFirstName" name="firstName" type="text"
+                                    placeholder="{{ 'profile.enter_first_name' | translate }}">
                             </div>
                     
                             <!-- Groupe de formulaire (nom de famille) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">Nom de famille</label>
-                                <input class="form-control" id="inputLastName" name="lastName" type="text" placeholder="Entrez votre nom de famille" [value]="user?.data?.lastName" (input)="updateLastName($event)">
+                                <label class="small mb-1" for="inputLastName">{{ 'profile.last_name' | translate }}</label>
+                                <input class="form-control" id="inputLastName" name="lastName" type="text"
+                                    placeholder="{{ 'profile.enter_last_name' | translate }}">
                             </div>
                         </div>
                     
                         <!-- Groupe de formulaire (emplacement) -->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputLocation">Emplacement</label>
-                            <input class="form-control" id="inputLocation" name="location" type="text" placeholder="Entrez votre emplacement" [value]="user?.data?.address" (input)="updateLocation($event)">
+                            <label class="small mb-1" for="inputLocation">{{ 'profile.location' | translate }}</label>
+                            <input class="form-control" id="inputLocation" name="location" type="text"
+                                placeholder="{{ 'profile.enter_location' | translate }}">
                         </div>
                     
                         <!-- Groupe de formulaire (adresse e-mail) -->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputEmailAddress">Adresse e-mail</label>
-                            <input class="form-control" id="inputEmailAddress" name="emailAddress" type="email" placeholder="Entrez votre adresse e-mail" [value]="user?.data?.email" (input)="updateEmailAddress($event)">
+                            <label class="small mb-1" for="inputEmailAddress">{{ 'profile.email_address' | translate }}</label>
+                            <input class="form-control" id="inputEmailAddress" name="emailAddress" type="email"
+                                placeholder="{{ 'profile.enter_email_address' | translate }}">
                         </div>
                         <div class="row gx-3 mb-3">
                             <!-- Groupe de formulaire (numéro de téléphone) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Numéro de téléphone</label>
-                                <input class="form-control" id="inputPhone" name="phoneNumber" type="tel" placeholder="Entrez votre numéro de téléphone" [value]="user?.data?.phoneNumber" (input)="updatePhoneNumber($event)">
+                                <label class="small mb-1" for="inputPhone">{{ 'profile.phone_number' | translate }}</label>
+                                <input class="form-control" id="inputPhone" name="phoneNumber" type="tel"
+                                    placeholder="{{ 'profile.enter_phone_number' | translate }}">
                             </div>
                     
                             <!-- Groupe de formulaire (anniversaire) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputBirthday">Anniversaire</label>
-                                <input class="form-control" id="inputBirthday" name="birthday" type="text" placeholder="Entrez votre anniversaire" [value]="user?.data?.birthDate" (input)="updateBirthDate($event)">
+                                <label class="small mb-1" for="inputBirthday">{{ 'profile.birthday' | translate }}</label>
+                                <input class="form-control" id="inputBirthday" name="birthday" type="text"
+                                    placeholder="{{ 'profile.enter_birthday' | translate }}">
                             </div>
                         </div>
                     
                         <!-- Bouton pour sauvegarder les changements -->
                         <div class="text-center">
-                            <button class="btn btn-primary custom-border" id="button" type="button" (click)="saveChanges()">Sauvegarder les changements</button>
+                            <button class="btn btn-primary custom-border" type="button">{{ 'profile.save_changes' | translate }}</button>
                         </div>
                     </form>
-                    
                 </div>
             </div>
         </div>

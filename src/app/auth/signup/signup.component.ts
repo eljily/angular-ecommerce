@@ -7,11 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [HeaderComponent,FormsModule,ReactiveFormsModule,CommonModule],
+  imports: [HeaderComponent,FormsModule,ReactiveFormsModule,CommonModule,TranslateModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })

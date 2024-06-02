@@ -1,0 +1,217 @@
+{  "dir":"ltr",
+    "ajouter_annonce": {
+      "titre": "Ajoutez votre annonce gratuitement !!",
+      "nom_produit": "Nom du produit",
+      "entrer_nom_produit": "Entrez le nom du produit",
+      "categorie": "Catégorie",
+      "selectionner_categorie": "Sélectionnez une catégorie...",
+      "sous_categorie": "Sous-catégorie",
+      "selectionner_sous_categorie": "Sélectionnez une sous-catégorie...",
+      "region": "Région",
+      "selectionner_region": "Sélectionnez une région...",
+      "sous_region": "Sous-région",
+      "selectionner_sous_region": "Sélectionnez une sous-région...",
+      "marque": "Marque",
+      "entrer_marque": "Entrez la marque",
+      "prix_mru": "Prix en MRU",
+      "entrer_prix_mru": "Entrez le prix en MRU",
+      "description": "Description",
+      "entrer_description": "Entrez une description",
+      "selectionner_images": "Sélectionnez les images",
+      "champ_obligatoire": "Ce champ est obligatoire",
+      "bouton_enregistrer": "Enregistrer les modifications"
+    },
+    "connexion": {
+      "login": "Connexion",
+      "phone_number": "Numéro de téléphone",
+      "enter_phone_number": "Entrez votre numéro de téléphone",
+      "phone_number_required": "Le numéro de téléphone est requis",
+      "password": "Mot de passe",
+      "enter_password": "Entrez votre mot de passe",
+      "password_required": "Le mot de passe est requis",
+      "forgot_password": "Mot de passe oublié?",
+      "login_button": "Connexion",
+      "error_message": "Il y a une erreur dans le formulaire"
+    },
+    "inscription": {
+      "create_new_account": "Créer un nouveau compte",
+      "username": "Nom d'utilisateur",
+      "enter_username": "Entrez votre nom d'utilisateur",
+      "username_required": "Le nom d'utilisateur est requis",
+      "email": "E-mail",
+      "enter_email": "Entrez votre e-mail",
+      "email_required": "L'e-mail est requis",
+      "phone_number": "Numéro de téléphone",
+      "enter_phone_number": "Entrez votre numéro de téléphone",
+      "phone_number_required": "Le numéro de téléphone est requis",
+      "password": "Mot de passe",
+      "enter_password": "Entrez votre mot de passe",
+      "password_required": "Le mot de passe est requis",
+      "create_account": "Créer un compte",
+      "error_message": "Il y a une erreur dans le formulaire"
+    },
+    "button-mobile": {
+      "home": "Accueil",
+      "categories": "Catégories",
+      "close": "Fermer",
+      "publish": "Publier",
+      "profile": "Profil",
+      "change_password": "Changer le mot de passe",
+      "add_product": "Ajouter un produit",
+      "settings": "Paramètres",
+      "user_product": "Produits de l'utilisateur",
+      "delete_account": "Supprimer le compte",
+      "logout": "Déconnexion",
+      "login": "Connexion",
+      "signup": "S'inscrire"
+    },
+    "category-product": {
+      "product": "Produit",
+      "no_products": "Aucun produit trouvé",
+      "no_products_in_subcategory": "Aucun produit trouvé dans cette sous-catégorie"
+    },
+    "delete-account": {
+      "header": "Supprimer le compte",
+      "warning": "La suppression de votre compte est une action permanente et ne peut pas être annulée. Si vous êtes sûr de vouloir supprimer votre compte, veuillez sélectionner le bouton ci-dessous.",
+      "confirm_button": "Je comprends, supprimez mon compte"
+    },
+    "forgot-password": {
+      "header": "Modifier le mot de passe",
+      "current_password_label": "Mot de passe actuel",
+      "current_password_placeholder": "Entrez votre mot de passe actuel",
+      "current_password_error": "Le mot de passe actuel est requis",
+      "new_password_label": "Nouveau mot de passe",
+      "new_password_placeholder": "Entrez votre nouveau mot de passe",
+      "new_password_error": "Le nouveau mot de passe est requis (minimum 6 caractères)",
+      "retyped_password_label": "Confirmez le nouveau mot de passe",
+      "retyped_password_placeholder": "Confirmez votre nouveau mot de passe",
+      "retyped_password_error": "La confirmation du nouveau mot de passe est requise",
+      "submit_button": "Enregistrer"
+    },
+    "home": {
+      "see_more": "Voir plus"
+    },
+    "footer": {
+      "find_us": "Nous trouver",
+      "address": "1 allée du mont sarcelles, France",
+      "call_us": "Appelez-nous",
+      "phone": "+33695185210",
+      "email_us": "Envoyez-nous un e-mail",
+      "email": "ssouqi.com",
+      "welcome_text": "Bienvenue sur Souqi, votre plateforme de référence pour toutes vos annonces ! Que vous cherchiez à acheter, vendre ou échanger des biens et services, notre site est conçu pour offrir une expérience utilisateur facile, rapide et efficace.",
+      "follow_us": "Suivez-nous",
+      "useful_links": "Liens utiles",
+      "home": "Accueil",
+      "about": "À propos",
+      "services": "Services",
+      "portfolio": "Portfolio",
+      "contact": "Contact",
+      "about_us": "À propos de nous",
+      "team": "Équipe",
+      "subscribe": "Abonnez-vous",
+      "subscribe_text": "Ne manquez pas de vous abonner à nos nouvelles, veuillez remplir le formulaire ci-dessous.",
+      "email_placeholder": "Adresse e-mail",
+      "copyright": "Droits d'auteur © 2024, tous droits réservés",
+      "brand_name": "Souqi"
+    },
+    "header": {
+        "publish_ad": "Publier une annonce",
+        "logout": "Déconnexion",
+        "login": "Connexion",
+        "create_account": "Créer un compte",
+        "language_arabic": "Arabe",
+        "language_french": "Français",
+        "language_english": "Anglais",
+        "profile": "Profil",
+        "change_password": "Changer le mot de passe",
+        "add_product": "Ajouter un produit",
+        "settings": "Paramètres",
+        "user_product": "Produit de l'utilisateur",
+        "delete_account": "Supprimer le compte",
+        "all_regions": "Toutes les régions",
+        "search_products": "Rechercher des produits",
+        "search_results": "Résultats de la recherche",
+        "all_categories": "Toutes les catégories",
+        "home": "Accueil"
+      },
+      "product-detail": {
+        "product_image": "Image du produit",
+        "main_image": "Image principale",
+        "other_images": "Autres images",
+        "details_section": "Section détails",
+        "product_name": "Nom du produit",
+        "product_price": "Prix",
+        "location": "Emplacement",
+        "date_created": "Date de création",
+        "views": "Vues",
+        "contact_vendor": "Contacter le vendeur",
+        "phone": "Téléphone",
+        "whatsapp": "WhatsApp",
+        "description_section": "Section description",
+        "description": "Description",
+        "security_tips_section": "Conseils de sécurité",
+        "security_tips": "Il y a des millions d'opportunités passionnantes sur Souqi, mais la sécurité de nos utilisateurs est notre priorité. Voici quelques conseils pour vous aider à naviguer en toute sécurité : soyez prudent avec les offres qui semblent trop belles pour être vraies, vérifiez les images, échangez les informations en personne dans un endroit sûr, posez des questions et faites des recherches approfondies avant de conclure la transaction.",
+        "seller_info_section": "Informations sur le vendeur",
+        "about_seller": "À propos du vendeur",
+        "seller_name": "Nom du vendeur",
+        "seller_rating": "Évaluation du vendeur",
+        "seller_ads": "Annonces",
+        "seller_phone": "Téléphone",
+        "seller_whatsapp": "WhatsApp"
+      },
+      "produit": {
+        "titre": "Produit",
+        "aucun_produit": "Aucun produit dans cette sous-catégorie" 
+      },
+      "profile":  {
+        "photo_title": "Photo de profil",
+        "upload_new_image": "Télécharger une nouvelle image",
+        "username": "Nom d'utilisateur",
+        "enter_username": "Entrez votre nom d'utilisateur",
+        "first_name": "Prénom",
+        "enter_first_name": "Entrez votre prénom",
+        "last_name": "Nom de famille",
+        "enter_last_name": "Entrez votre nom de famille",
+        "location": "Emplacement",
+        "enter_location": "Entrez votre emplacement",
+        "email_address": "Adresse e-mail",
+        "enter_email_address": "Entrez votre adresse e-mail",
+        "phone_number": "Numéro de téléphone",
+        "enter_phone_number": "Entrez votre numéro de téléphone",
+        "birthday": "Date de naissance",
+        "enter_birthday": "Entrez votre date de naissance",
+        "save_changes": "Enregistrer les modifications"
+      },
+      "search": {
+        "results_title": "Résultats de la recherche pour { searchKeyword }",
+        "no_product_found": "Aucun produit trouvé pour { searchKeyword }."
+      },
+      "product-subregion": {
+        "title": "Produit",
+        "no_product_found": "Aucun produit dans cette ville"
+      },
+      "user-product": {
+        "id": "ID",
+        "image": "Image",
+        "name": "Nom",
+        "description": "Description",
+        "price": "Prix",
+        "date": "Date",
+        "category": "Catégorie",
+        "actions": "Actions",
+        "confirmation": {
+          "delete_title": "Confirmation de la suppression",
+          "delete_message": "Êtes-vous sûr de vouloir supprimer cet élément ?",
+          "cancel": "Annuler",
+          "delete": "Supprimer"
+        }
+      }
+    }
+    
+    
+    
+    
+    
+    
+    
+    

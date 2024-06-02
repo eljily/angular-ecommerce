@@ -12,6 +12,7 @@ import { Category, SubCategory } from '../service/model/Category';
 import { Product } from '../service/model/model';
 import {ProductsService} from '../service/products.service'
 import { SliderComponent } from '../slider/slider.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -20,7 +21,7 @@ import { SliderComponent } from '../slider/slider.component';
   selector: 'app-home',
   standalone: true,
   
-  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,RouterModule, NgFor ,SliderComponent,CarouselModule,],
+  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,RouterModule, NgFor ,SliderComponent,CarouselModule,TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

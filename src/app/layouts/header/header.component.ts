@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Inject, NgModule, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Inject, NgModule, PLATFORM_ID, inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
@@ -19,13 +19,16 @@ import { SearchService } from '../../search/search-service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { Region } from '../../service/model/Region';
 import { RegionService } from '../../service/region.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AppTranslateModule } from '../../app-translate.module';
+import { AppComponent } from '../../app.component';
 
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink,CommonModule,MatMenuModule ,HttpClientModule,FormsModule,  NgbDropdownModule ,CommonModule],
+  imports: [RouterLink,CommonModule,MatMenuModule ,HttpClientModule,FormsModule,  NgbDropdownModule ,CommonModule, TranslateModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -63,8 +66,10 @@ export class HeaderComponent implements OnInit {
   startIndex: number = 0;
   endIndex: number = 7;
   showDropdown: boolean = false;
+  translateService= inject(TranslateService);
 
   constructor(
+    public translate : TranslateService,
     private authService: AuthService,
     private userService: UserService,
     private categoryService: CategoryService,
@@ -114,6 +119,36 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
+  changeLanguage(lang: string) {
+    this.translateService.use(lang);
+  }
+  
+  getFlagImage(language: string): string {
+    if (language === 'ar') {
+      return '../../../assets/united-arab-emirates.png';
+    } else if (language === 'fr') {
+      return '../../../assets/france.png';
+    } else if (language === 'en') {
+      return '../../../assets/circle.png';
+    }
+    return '../../../assets/united-arab-emirates.png';
+  }
+
+  
+  getLanguageName(): string {
+    const currentLang = this.translateService.currentLang;
+    switch (currentLang) {
+      case 'ar':
+        return 'العربية'; 
+      case 'fr':
+        return 'Français'; 
+      case 'en':
+        return 'English'; 
+      default:
+        return 'العربية'; 
+    }
+  }
+  
   
 
   navigateTo(route: string): void {

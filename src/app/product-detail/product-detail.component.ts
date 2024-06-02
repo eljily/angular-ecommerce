@@ -4,12 +4,13 @@ import { Product } from '../service/model/model';
 import { CarouselModule } from 'primeng/carousel';
 import { ProductsService } from '../service/products.service';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [ CommonModule,CarouselModule ],
+  imports: [ CommonModule,CarouselModule,TranslateModule ],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })

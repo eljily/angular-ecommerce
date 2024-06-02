@@ -9,11 +9,12 @@ import { CategoryService } from '../service/category.service';
 import { UserService } from '../service/UserService';
 import { SearchService } from '../search/search-service';
 import { SharedNavigationService } from './shared-navigation.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bottom-navigation-bar',
   standalone: true,
-  imports: [RouterLink,CommonModule],
+  imports: [RouterLink,CommonModule,TranslateModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './bottom-navigation-bar.component.html',
   styleUrl: './bottom-navigation-bar.component.css'
