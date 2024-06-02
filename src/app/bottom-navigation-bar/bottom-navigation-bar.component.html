@@ -40,6 +40,8 @@
   </div>
 
 
+  
+
 
   <div class="nav-item" (click)="navigateTo('add-product')" style="cursor: pointer;">
     <i class="fa-solid fa-square-plus"></i>
@@ -53,7 +55,7 @@
   </div> 
 
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasProfil">
-    <div class="offcanvas-header" style="margin-right: 20px; margin-top: 15px;">
+    <div class="offcanvas-header justify-content-center" style="margin-right: 20px; margin-top: 15px;">
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
     </div>
     <div class="offcanvas-body" style="margin-top: 5px;">
@@ -78,7 +80,8 @@
         </li>
 
         <li *ngIf="isUserLoggedIn(); else notLoggedIn" class="d-flex align-items-center  ma">
-          <a *ngIf="currentUser" class="custom-border" data-bs-dismiss="offcanvas" style="text-decoration:none">{{ currentUser?.data?.data?.name }}</a> |
+          <a *ngIf="currentUser" class="custom-border" data-bs-dismiss="offcanvas"
+            style="text-decoration:none;cursor: pointer;">{{ currentUser?.data?.data?.name }}</a> |
           <a class="custom-border" (click)="logout()" data-bs-dismiss="offcanvas" style="text-decoration:none; cursor: pointer;">Se déconnecter</a>
       </li>
       <ng-template #notLoggedIn>
