@@ -30,6 +30,20 @@ export class CategoryService {
     }
   }
 
+
+  getAllWithProducts(): Observable<any> {
+    const url = `${this.apiUrl}/categories/withProducts`;
+    if (this.cacheService.has(url)) {
+      return this.cacheService.get(url);
+    } else {
+      return this.http.get<any>(url).pipe(
+        tap(data => this.cacheService.put(url, data))
+      );
+    }
+  }
+
+
+
   // Méthode pour récupérer les sous-catégories par ID de catégorie
   public getSubCategoriesByCategoryId(categoryId: number): Observable<SubCategory[]> {
     const url = `${this.apiUrl}/categories/${categoryId}`; // URL de l'API

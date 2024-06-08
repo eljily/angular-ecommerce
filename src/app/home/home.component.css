@@ -213,6 +213,16 @@
     object-fit: cover; /* Redimensionne l'image pour remplir les dimensions spécifiées sans déformer */
 }
 
+.rounded-image {
+    border-radius: 50%;
+    /* Pour rendre l'image ronde */
+    overflow: hidden;
+    /* Pour cacher la partie de l'image en dehors de la bordure */
+    width: 40px;
+    /* Ajustez la largeur de l'image à vos besoins */
+    height: 40px;
+    /* Ajustez la hauteur de l'image à vos besoins */
+}
 
 .price-border {
     border-right: 1px solid #ced4da; /* Couleur de la bordure */

@@ -9,7 +9,7 @@ import { CategoryService } from '../service/category.service';
 import { HeaderComponent } from '../layouts/header/header.component';
 import { ProduitComponent } from '../produit/produit.component';
 import { Category, SubCategory } from '../service/model/Category';
-import { Product } from '../service/model/model';
+import { ApiResponse, Product } from '../service/model/model';
 import {ProductsService} from '../service/products.service'
 import { SliderComponent } from '../slider/slider.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -54,36 +54,37 @@ export class HomeComponent implements OnInit {
   isBrowser: boolean = false;
 
 
-  constructor(private productService: ProductsService,private categoryService: CategoryService,
+  constructor(private categoryService: CategoryService,
     @Inject(PLATFORM_ID) private platformId: Object
 ) {}
 ngOnInit(): void {
   this.checkScreenSize();
 
-  this.productService.getAllWithProducts().subscribe(
-    (data: any) => {
-      console.log('Données récupérées data:', data);
-      if (data && data.data && Array.isArray(data.data)) {
-        this.productsData = data.data;
+  // Récupération des données des catégories avec les produits intégrés
+  this.categoryService.getAllWithProducts().subscribe(
+    (response: ApiResponse<Category[]>) => {
+      console.log('Données récupérées pour les produits:', response);
+
+      if (response && response.data && Array.isArray(response.data)) {
+        // Enregistrer les catégories obtenues à partir du service ProductService
+        const categoriesFromProducts = response.data;
+
+        // Si vous avez également besoin des catégories provenant de categoryService.getAllCategories(),
+        // vous pouvez les fusionner avec les catégories des produits ici.
+        // Par exemple, si les catégories provenant de categoryService.getAllCategories() 
+        // contiennent des informations supplémentaires, vous pouvez les ajouter ici.
+
+        // Enregistrer les catégories fusionnées dans la variable this.categories
+        this.categories = categoriesFromProducts;
       } else {
-        console.error('Les données retournées ne sont pas dans le format attendu.');
+        console.error('Les données retournées pour les produits ne sont pas dans le format attendu.');
       }
     },
     (error: any) => {
       console.error('Erreur lors de la récupération des produits avec les catégories:', error);
     }
   );
-
-  this.categoryService.getAllCategories().subscribe(
-    (categories: any[]) => {
-      this.categories = categories;
-    },
-    (error: any) => {
-      console.error('Erreur lors de la récupération des catégories:', error);
-    }
-  );
 }
-
 // Méthode pour vérifier la taille de l'écran et définir isDesktopView en conséquence
 checkScreenSize() {
   if (isPlatformBrowser(this.platformId)) {
@@ -96,6 +97,8 @@ checkScreenSize() {
     });
   }
 }
+
+
 
 
 

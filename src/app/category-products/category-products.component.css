@@ -19,9 +19,10 @@
 
 /*** Produits End ***/
 .produit-img img {
-    width: 150px; /* Largeur fixe */
-    height: 200px; /* Hauteur fixe */
-    object-fit: cover; /* Redimensionne l'image pour remplir les dimensions spécifiées sans déformer */
+  width: 150px;
+    height: 150px;
+    object-fit: cover;
+    /* Redimensionne l'image pour remplir les dimensions spécifiées sans déformer */
 }
 
 

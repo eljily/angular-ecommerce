@@ -14,20 +14,8 @@ body{margin-top:20px;
         box-shadow: none;
     }
     
-    .panel-heading {
-        border-color:#eff2f7 ;
-        font-size: 16px;
-        font-weight: 300;
-    }
+
     
-    .panel-title {
-        color: #2A3542;
-        font-size: 14px;
-        font-weight: 400;
-        margin-bottom: 0;
-        margin-top: 0;
-        font-family: 'Open Sans', sans-serif;
-    }
 
 
     /*///////////*/
@@ -78,9 +66,7 @@ body{margin-top:20px;
         color: #3b3b3b;
     }
     
-    .prod-cat li ul {
-        margin-left: 30px;
-    }
+
     
     .prod-cat li ul li a{
         border-bottom:none;
@@ -94,15 +80,7 @@ body{margin-top:20px;
         margin-right: 20px;
         font-weight: normal;
     }
-    
-    .pro-sort {
-        padding-right: 20px;
-        float: left;
-    }
-    
-    .pro-page-list {
-        margin: 5px 0 0 0;
-    }
+
     
     .product-list img{
         width: 100%;
@@ -110,44 +88,19 @@ body{margin-top:20px;
         -webkit-border-radius: 4px 4px 0 0;
     }
     
-    .product-list .pro-img-box {
-        position: relative;
-    }
-    .adtocart {
-        background: #fc5959;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-        color: #fff;
-        display: inline-block;
-        text-align: center;
-        border: 3px solid #fff;
-        left: 45%;
-        bottom: -25px;
-        position: absolute;
-    }
-    
+
     .adtocart i{
         color: #fff;
         font-size: 25px;
         line-height: 42px;
     }
     
-    .pro-title {
-        color: #5A5A5A;
-        display: inline-block;
-        margin-top: 20px;
-        font-size: 16px;
-    }
+
     .product-image{
         width: 100px; /* Définissez la largeur souhaitée */
         height: 400px; /* Ajustez la hauteur en conséquence pour conserver les proportions */
     }
-    .product-list .price {
-        color:#fc5959 ;
-        font-size: 15px;
-    }
+
     
     .pro-img-details {
         margin-left: -15px;
@@ -157,10 +110,7 @@ body{margin-top:20px;
         width: 100%;
     }
     
-    .pro-d-title {
-        font-size: 16px;
-        margin-top: 0;
-    }
+
     
     .product_meta {
         border-top: 1px solid #eee;
@@ -175,9 +125,7 @@ body{margin-top:20px;
     }
 
     
-    .quantity {
-        width: 120px;
-    }
+
     
     .pro-img-list {
         margin: 10px 0 0 -15px;
@@ -192,11 +140,7 @@ body{margin-top:20px;
         overflow: hidden; /* Masquer tout débordement d'image */
         margin-right: 10px; /* Marge entre les images */
     }
-    
-    .pro-d-head {
-        font-size: 18px;
-        font-weight: 300;
-    }
+
     .custom-border {
         width : 100%;
         border-radius: 10px; /* Coins arrondis */
@@ -219,15 +163,7 @@ body{margin-top:20px;
       
 
 
-      .title {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        font-size: 1.2rem;
-        max-width: 100%; /* Limiter la largeur du titre à 100% de son conteneur */
-        overflow: hidden; /* Masquer tout contenu dépassant de la zone */
-        text-overflow: ellipsis; /* Ajouter des points de suspension pour indiquer qu'il y a plus de contenu que ce qui est visible */
-        white-space: nowrap; /* Empêcher le texte de se mettre à la ligne */
-    }
+
 
     .product-box {
         border: 1px solid #ccc; /* Bordure de la boîte */
@@ -262,9 +198,7 @@ body{margin-top:20px;
         align-items: center;
       }
       
-      .pro-d-title {
-        margin-bottom: 0; /* Enlevez la marge inférieure par défaut */
-      }
+
       .pro-price {
         font-size: 1.2em;
         font-weight: bold;
@@ -298,4 +232,20 @@ body{margin-top:20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère autour de l'image */
     }
 
-    
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.875rem 1.125rem;
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1;
+            color: #69707a;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #fd7e14;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.35rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }

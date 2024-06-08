@@ -3,7 +3,6 @@ import { FavoriteService } from '../service/favorite.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
-import { Product } from '../service/model/model';
 
 @Component({
   selector: 'app-favoris',
@@ -20,7 +19,7 @@ export class FavorisComponent implements OnInit {
   categoryId: number | undefined;
   pages: number[] = [];
   searchResults: any[] = [];
-  favoriteProducts: Product[] = [];
+  favoriteProducts: any[] = [];
 
   constructor(private favoriteService: FavoriteService) { }
 

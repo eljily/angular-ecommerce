@@ -135,6 +135,7 @@ export class ProductsService {
     }
   }
 
+
   getAllRegionsWithSubRegions(): Observable<any> {
     const url = `${this.apiUrl}/regions`;
     if (this.cacheService.has(url)) {
