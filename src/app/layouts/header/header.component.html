@@ -1,5 +1,6 @@
 <!-- Section du header qui est cachée sur les écrans de 992px et moins -->
-<div id="header" class="site-header text-black d-none d-lg-block" style="background-color: rgb(248, 246, 246);">
+<div id="header" class="site-header text-black d-none d-lg-block" style="background-color: rgb(248, 246, 246);"
+  [dir]="'dir' | translate">
   <div class="header-top border-bottom py-2">
     <div class="row justify-content-evenly">
       <div class="col-auto d-none d-md-block">
@@ -45,7 +46,8 @@
 </div>
 
 <!-- Contenu alternatif pour les écrans de 992px et moins -->
-<div id="header-mobile" class="site-header text-black d-lg-none" style="background-color: rgb(248, 246, 246);">
+<div id="header-mobile" class="site-header text-black d-lg-none" style="background-color: rgb(248, 246, 246);"
+  [dir]="'dir' | translate">
   <div class="header-top border-bottom py-2">
     <div class="row justify-content-evenly">
       <div class="col-auto">
@@ -91,7 +93,7 @@
 </div>
 
 <!-- Section du header visible uniquement sur les écrans de plus de 992 pixels -->
-<header class="header-mobile"
+<header class="header-mobile" [dir]="'dir' | translate"
   style="border: 1px solid #fd7e14; border-radius: 10px; background-color: rgb(248, 246, 246);">
   <div class="container-fluid">
     <div class="row py-3 border-bottom head">

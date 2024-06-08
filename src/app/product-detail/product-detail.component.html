@@ -1,23 +1,27 @@
-<div class="container bootdey">
+<div class="container bootdey" [dir]="'dir' | translate">
   <div class="row">
     <!-- Section image principale et autres images -->
     <div class="col-lg-6 col-md-12">
       <div class="card box ">
       <section class="panel">
-        <div class="panel-body ">
+
           <div class="pro-img-details position-relative">
             <!-- Utilisation de la première image du backend comme image principale -->
             <img *ngIf="productDetails?.images && productDetails.images.length > 0"
               [src]="productDetails.images[currentImageIndex].imageUrl"
-              [alt]="productDetails.images[currentImageIndex].alt" class="product-image img-fluid"
-              style="margin-left: 15px; margin-top: 10px;" loading="lazy">
+              [alt]="productDetails.images[currentImageIndex].alt" class="product-image img-fluid" style="margin-left: 18px;"
+              loading="lazy">
               <span class="tagged_as text-white px-2 py-1 rounded"
-                style="background-color: #fff; cursor: pointer; position: absolute; top: 12px; right: -13px;"
-                [ngClass]="{'inactive': !isTokenAvailable}" (click)="isTokenAvailable && toggleFavorite(productDetails.id)">
-                <i class="fas fa-heart" [ngStyle]="{'color': isFavorite ? 'red' : '#fd7e14'}"></i>
-              </span>
+              style="background-color: #fff; cursor: pointer; position: absolute; top: 4%; left: 10%; transform: translate(-50%, -50%);"
+              [ngClass]="{'inactive': !isTokenAvailable}" (click)="isTokenAvailable && toggleFavorite(productDetails.id)">
+              <i class="fas fa-heart" [ngStyle]="{'color': isFavorite ? 'red' : '#fd7e14'}"></i>
+            </span>
+            <span class="tagged_as text-white px-2 py-1 rounded icon1"
+              style="background-color: #fff; cursor: pointer; position: absolute; top: 12%; left: 10%; transform: translate(-50%, -50%);">
+              <i class="fa-solid fa-share-nodes" style="color: #fd7e14;"></i>
+            </span>
           </div>
-          </div>
+
         
               </section>
               <div class="row">

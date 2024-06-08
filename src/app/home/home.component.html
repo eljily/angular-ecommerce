@@ -1,6 +1,6 @@
 <app-slider></app-slider>
 
-<section>
+<section [dir]="'dir' | translate">
   <div class="pt-5" style="padding: 30px;">
     <div class="container-fluid">
       <div class="row gy-4">
@@ -55,19 +55,17 @@
 
 <!-- Affichage des produits par catégorie et sous-catégorie -->
 
-<div class="container-fluid produit py-4">
+<div class="container-fluid produit py-4" [dir]="'dir' | translate">
   <div class="col-md-12 mx-md-50" *ngFor="let category of categories; let i = index">
-    <div class="title">
-      <div style="float: left;">
-        <img [src]="category.imageUrl" alt="" class="rounded-image" loading="lazy">
-        <span>{{ category.name }}</span>
-      </div>
-      <div style="float: right;">
-        <span [routerLink]="'/category-products/' + category.id"
-          style="color: #fd7e14; font-size: 0.8em; cursor: pointer;">{{
+        <div class="title" style="display: flex; justify-content: space-between;">
+          <div>
+            <span><img [src]="category.imageUrl" alt="" class="rounded-image" loading="lazy"> {{ category.name }}</span>
+          </div>
+          <span [routerLink]="'/category-products/' + category.id"
+          style="color: #fd7e14; font-size: 0.8em; cursor: pointer; margin-right: 10px;">{{
           'home.see_more' | translate }} >></span>
-      </div>
-    </div>
+        </div>
+
 
     <!-- Conteneur des produits avec défilement à partir de 768px -->
     <div class="products-container position-relative" *ngIf="isDesktopView">

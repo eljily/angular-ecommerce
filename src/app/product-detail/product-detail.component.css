@@ -7,13 +7,7 @@ body{margin-top:20px;
     margin-top: 20px;
     margin-bottom: 50px;
 }
-    
-    /*panel*/
-    .panel {
-        border: none;
-        box-shadow: none;
-    }
-    
+
 
     
 
@@ -26,7 +20,8 @@ body{margin-top:20px;
     .pro-img-details,
     .pro-img-list {
         flex: 1;
-        margin-right: 20px;
+        margin-right: 10px;
+            width: 100%;
 
     }
     
@@ -207,9 +202,7 @@ body{margin-top:20px;
         border-radius: 10px;
         padding: 5px 20px; /* Espace intérieur du prix */
         background-color: #fd7e14; /* Fond blanc pour le prix */
-        position: absolute; /* Positionne le prix par rapport à .d-flex */
-        top: 0; /* Aligne le prix en haut de .d-flex */
-        right: 0; /* Aligne le prix à droite de .d-flex */
+
     }
 
       .name {
@@ -249,3 +242,8 @@ body{margin-top:20px;
             border-radius: 0.35rem;
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
+@media (min-width: 768px) {
+    .icon1 {
+        margin-right: 50px;
+    }
+}

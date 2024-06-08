@@ -159,3 +159,10 @@ ul {
   font-size: 14px;
   color: #878787;
 }
+@media (max-width: 992.00px) {
+  .copyright-area {
+    margin-bottom: 80px;
+
+  }
+
+}

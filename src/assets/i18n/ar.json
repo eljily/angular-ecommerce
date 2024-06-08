@@ -22,6 +22,7 @@
       "champ_obligatoire": "هذا الحقل إلزامي",
       "bouton_enregistrer": "حفظ التغييرات"
     },
+    
     "connexion": {
         "login": "تسجيل الدخول",
         "phone_number": "رقم الهاتف",

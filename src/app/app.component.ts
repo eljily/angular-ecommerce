@@ -91,8 +91,8 @@ export class AppComponent implements OnInit {
     });
 
     if (this.isBrowser) {
-      this.translateService.setDefaultLang('fr');
-      this.translateService.use('fr');
+      this.translateService.setDefaultLang('ar');
+      this.translateService.use('ar');
     }
   }
 

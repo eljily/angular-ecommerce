@@ -20,8 +20,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { Region } from '../../service/model/Region';
 import { RegionService } from '../../service/region.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { AppTranslateModule } from '../../app-translate.module';
-import { AppComponent } from '../../app.component';
+
 
 
 
@@ -105,7 +104,7 @@ export class HeaderComponent implements OnInit {
 
     this.loadCategories();
     this.loadRegions();
-    this.loadProducts();
+
   }
 
   loadRegions(): void {
@@ -230,16 +229,7 @@ export class HeaderComponent implements OnInit {
   }
   
 
-  private loadProducts(): void {
-    this.productService.getAllProducts().subscribe(
-      (response: any[]) => {
-        this.products = response;
-      },
-      (error: any) => {
-        console.error('Error fetching products:', error);
-      }
-    );
-  }
+
 
   // Méthode de recherche
   onSearch(event: Event): void {

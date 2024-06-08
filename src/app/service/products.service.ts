@@ -17,16 +17,6 @@ export class ProductsService {
 
   constructor(private http: HttpClient, private authService: AuthService, private cacheService: CacheService) { }
 
-  getAllProducts(): Observable<any> {
-    const url = `${this.apiUrl}/products`;
-    if (this.cacheService.has(url)) {
-      return this.cacheService.get(url);
-    } else {
-      return this.http.get<any>(url).pipe(
-        tap(data => this.cacheService.put(url, data))
-      );
-    }
-  }
 
   getProductsByCategoryId(categoryId: number): Observable<any> {
     const url = `${this.apiUrl}/products/productsByCategoryId/${categoryId}`;
@@ -124,16 +114,7 @@ export class ProductsService {
     }
   }
 
-  getAllWithProducts(): Observable<any> {
-    const url = `${this.apiUrl}/categories/withProducts`;
-    if (this.cacheService.has(url)) {
-      return this.cacheService.get(url);
-    } else {
-      return this.http.get<any>(url).pipe(
-        tap(data => this.cacheService.put(url, data))
-      );
-    }
-  }
+
 
 
   getAllRegionsWithSubRegions(): Observable<any> {
