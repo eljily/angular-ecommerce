@@ -208,10 +208,8 @@
 
 /*** Produits End ***/
 .produit-img img {
-    width: 100px;
-        /* Largeur fixe */
-        height: 100px;
-        /* Hauteur fixe */
+    width: 150px;
+        height: 150px;
     object-fit: cover; /* Redimensionne l'image pour remplir les dimensions spécifiées sans déformer */
 }
 
