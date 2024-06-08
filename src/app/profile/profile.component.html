@@ -71,11 +71,11 @@
 
                             <!-- Groupe de formulaire (anniversaire) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputBirthday">{{ 'profile.birthday' | translate
-                                    }}</label>
-                                <input class="form-control" id="inputBirthday" name="birthday" type="text"
+                                <label class="small mb-1" for="inputBirthday">{{ 'profile.birthday' | translate }}</label>
+                                <input class="form-control" id="inputBirthday" name="birthday" type="date"
                                     placeholder="{{ 'profile.enter_birthday' | translate }}" [(ngModel)]="user.data.birthDate" *ngIf="user">
-                            </div>
+                                </div>
+                            
                         </div>
 
                         <!-- Bouton pour sauvegarder les changements -->

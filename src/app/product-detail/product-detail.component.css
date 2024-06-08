@@ -237,6 +237,18 @@ body{margin-top:20px;
         position: relative; /* Permet de positionner des éléments en absolu à l'intérieur */
     }
 
+ .box {
+     border: 1px solid #ccc;
+
+     border-radius: 5px;
+
+     padding: 15px;
+
+     margin-bottom: 20px;
+
+     position: relative;
+
+ }
     .d-flex {
         display: flex;
         justify-content: space-between;

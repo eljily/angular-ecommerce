@@ -61,11 +61,11 @@
 
       <div class="col " style="padding: 10px; margin-right: 5px;">
         <ul class="d-flex justify-content-end gap-3 list-unstyled">
-          <div class="lang_box dropdown custom-border2" style="margin-right: 10px;" ngbDropdown>
+          <div class="lang_box dropdown custom-border2" style="margin-right: 10px; cursor: pointer;" ngbDropdown>
             <a title="Language" class="nav-link dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
               <img [src]="getFlagImage(translateService.currentLang)" alt="flag" class="mr-2 flag-icon" loading="lazy">
               {{ getLanguageName() }}
-              <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+            
             </a>
             <div class="dropdown-menu custom-border2 " ngbDropdownMenu>
               <a class="dropdown-item custom-border1" (click)="changeLanguage('ar')">
@@ -99,11 +99,11 @@
       <!-- Section visible uniquement sur les écrans de plus de 992 pixels -->
       <div
         class="col-sm-8 col-lg-4 d-flex ipad justify-content-end align-items-center mt-sm-0 justify-content-center justify-content-sm-end d-none d-lg-flex">
-        <div class="lang_box dropdown custom-border2" style="margin-right: 10px;" ngbDropdown>
+        <div class="lang_box dropdown custom-border2" style="margin-right: 10px; cursor: pointer;" ngbDropdown>
           <a title="Language" class="nav-link dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
             <img [src]="getFlagImage(translateService.currentLang)" alt="flag" class="mr-2 flag-icon" loading="lazy">
             {{ getLanguageName() }}
-            <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
+          
             </a>
             <div class="dropdown-menu custom-border2 " ngbDropdownMenu>
               <a class="dropdown-item custom-border1" (click)="changeLanguage('ar')">

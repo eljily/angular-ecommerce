@@ -7,7 +7,7 @@ data:{
     firstName: string;
     lastName: string;
     address: string;
-    birthDate: string;
+    birthDate: string | Date; 
     phoneNumber: string;
     password: string;
     email: string;

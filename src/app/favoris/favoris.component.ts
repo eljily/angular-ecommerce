@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FavoriteService } from '../service/favorite.service';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { Product } from '../service/model/model';
 
 @Component({
   selector: 'app-favoris',
   standalone: true,
-  imports: [CommonModule,TranslateModule],
+  imports: [CommonModule,TranslateModule,RouterLink],
   templateUrl: './favoris.component.html',
   styleUrl: './favoris.component.css'
 })
@@ -18,7 +20,7 @@ export class FavorisComponent implements OnInit {
   categoryId: number | undefined;
   pages: number[] = [];
   searchResults: any[] = [];
-  favoriteProducts: any[] = [];
+  favoriteProducts: Product[] = [];
 
   constructor(private favoriteService: FavoriteService) { }
 

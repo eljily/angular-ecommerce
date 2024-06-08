@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
           if (response && response.data) {
             this.user = response.data;
             this.updateUserProfilePhoto();
+            this.formatBirthDate();
             console.log('Détails de l\'utilisateur reçus :', this.user);
           } else {
             console.error('Erreur lors de la récupération des détails de l\'utilisateur : Données manquantes dans la réponse.');
@@ -45,6 +46,18 @@ export class ProfileComponent implements OnInit {
     this.token = this.authService.getToken();
     console.log('Token in ngOnInit:', this.token);
   }
+
+
+  formatBirthDate(): void {
+    if (this.user && this.user.data.birthDate) {
+      const birthDate = new Date(this.user.data.birthDate);
+      const year = birthDate.getFullYear();
+      const month = (birthDate.getMonth() + 1).toString().padStart(2, '0');
+      const day = birthDate.getDate().toString().padStart(2, '0');
+      this.user.data.birthDate = `${year}-${month}-${day}`;
+    }
+  }
+
 
   updateUserProfilePhoto(): void {
     if (this.user && this.user.data.profileUrl) {
@@ -64,6 +77,18 @@ export class ProfileComponent implements OnInit {
       console.log('Name is:', this.user.data.name);
       console.log('Email is:', this.user.data.email);
       console.log('Phone Number is:', this.user.data.phoneNumber);
+      console.log('Birth Date is:', this.user.data.birthDate);
+
+      let birthDateFormatted = '';
+      if (this.user.data.birthDate) {
+        const birthDate = new Date(this.user.data.birthDate);
+        const month = (birthDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = birthDate.getDate().toString().padStart(2, '0');
+        const year = birthDate.getFullYear();
+        birthDateFormatted = `${month}/${day}/${year}`;
+        console.log('Birth Date is:', birthDateFormatted);
+      }
+
 
       // Check and add user ID to FormData
       if (this.user.data.id) {
@@ -107,10 +132,10 @@ export class ProfileComponent implements OnInit {
       if (this.user.data.address) {
         formData.append('address', this.user.data.address);
       }
-      if (this.user.data.birthDate) {
-        formData.append('birthDate', this.user.data.birthDate);
+      if (birthDateFormatted) {
+        formData.append('birthDate', birthDateFormatted);
+        console.log('Adding birthDate to formData:', birthDateFormatted);
       }
-
       if (this.selectedProfilePhoto) {
         formData.append('profilePhoto', this.selectedProfilePhoto);
       }
