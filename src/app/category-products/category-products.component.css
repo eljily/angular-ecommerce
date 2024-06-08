@@ -25,11 +25,6 @@
 }
 
 
-.price-border {
-    border-right: 1px solid #ced4da; /* Couleur de la bordure */
-    padding-right: 5px; /* Espace entre le prix et la bordure */
-  }
-
 
   .product-border {
     border: 1px solid #fd7e14; /* Bordure de 1px, couleur #fd7e14 */
@@ -53,21 +48,7 @@ h6{
 
 
 
-/*-----pagination */
-body {
-    background-color: #ff4242;
-    font-family: 'Lora', serif;
-  }
-  
-  h2 {
-    text-align: center;
-    color: #fff;
-    font-size: 40px;
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    margin-top: 60px;
-    text-shadow: 0 5px 8px rgba(0, 0, 0, .25);
-  }
+
   
   h2 span {
     font-weight: 400;

@@ -5,13 +5,14 @@
             <!-- Carte de photo de profil -->
             <div class="card mb-4 mb-xl-0">
                 <div class="card-header">{{ 'profile.photo_title' | translate }}</div>
-                <div class="card-body text-center">
-                    <!-- Image de photo de profil -->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                <div class="card-body text-center"> <!-- Image de photo de profil --> <img
+                        class="img-account-profile rounded-circle mb-2" [src]="userProfilePhoto" alt="" loading="lazy" *ngIf="user">
                     <!-- Bloc d'aide pour la photo de profil -->
                     <div class="small font-italic text-muted mb-4">JPG ou PNG ne dépassant pas 5 Mo</div>
                     <!-- Bouton de téléchargement de nouvelle image -->
-                    <button class="btn btn-primary custom-border" type="button">{{ 'profile.upload_new_image' | translate }}</button>
+                    <form id="uploadForm"> <label for="inputProfilePhoto" class="btn btn-primary custom-border upload-label"> {{
+                            'profile.upload_new_image' | translate }} </label> <input type="file" id="inputProfilePhoto"
+                            (change)="onProfilePhotoChange($event)" style="display: none;"> </form>
                 </div>
             </div>
         </div>
@@ -25,56 +26,62 @@
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">{{ 'profile.username' | translate }}</label>
                             <input class="form-control" id="inputUsername" name="username" type="text"
-                                placeholder="{{ 'profile.enter_username' | translate }}">
+                                placeholder="{{ 'profile.enter_username' | translate }}" [(ngModel)]="user.data.name" *ngIf="user">
                         </div>
-                        <div class="row gx-3 mb-3">    
+                        <div class="row gx-3 mb-3">
                             <!-- Groupe de formulaire (prénom) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">{{ 'profile.first_name' | translate }}</label>
+                                <label class="small mb-1" for="inputFirstName">{{ 'profile.first_name' | translate
+                                    }}</label>
                                 <input class="form-control" id="inputFirstName" name="firstName" type="text"
-                                    placeholder="{{ 'profile.enter_first_name' | translate }}">
+                                    placeholder="{{ 'profile.enter_first_name' | translate }}" [(ngModel)]="user.data.firstName" *ngIf="user">
                             </div>
-                    
+
                             <!-- Groupe de formulaire (nom de famille) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">{{ 'profile.last_name' | translate }}</label>
+                                <label class="small mb-1" for="inputLastName">{{ 'profile.last_name' | translate
+                                    }}</label>
                                 <input class="form-control" id="inputLastName" name="lastName" type="text"
-                                    placeholder="{{ 'profile.enter_last_name' | translate }}">
+                                    placeholder="{{ 'profile.enter_last_name' | translate }}" [(ngModel)]="user.data.lastName" *ngIf="user">
                             </div>
                         </div>
-                    
+
                         <!-- Groupe de formulaire (emplacement) -->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputLocation">{{ 'profile.location' | translate }}</label>
                             <input class="form-control" id="inputLocation" name="location" type="text"
-                                placeholder="{{ 'profile.enter_location' | translate }}">
+                                placeholder="{{ 'profile.enter_location' | translate }}" [(ngModel)]="user.data.address" *ngIf="user">
                         </div>
-                    
+
                         <!-- Groupe de formulaire (adresse e-mail) -->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputEmailAddress">{{ 'profile.email_address' | translate }}</label>
+                            <label class="small mb-1" for="inputEmailAddress">{{ 'profile.email_address' | translate
+                                }}</label>
                             <input class="form-control" id="inputEmailAddress" name="emailAddress" type="email"
-                                placeholder="{{ 'profile.enter_email_address' | translate }}">
+                                placeholder="{{ 'profile.enter_email_address' | translate }}" [(ngModel)]="user.data.email" *ngIf="user">
                         </div>
                         <div class="row gx-3 mb-3">
                             <!-- Groupe de formulaire (numéro de téléphone) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">{{ 'profile.phone_number' | translate }}</label>
+                                <label class="small mb-1" for="inputPhone">{{ 'profile.phone_number' | translate
+                                    }}</label>
                                 <input class="form-control" id="inputPhone" name="phoneNumber" type="tel"
-                                    placeholder="{{ 'profile.enter_phone_number' | translate }}">
+                                    placeholder="{{ 'profile.enter_phone_number' | translate }}" [(ngModel)]="user.data.phoneNumber" *ngIf="user">
                             </div>
-                    
+
                             <!-- Groupe de formulaire (anniversaire) -->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputBirthday">{{ 'profile.birthday' | translate }}</label>
+                                <label class="small mb-1" for="inputBirthday">{{ 'profile.birthday' | translate
+                                    }}</label>
                                 <input class="form-control" id="inputBirthday" name="birthday" type="text"
-                                    placeholder="{{ 'profile.enter_birthday' | translate }}">
+                                    placeholder="{{ 'profile.enter_birthday' | translate }}" [(ngModel)]="user.data.birthDate" *ngIf="user">
                             </div>
                         </div>
-                    
+
                         <!-- Bouton pour sauvegarder les changements -->
                         <div class="text-center">
-                            <button class="btn btn-primary custom-border" type="button">{{ 'profile.save_changes' | translate }}</button>
+                            <button class="btn btn-primary custom-border" type="button" (click)="saveChanges()">{{ 'profile.save_changes' |
+                                translate }}</button>
                         </div>
                     </form>
                 </div>

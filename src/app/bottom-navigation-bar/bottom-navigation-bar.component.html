@@ -54,27 +54,8 @@
     <div class="offcanvas-header justify-content-center" style="margin-right: 20px; margin-top: 15px;">
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="ferme"></button>
     </div>
-    <div class="offcanvas-body" style="margin-top: 5px;">
+    <div class="offcanvas-body" style="margin-top: 12px;">
       <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-        <li class="nav-item active" (click)="navigateTo('profile')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.profile' | translate }}</a>
-        </li>
-        <li class="nav-item active" (click)="navigateTo('forgot-password')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.change_password' | translate }}</a>
-        </li>
-        <li class="nav-item active" (click)="navigateTo('add-product')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.add_product' | translate }}</a>
-        </li>
-        <li class="nav-item active" (click)="navigateTo('settings')" style="cursor: pointer;">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.settings' | translate }}</a>
-        </li>
-        <li class="nav-item active" (click)="navigateTo('user-product')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.user_product' | translate }}</a>
-        </li>
-        <li class="nav-item active" (click)="navigateTo('delete-account')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.delete_account' | translate }}</a>
-        </li>
-
         <li *ngIf="isUserLoggedIn(); else notLoggedIn" class="d-flex align-items-center ma">
           <a *ngIf="currentUser" class="custom-border" data-bs-dismiss="offcanvas"
             style="text-decoration:none;cursor: pointer;">{{ currentUser?.data?.data?.name }}</a> |
@@ -89,6 +70,26 @@
               'button-mobile.signup' | translate }}</a>
           </li>
         </ng-template>
+        <li class="nav-item active" (click)="navigateTo('profile')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.profile' | translate }}</a>
+        </li>
+        <li class="nav-item active" (click)="navigateTo('forgot-password')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.change_password' | translate }}</a>
+        </li>
+        <li class="nav-item active" (click)="navigateTo('add-product')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.add_product' | translate }}</a>
+        </li>
+        <li class="nav-item active" (click)="navigateTo('favoris')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.settings' | translate }}</a>
+        </li>
+        <li class="nav-item active" (click)="navigateTo('user-product')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.user_product' | translate }}</a>
+        </li>
+        <li class="nav-item active" (click)="navigateTo('delete-account')" style="cursor: pointer;" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.delete_account' | translate }}</a>
+        </li>
+
+
         </ul>
     </div>
   </div>

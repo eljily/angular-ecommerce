@@ -17,8 +17,12 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
+
 export class ProfileComponent implements OnInit {
   user: RegisterDto | null = null;
+  token: string | null = null;
+  userProfilePhoto: string = 'http://bootdey.com/img/Content/avatar/avatar1.png';
+  selectedProfilePhoto: File | null = null;
 
   constructor(private authService: AuthService, private userService: UserService) {}
 
@@ -28,72 +32,132 @@ export class ProfileComponent implements OnInit {
         this.userService.getUserById(user.userId).subscribe((response: ResponseMessage<RegisterDto>) => {
           if (response && response.data) {
             this.user = response.data;
-            console.log('Détails de l\'utilisateur :', this.user);
+            this.updateUserProfilePhoto();
+            console.log('Détails de l\'utilisateur reçus :', this.user);
           } else {
             console.error('Erreur lors de la récupération des détails de l\'utilisateur : Données manquantes dans la réponse.');
           }
         });
       }
     });
-  }
-  
-  
 
-  updateUserName(event: any): void {
-    if (event && event.target && event.target.value && this.user) {
-      this.user!.data.name = event.target.value; // Mettez à jour le nom de l'utilisateur
+    // Récupérez le token d'authentification du service d'authentification
+    this.token = this.authService.getToken();
+    console.log('Token in ngOnInit:', this.token);
+  }
+
+  updateUserProfilePhoto(): void {
+    if (this.user && this.user.data.profileUrl) {
+      this.userProfilePhoto = this.user.data.profileUrl; // Utilisez le champ approprié pour l'URL de l'image de profil
+    } else {
+      this.userProfilePhoto = 'http://bootdey.com/img/Content/avatar/avatar1.png';
     }
   }
-  
-  
-  
-  updateFirstName(event: any): void {
-    if (event && event.target && event.target.value) {
-      this.user!.data.firstName = event.target.value;
-    }
-  }
-  
-  updateLastName(event: any): void {
-    if (event && event.target && event.target.value) {
-      this.user!.data.lastName = event.target.value;
-    }
-  }
-  
-  updateLocation(event: any): void {
-    if (event && event.target && event.target.value) {
-      this.user!.data.address = event.target.value;
-    }
-  }
-  
-  updateEmailAddress(event: any): void {
-    if (event && event.target && event.target.value) {
-      this.user!.data.email = event.target.value;
-    }
-  }
-  
-  updatePhoneNumber(event: any): void {
-    if (event && event.target && event.target.value) {
-      this.user!.data.phoneNumber = event.target.value;
-    }
-  }
-  
-  updateBirthDate(event: any): void {
-    if (event && event.target && event.target.value) {
-      this.user!.data.birthDate = new Date(event.target.value);
-    }
-  }
-  
 
   saveChanges(): void {
-    if (this.user) {
-      this.userService.saveUser(this.user).subscribe(
+    // Assurez-vous que vous avez le token et l'utilisateur avant de continuer
+    if (this.token && this.user) {
+      const formData = new FormData();
+
+      // Log user details
+      console.log('ID is:', this.user.data.id);
+      console.log('Name is:', this.user.data.name);
+      console.log('Email is:', this.user.data.email);
+      console.log('Phone Number is:', this.user.data.phoneNumber);
+
+      // Check and add user ID to FormData
+      if (this.user.data.id) {
+        formData.append('userId', this.user.data.id.toString());
+      } else {
+        console.log('User ID is missing.');
+        return; // Exit method if ID is missing
+      }
+
+      // Check and add user name to FormData
+      if (this.user.data.name) {
+        formData.append('name', this.user.data.name);
+      } else {
+        console.log('User name is missing.');
+        return; // Exit method if name is missing
+      }
+
+      // Check and add user email to FormData
+      if (this.user.data.email) {
+        formData.append('email', this.user.data.email);
+      } else {
+        console.log('User email is missing.');
+        return; // Exit method if email is missing
+      }
+
+      // Check and add user phone number to FormData
+      if (this.user.data.phoneNumber) {
+        formData.append('phoneNumber', this.user.data.phoneNumber);
+      } else {
+        console.log('User phone number is missing.');
+        return; // Exit method if phone number is missing
+      }
+
+      // Check and add other fields if necessary
+      if (this.user.data.firstName) {
+        formData.append('firstName', this.user.data.firstName);
+      }
+      if (this.user.data.lastName) {
+        formData.append('lastName', this.user.data.lastName);
+      }
+      if (this.user.data.address) {
+        formData.append('address', this.user.data.address);
+      }
+      if (this.user.data.birthDate) {
+        formData.append('birthDate', this.user.data.birthDate);
+      }
+
+      if (this.selectedProfilePhoto) {
+        formData.append('profilePhoto', this.selectedProfilePhoto);
+      }
+      if (this.user.data.profileUrl) {
+        formData.append('profileUrl', this.user.data.profileUrl);
+      }
+      if (this.user.data.whatsAppNumber) {
+        formData.append('whatsAppNumber', this.user.data.whatsAppNumber);
+      }
+
+      // Save user changes by calling the UserService service
+      this.userService.saveUser(formData, this.user.data.id, this.token).subscribe(
         (response: any) => {
-          console.log('Les détails de l\'utilisateur ont été mis à jour avec succès.', response);
+          console.log('User details updated successfully.', response);
+          if (this.selectedProfilePhoto) {
+            // Mettre à jour l'image de profil uniquement si une nouvelle image a été téléchargée
+            this.userProfilePhoto = URL.createObjectURL(this.selectedProfilePhoto);
+            this.selectedProfilePhoto = null;
+          }
+          // Implement additional logic after successful save if needed
         },
         (error: any) => {
-          console.error('Une erreur s\'est produite lors de la mise à jour des détails de l\'utilisateur.', error);
+          console.log('An error occurred while updating user details.', error);
+          // Implement logic to handle errors if needed
         }
       );
+    } else {
+      console.log('Unable to update user details: token or user is missing.');
     }
+  }
+
+  onProfilePhotoChange(event: any) {
+    const file = event.target.files[0];
+    // Récupérer le fichier sélectionné
+    // Vérifier si un fichier a été sélectionné
+    if (file) { 
+      // Mettre à jour la variable userProfilePhoto avec l'URL de l'image sélectionnée
+      const reader = new FileReader(); 
+      reader.readAsDataURL(file); 
+      reader.onload = () => { 
+        this.userProfilePhoto = reader.result as string; 
+      };
+      this.selectedProfilePhoto = file;
+    } else { 
+      // Utiliser l'image par défaut si aucun fichier n'a été sélectionné
+      this.userProfilePhoto = 'http://bootdey.com/img/Content/avatar/avatar1.png'; 
+      this.selectedProfilePhoto = null;
+    } 
   }
 }

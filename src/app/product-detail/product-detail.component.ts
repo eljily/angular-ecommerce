@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { Product } from '../service/model/model';
 import { CarouselModule } from 'primeng/carousel';
 import { ProductsService } from '../service/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '../service/auth.service';
+import { FavoriteService } from '../service/favorite.service';
 
 
 @Component({
@@ -20,20 +22,27 @@ export class ProductDetailComponent implements OnInit {
   productId!: number;
   productDetails!: Product;
   status = false;
+  isAuthenticated = false;
+  isTokenAvailable: boolean = false;
+  isFavorite: boolean = false;
 
     // Déclarez une variable pour stocker l'index de l'image principale
     currentImageIndex: number = 0;
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductsService
+    private authService: AuthService,
+    private productService: ProductsService,
+    private favoriteService: FavoriteService,
+    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    // Get the productId from the route parameters
     this.route.params.subscribe(params => {
-      this.productId = +params['productId']; // The '+' is used to convert the string to a number
+      this.productId = +params['productId'];
       this.fetchProductDetails();
+      this.isTokenAvailable = this.authService.isTokenAvailable();
+      this.checkIfProductIsFavorite(this.productId);
     });
   }
 
@@ -45,7 +54,7 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getProductDetails(this.productId).subscribe(
       (response: any) => {
         this.productDetails = response;
-        console.log(response);
+        console.log('Product details fetched:', response);
       },
       error => {
         console.error('Error fetching product details:', error);
@@ -53,9 +62,50 @@ export class ProductDetailComponent implements OnInit {
     );
   }
 
-  addToggle() {
-    this.status = !this.status;
+  checkIfProductIsFavorite(productId: number): void {
+    console.log('Checking if product is favorite with ID:', productId);
+    if (this.isTokenAvailable) {
+      this.favoriteService.checkIfProductIsFavorite(productId).subscribe(
+        (response: any) => {
+          console.log('Favorite service response:', response);
+          this.isFavorite = response.data; // Utiliser la propriété `data` de la réponse
+          console.log('isFavorite set to:', this.isFavorite); // Log to confirm state
+          this.cdr.detectChanges(); // Force change detection
+        },
+        error => {
+          console.error('Error checking if product is favorite:', error);
+          if (error.status === 401) {
+            console.error('User not authenticated. Redirecting to login page.');
+            // Handle redirection to login page here
+          }
+        }
+      );
+    } else {
+      console.error('User not authenticated. Please login to check favorites.');
+    }
   }
+
+  toggleFavorite(productId: number): void {
+    console.log('Toggle favorite called for product ID:', productId);
+    if (this.isTokenAvailable) {
+      console.log('Token is available. Adding or removing product from favorites.');
+      this.favoriteService.addOrRemoveFavorite(productId).subscribe(
+        (response: any) => {
+          console.log('Toggle favorite response:', response);
+          this.isFavorite = !this.isFavorite;
+          console.log('isFavorite toggled to:', this.isFavorite); // Log to confirm state
+          this.cdr.detectChanges(); // Force change detection
+        },
+        error => {
+          console.error('Error toggling product favorite:', error);
+        }
+      );
+    } else {
+      console.error('User not authenticated. Please login to toggle favorites.');
+    }
+  }
+
+  
   calculateDateAgo(createDate: Date | undefined): string{
     if (!createDate) {
       return ''; // Si la date est undefined, retourner une chaîne vide

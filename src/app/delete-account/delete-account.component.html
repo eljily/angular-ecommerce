@@ -1,11 +1,49 @@
 <div class="container-xl px-4 mt-4">
     <hr class="mt-0 mb-4">
-<!-- Carte de suppression de compte -->
-<div class="card mb-4">
-    <div class="card-header">{{ 'delete-account.header' | translate }}</div>
-    <div class="card-body">
+    <!-- Carte de suppression de compte -->
+    <div class="card mb-4">
+        <div class="card-header">{{ 'delete-account.header' | translate }}</div>
+        <div class="card-body">
         <p>{{ 'delete-account.warning' | translate }}</p>
-        <button class="btn btn-danger-soft text-danger" type="button">{{ 'delete-account.confirm_button' | translate }}</button>
+        <button class="btn btn-danger-soft text-danger" type="button" data-bs-toggle="modal"
+            data-bs-target="#deleteAccountModal">
+            {{ 'delete-account.confirm_button' | translate }}
+        </button>
         </div>
+        </div>
+        </div>
+        
+        <!-- Modal de confirmation de suppression de compte -->
+        <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0">
+                    <div class="modal-body p-0">
+                        <div class="card border-0 p-sm-3 p-2 justify-content-center">
+                            <div class="card-header pb-0 border-0">
+                                <div class="row">
+                                    <div class="col ml-auto text-end">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                </div>
+                                <p class="font-weight-bold mb-2">{{ 'user-product.confirmation.delete_title' | translate }}</p>
+                                <p class="text-muted ">{{ 'user-product.confirmation.delete_message' | translate }}</p>
+                            </div>
+                            <div class="card-body px-sm-4 mb-2 pt-1 pb-0">
+                                <div class="row justify-content-end no-gutters">
+                                    <div class="col-auto">
+                                        <button type="button" class="btn btn-light text-muted" data-bs-dismiss="modal">{{
+                                            'user-product.cancel' | translate }}</button>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="button" class="btn btn-danger px-4" (click)="confirmDeleteAccount()"
+                                            data-bs-dismiss="modal">{{ 'user-product.delete' | translate }}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     </div>
 </div>

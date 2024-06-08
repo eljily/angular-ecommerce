@@ -1,6 +1,6 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, Injector,HostListener, inject, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, Injector,HostListener, inject, OnInit, PLATFORM_ID } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
@@ -51,20 +51,25 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
       provide: 'scrollPageToTop',
       useFactory: (router: Router) => () => scrollPageToTop(router),
       deps: [Router]
-    }
+    },
+    
   ]
 })
 
 export class AppComponent implements OnInit {
   title = 'angular-ecommerce';
-
+  isBrowser: boolean;
   translateService= inject(TranslateService);
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    @Inject('scrollPageToTop') private scrollPageToTop: Function
-  ) {}
+    @Inject('scrollPageToTop') private scrollPageToTop: Function,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
 
   getData() {
     this.http.get(`${environment.apiUrl}/data`).subscribe(
@@ -85,7 +90,10 @@ export class AppComponent implements OnInit {
       }
     });
 
-    this.translateService.setDefaultLang('ar');
+    if (this.isBrowser) {
+      this.translateService.setDefaultLang('fr');
+      this.translateService.use('fr');
+    }
   }
 
 

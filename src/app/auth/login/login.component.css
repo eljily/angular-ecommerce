@@ -5,13 +5,7 @@
   margin: 0 auto; /* Centrer horizontalement */
 }
 
-/* Responsive design pour les appareils mobiles */
-@media (max-width: 576px) {
-  .form-card {
-    width: 100%; /* Pleine largeur sur les petits écrans */
-    max-width: none; /* Annuler la largeur maximale */
-  }
-}
+
 
 /* Style des cartes */
 .card-header {

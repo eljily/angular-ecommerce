@@ -57,7 +57,8 @@ export class SignupComponent implements OnInit {
         password: formData.password,
         email: formData.email,
         profilePhoto: formData.profilePhoto,
-        profileUrl: formData.profileUrl
+        profileUrl: formData.profileUrl,
+        whatsAppNumber: formData.whatsAppNumber
       }
     };
     

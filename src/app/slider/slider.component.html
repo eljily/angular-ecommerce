@@ -1,7 +1,5 @@
-
-
-<carousel class="carousel">
+<carousel *ngIf="isBrowser">
   <slide *ngFor="let slide of slides" class="carousel-item">
-    <img style="height: 151; width: 100%;" [src]="slide.image" alt="Ad" class="d-block w-100">
+    <img [src]="slide.image" alt="Ad" style="height: 151px; width: 100%;" class="d-block w-100" loading="lazy">
   </slide>
 </carousel>

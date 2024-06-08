@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SearchResultsComponent } from './search/search-results.component';
 import { UserProductComponent } from './user-product/user-product.component';
 import { SubRegionProductsComponent } from './sub-region-products/sub-region-products.component';
+import { FavorisComponent } from './favoris/favoris.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -27,6 +28,7 @@ export const routes: Routes = [
   { path: 'delete-account', component: DeleteAccountComponent },
   { path: 'category-products/:categoryId', component: CategoryProductsComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'favoris', component: FavorisComponent },
   { path: 'sub-region-products/:subRegionId', component: SubRegionProductsComponent },
   { path: 'search-results', component: SearchResultsComponent },
   { path: '**', redirectTo: 'home' } // Redirect to home for any unknown paths

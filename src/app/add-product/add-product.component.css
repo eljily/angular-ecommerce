@@ -5,14 +5,6 @@
   margin: 0 auto; /* Centrer horizontalement */
 }
 
-/* Responsive design pour les appareils mobiles */
-@media (max-width: 576px) {
-  .form-card {
-    width: 100%; /* Pleine largeur sur les petits écrans */
-    max-width: none; /* Annuler la largeur maximale */
-  }
-}
-
 /* Style des cartes */
 .card-header {
   font-weight: 500;
@@ -45,10 +37,6 @@
   align-items: center;
 }
 
-.input-group-prepend .input-group-text {
-  background-color: #fff;
-  border-right: none;
-}
 
 .form-control {
   border-left: none;
@@ -82,11 +70,6 @@
   line-height: 1.5;
 }
 
-.input-group-text {
-  border: 1px solid #fd7e14;
-  background-color: #fff;
-  color: #fd7e14;
-}
 
 
 
@@ -116,17 +99,8 @@ select {
   align-items: center;
 }
 
-.input-group-text {
-  background-color: #fb9339; /* Orange color */
-  color: #fff;
-  border: none;
-  border-radius: 4px 0 0 4px;
-  padding: 10px;
-}
 
-.button-container {
-  text-align: right;
-}
+
 
 button {
   background-color: #fff; /* Orange color */
@@ -139,21 +113,10 @@ button {
 }
 
 
-p-messages {
-  margin-top: 20px;
-}
 
 
-/* Additional styling for PrimeNG file upload component */
-.ui-fileupload-choose {
-  background-color: #fb9339; /* Orange color */
-  border-color: #fb9339; /* Orange color */
-}
 
-.ui-fileupload-choose:hover {
-  background-color: #f5a104; /* Lighter orange color */
-  border-color: #f5a104; /* Lighter orange color */
-}
+
 
 
 .pro-img-list a {

@@ -1,5 +1,5 @@
-import { CommonModule, NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, NgFor, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -51,48 +51,54 @@ export class HomeComponent implements OnInit {
   ];
 
   isDesktopView: boolean = false;
+  isBrowser: boolean = false;
 
 
-  constructor(private productService: ProductsService,private categoryService: CategoryService) {}
+  constructor(private productService: ProductsService,private categoryService: CategoryService,
+    @Inject(PLATFORM_ID) private platformId: Object
+) {}
+ngOnInit(): void {
+  this.checkScreenSize();
 
-  ngOnInit(): void {
-    this.productService.getAllWithProducts().subscribe(
-      (data: any) => {
-        console.log('Données récupérées data:', data);
-        if (data && data.data && Array.isArray(data.data)) {
-          this.productsData = data.data;
-        } else {
-          console.error('Les données retournées ne sont pas dans le format attendu.');
-        }
-      },
-      (error: any) => {
-        console.error('Erreur lors de la récupération des produits avec les catégories:', error);
+  this.productService.getAllWithProducts().subscribe(
+    (data: any) => {
+      console.log('Données récupérées data:', data);
+      if (data && data.data && Array.isArray(data.data)) {
+        this.productsData = data.data;
+      } else {
+        console.error('Les données retournées ne sont pas dans le format attendu.');
       }
-    );
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des produits avec les catégories:', error);
+    }
+  );
 
-    this.categoryService.getAllCategories().subscribe(
-      (categories: any[]) => {
-        this.categories = categories;
-      },
-      (error: any) => {
-        console.error('Erreur lors de la récupération des catégories:', error);
-      }
-    );
+  this.categoryService.getAllCategories().subscribe(
+    (categories: any[]) => {
+      this.categories = categories;
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des catégories:', error);
+    }
+  );
+}
 
-    // Vérifier la taille de l'écran lors de l'initialisation du composant
-    this.checkScreenSize();
+// Méthode pour vérifier la taille de l'écran et définir isDesktopView en conséquence
+checkScreenSize() {
+  if (isPlatformBrowser(this.platformId)) {
+    // Exécute le code uniquement si l'application est exécutée côté client
+    this.isDesktopView = window.innerWidth >= 768;
+
     // Ajouter un écouteur d'événement pour vérifier la taille de l'écran lors du redimensionnement
     window.addEventListener('resize', () => {
-      this.checkScreenSize();
+      this.isDesktopView = window.innerWidth >= 768;
     });
   }
+}
 
-  
 
-  // Méthode pour vérifier la taille de l'écran et définir isDesktopView en conséquence
-  checkScreenSize() {
-    this.isDesktopView = window.innerWidth >= 768;
-  }
+
 
   canScrollLeft(categoryId: number): boolean {
     const container = document.querySelector(`[data-category-id="${categoryId}"]`);

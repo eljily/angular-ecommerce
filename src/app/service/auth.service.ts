@@ -1,13 +1,12 @@
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
-import { RegisterDto, AuthRequestDto, ResponseMessage, AuthResponseDto , } from '../profile/model'; 
+import { catchError, tap } from 'rxjs/operators';
+import { RegisterDto, AuthRequestDto, ResponseMessage, AuthResponseDto } from '../profile/model';
 import { isPlatformBrowser } from '@angular/common';
 import { JwtDecoderService } from '../auth/service/jwt.service';
 import { UserService } from './UserService';
 import { environment } from '../../environement/environement';
-
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +24,33 @@ export class AuthService {
     private jwtDecoderService: JwtDecoderService,
     private userService: UserService
   ) {
-    const currentUser = isPlatformBrowser(this.platformId) ? localStorage.getItem('currentUser') : null;
-    this.currentUserSubject = new BehaviorSubject<AuthResponseDto | null>(currentUser ? JSON.parse(currentUser) : null);
+    this.currentUserSubject = new BehaviorSubject<AuthResponseDto | null>(null);
     this.currentUser = this.currentUserSubject.asObservable();
-    this.isconnected = !!currentUser;   //
+
+    // Initialize the service asynchronously
+    this.initializeAuthService().then(() => {
+      console.log('AuthService initialized. isconnected:', this.isconnected);
+    });
   }
+
+  private async initializeAuthService(): Promise<void> {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      const currentUser = localStorage.getItem('currentUser');
+      console.log('Token in constructor:', token);
+      console.log('Current user in constructor:', currentUser);
+      if (token && currentUser) {
+        this.currentUserSubject.next(JSON.parse(currentUser));
+        this.isconnected = true;
+      }
+    }
+  }
+
+  getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
 
   isAuthenticated(): boolean {
     return this.isconnected;
@@ -54,20 +75,27 @@ export class AuthService {
   }
 
   isTokenAvailable(): boolean {
-    const token = localStorage.getItem('token');
-    console.log('Token in isTokenAvailable:', token);
-    return !!token;
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      console.log('Token in isTokenAvailable:', token);
+      return !!token;
+    }
+    return false;
   }
 
   getToken(): string | null {
-    const token = localStorage.getItem('token');
-    console.log('Token in getToken:', token);
-    return token;
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      console.log('Token in getToken:', token);
+      return token;
+    }
+    return null;
   }
 
   getCurrentUserFromLocalStorage(): AuthResponseDto | null {
-    if (typeof localStorage !== 'undefined') {
+    if (isPlatformBrowser(this.platformId)) {
       const currentUser = localStorage.getItem('currentUser');
+      console.log('Current user from localStorage:', currentUser);
       return currentUser ? JSON.parse(currentUser) : null;
     } else {
       return null;
@@ -90,20 +118,23 @@ export class AuthService {
       tap((response: AuthResponseDto) => {
         const decodedToken = this.jwtDecoderService.decodeToken(response.jwt);
         const currentUser: AuthResponseDto = { ...response, decodedToken };
-
+  
         console.log('Connexion réussie', response);
         console.log('Informations décodées du JWT:', decodedToken);
-
+  
         if (isPlatformBrowser(this.platformId)) {
           this.storeAuthData(currentUser);
+          console.log('Token stored in localStorage:', response.jwt);
+          // Mettre à jour l'état de connexion
+          this.setAuthenticated();
+          console.log('isconnected:', this.isconnected); // Vérifiez ici si l'état de connexion est mis à jour
         }
-
+  
         this.userService.getUserById(response.userId).subscribe(
           (userDetailsResponse: ResponseMessage<RegisterDto>) => {
             const userDetails = userDetailsResponse.data;
             if (userDetails) {
               currentUser.decodedToken.name = userDetails.data.name;
-              this.isconnected = true;
               this.currentUserSubject.next(currentUser);
             } else {
               console.error('Détails de l\'utilisateur introuvables dans la réponse.');
@@ -117,22 +148,27 @@ export class AuthService {
       catchError(this.handleError)
     );
   }
-
+  
   private storeAuthData(authResponse: AuthResponseDto): void {
     console.log('Storing token:', authResponse.jwt);
-    localStorage.setItem('token', authResponse.jwt);
-    localStorage.setItem('currentUser', JSON.stringify(authResponse));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('token', authResponse.jwt);
+      localStorage.setItem('currentUser', JSON.stringify(authResponse));
+    }
     this.isconnected = true;  // Mise à jour de l'état de connexion
   }
 
-
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('token');
       localStorage.removeItem('currentUser');
+      console.log('Token and currentUser removed from localStorage');
     }
+    this.isconnected = false;  // Mise à jour de l'état de connexion
     this.currentUserSubject.next(null);
+    console.log('User logged out. isconnected:', this.isconnected);
   }
-
+  
 
   verifyCurrentPassword(currentPassword: string): Observable<any> {
     const token = this.getToken();
@@ -158,9 +194,7 @@ export class AuthService {
       );
   }
 
-  // Méthode pour changer le mot de passe
   changePassword(currentPassword: string, newPassword: string, retypedPassword: string): Observable<any> {
-    // Effectuer directement la demande de changement de mot de passe
     const token = this.getToken();
     if (!token) {
       return throwError('Token not found');
@@ -189,8 +223,6 @@ export class AuthService {
         })
       );
   }
-  
-
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     let errorMessage = 'Unknown error occurred';

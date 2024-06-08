@@ -17,7 +17,8 @@
                                     <div class="rounded position-relative produit-item" style="cursor: pointer;">
                                         <div class="produit-img">
                                             <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'"
-                                                [alt]="product.name" class="img-fluid w-100 rounded-top" alt="">
+                                                [alt]="product.name" class="img-fluid w-100 rounded-top" alt=""
+                                                loading="lazy">
                                         </div>
                                         <div class="text-white bg-secondary px-2 py-1 rounded position-absolute"
                                             style="top: 5px; right: 5px; font-size: 0.9rem;">
@@ -34,7 +35,7 @@
                                                     style="font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                                     <i class="fa-solid fa-location-dot fa-flip-horizontal"
                                                         style="color: #fd7e14;"></i>
-                                                        {{product.region}},{{product.subRegion}}
+                                                    {{product.region}},{{product.subRegion}}
                                                 </p>
                                             </div>
                                             <div class="product-border">
@@ -50,7 +51,7 @@
                         <ng-template #noProductTemplate>
                             <div class="col-12 text-center py-5">
                                 <img src="../../assets/img/empty-box.png" alt="No products" class="img-fluid"
-                                    style="max-width: 200px;">
+                                    style="max-width: 200px;" loading="lazy">
                                 <p class="text-center mt-3">{{ 'product-subregion.no_product_found' | translate }}</p>
                             </div>
                         </ng-template>

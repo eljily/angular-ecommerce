@@ -10,14 +10,14 @@
         <th class="d-none d-md-table-cell">{{ 'user-product.date' | translate }}</th>
         <th class="d-none d-md-table-cell">{{ 'user-product.category' | translate }}</th>
         <th>{{ 'user-product.actions' | translate }}</th>
-        </tr>
-        </thead>
-        <tbody>
+      </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let product of userProducts; let i = index">
         <td>{{ i + 1 }}</td>
         <td>
           <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'"
-            [alt]="product.name" alt="">
+            [alt]="product.name" alt="" loading="lazy">
         </td>
         <td>{{ product.name }}</td>
         <td class="d-none d-md-table-cell">{{ product.description }}</td>
@@ -41,7 +41,8 @@
                   <div class="card-header pb-0 border-0">
                     <div class="row">
                       <div class="col ml-auto">
-                        <i class="close" data-bs-dismiss="modal" aria-label="Close" class="fa-solid fa-square-xmark"></i>
+                        <i class="close" data-bs-dismiss="modal" aria-label="Close"
+                          class="fa-solid fa-square-xmark"></i>
                       </div>
                     </div>
                     <p class="font-weight-bold mb-2">{{ 'user-product.confirmation.delete_title' | translate }}</p>
@@ -50,11 +51,13 @@
                   <div class="card-body px-sm-4 mb-2 pt-1 pb-0">
                     <div class="row justify-content-end no-gutters">
                       <div class="col-auto">
-                        <button type="button" class="btn btn-light text-muted" data-bs-dismiss="modal">{{ 'user-product.cancel' | translate
+                        <button type="button" class="btn btn-light text-muted" data-bs-dismiss="modal">{{
+                          'user-product.cancel' | translate
                           }}</button>
                       </div>
                       <div class="col-auto">
-                        <button type="button" class="btn btn-danger px-4" (click)="deleteProduct(product)" data-bs-dismiss="modal">{{
+                        <button type="button" class="btn btn-danger px-4" (click)="deleteProduct(product)"
+                          data-bs-dismiss="modal">{{
                           'user-product.delete' | translate }}</button>
                       </div>
                     </div>
@@ -66,5 +69,5 @@
         </div>
       </tr>
     </tbody>
-    </table>
+  </table>
 </div>

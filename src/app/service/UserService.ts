@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 import { RegisterDto, ResponseMessage } from '../profile/model';
 import { environment } from '../../environement/environement';
-
 
 @Injectable({
   providedIn: 'root'
@@ -23,48 +23,40 @@ export class UserService {
           meta: null
         };
       }),
-
-
-      
-
-      catchError((error: HttpErrorResponse) => {
-        let errorMessage = 'Unknown error occurred';
-        if (error.error instanceof ErrorEvent) {
-          errorMessage = `Error: ${error.error.message}`;
-        } else {
-          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-        }
-        console.error(errorMessage);
-        return throwError(errorMessage);
-      })
+      catchError(this.handleError)
     );
   }
 
-
-  
-
-  saveUser(user: RegisterDto): Observable<ResponseMessage<any>> {
-    if (user.data.id) {
-      // Si l'identifiant de l'utilisateur est défini, envoyez une requête de mise à jour
-      return this.http.post<ResponseMessage<any>>('http://localhost:8081/api/users', user)
-        .pipe(
-          catchError((error: HttpErrorResponse) => {
-            // Gérez l'erreur ici, par exemple en affichant un message d'erreur à l'utilisateur
-            console.error('Une erreur s\'est produite lors de la mise à jour de l\'utilisateur :', error);
-            return throwError('Erreur lors de la mise à jour de l\'utilisateur. Veuillez réessayer.');
-          })
-        );
-    } else {
-      // Sinon, envoyez une requête d'ajout
-      return this.http.post<ResponseMessage<any>>('http://localhost:8081/api/users', user)
-        .pipe(
-          catchError((error: HttpErrorResponse) => {
-            // Gérez l'erreur ici, par exemple en affichant un message d'erreur à l'utilisateur
-            console.error('Une erreur s\'est produite lors de l\'ajout de l\'utilisateur :', error);
-            return throwError('Erreur lors de l\'ajout de l\'utilisateur. Veuillez réessayer.');
-          })
-        );
+  saveUser(formData: FormData, id: number | null, token: string): Observable<RegisterDto> {
+    const saveUrl = `${this.apiUrl}/update`;
+    
+    // Ajout de l'ID à formData si nécessaire
+    if (id !== null) {
+      formData.append('id', id.toString());
     }
   
+    // Logging formData content for debugging
+    console.log('formData content before sending:', formData);
+  
+    // Création des headers avec le token
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    // Envoi de la requête POST avec les headers
+    return this.http.post<RegisterDto>(saveUrl, formData, { headers }).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Unknown error occurred';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
   }
 }

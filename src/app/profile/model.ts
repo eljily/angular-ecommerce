@@ -7,19 +7,23 @@ data:{
     firstName: string;
     lastName: string;
     address: string;
-    birthDate: Date;
+    birthDate: string;
     phoneNumber: string;
     password: string;
     email: string;
-    profilePhoto: string; 
-    profileUrl: string;
+    profilePhoto: File;
+    profileUrl: string | null;
+    whatsAppNumber: string;
 }
   }
   
+
+
   export interface ResponseMessage<T> {
     status: number;
     message?: string;
     data?: T;
+    meta: any;
   }
   
   

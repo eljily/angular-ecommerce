@@ -11,12 +11,16 @@
         <div id="tab-1" class="tab-pane fade show p-0 active">
           <div class="row flex-wrap flex-lg-nowrap g-2">
             <div class="row g-2" *ngIf="pagedProducts.length > 0; else noProductTemplate">
-              <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2" [routerLink]="['/product-details', product.id]" *ngFor="let product of pagedProducts">
+              <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2" [routerLink]="['/product-details', product.id]"
+                *ngFor="let product of pagedProducts">
                 <div class="rounded position-relative produit-item" style="cursor: pointer;">
                   <div class="produit-img">
-                    <img [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'" [alt]="product.name" class="img-fluid w-100 rounded-top">
+                    <img
+                      [src]="product.images && product.images.length > 0 ? product.images[0].imageUrl : 'default-image-url'"
+                      [alt]="product.name" class="img-fluid w-100 rounded-top" loading="lazy">
                   </div>
-                  <div class="text-white bg-secondary px-2 py-1 rounded position-absolute" style="top: 5px; right: 5px; font-size: 0.9rem;">
+                  <div class="text-white bg-secondary px-2 py-1 rounded position-absolute"
+                    style="top: 5px; right: 5px; font-size: 0.9rem;">
                     <i class="fa fa-eye fa-xs"></i> {{ product.hit }}
                   </div>
                   <div class="p-2 border-top-0 rounded-bottom products-border">
@@ -26,8 +30,10 @@
                     </h6>
                     <div class="d-flex justify-content-between align-items-center">
                       <p class="mb-0" style="font-size: 1.0rem;"></p>
-                      <p class="mb-0 text-right" style="font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                        <i class="fa-solid fa-location-dot fa-flip-horizontal" style="color: #fd7e14;"></i> {{ product.region }}, {{
+                      <p class="mb-0 text-right"
+                        style="font-size: 0.7rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        <i class="fa-solid fa-location-dot fa-flip-horizontal" style="color: #fd7e14;"></i> {{
+                        product.region }}, {{
                         product.subRegion }}
                       </p>
                     </div>
@@ -43,15 +49,16 @@
             </div>
             <ng-template #noProductTemplate>
               <div class="col-12 text-center py-5">
-                <img src="../../assets/img/empty-box.png" alt="{{ 'category-product.no_products' | translate }}" class="img-fluid"
-                  style="max-width: 200px;">
+                <img src="../../assets/img/empty-box.png" alt="{{ 'category-product.no_products' | translate }}"
+                  class="img-fluid" style="max-width: 200px;" loading="lazy">
                 <p class="text-center mt-3">{{ 'category-product.no_products_in_subcategory' | translate }}</p>
               </div>
             </ng-template>
           </div>
           <!-- Pagination Controls -->
           <ul class="pagination">
-            <li><a href="#" (click)="setPage(currentPage - 1)" [class.disabled]="currentPage === 1" style="cursor: pointer;">&lt;</a></li>
+            <li><a href="#" (click)="setPage(currentPage - 1)" [class.disabled]="currentPage === 1"
+                style="cursor: pointer;">&lt;</a></li>
             <li *ngFor="let page of pages">
               <a (click)="setPage(page)" [class.active]="page === currentPage" style="cursor: pointer;">{{ page }}</a>
             </li>
