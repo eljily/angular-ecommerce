@@ -247,3 +247,23 @@ body{margin-top:20px;
         margin-right: 50px;
     }
 }
+.fit {
+    object-fit: contain;
+    /* This ensures the image scales properly within the defined dimensions */
+}
+
+.thumbnail {
+    width: 60px;
+    height: 60px;
+}
+
+.product-container {
+    background-image: url('../../assets/detail-products.jpg');
+    /* Remplacez 'chemin/vers/image/background.jpg' par le chemin de votre image de fond */
+    background-size: cover;
+    /* Pour couvrir toute la zone du conteneur */
+    background-position: center;
+    /* Pour centrer l'image de fond */
+    position: relative;
+    /* Assurez-vous que la position est relative pour que les éléments à l'intérieur soient positionnés correctement */
+}

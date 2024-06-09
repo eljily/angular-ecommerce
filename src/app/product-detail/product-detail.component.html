@@ -1,45 +1,31 @@
 <div class="container bootdey" [dir]="'dir' | translate">
-  <div class="row">
-    <!-- Section image principale et autres images -->
-    <div class="col-lg-6 col-md-12">
-      <div class="card box ">
-      <section class="panel">
-
-          <div class="pro-img-details position-relative">
-            <!-- Utilisation de la première image du backend comme image principale -->
-            <img *ngIf="productDetails?.images && productDetails.images.length > 0"
-              [src]="productDetails.images[currentImageIndex].imageUrl"
-              [alt]="productDetails.images[currentImageIndex].alt" class="product-image img-fluid" style="margin-left: 18px;"
-              loading="lazy">
-              <span class="tagged_as text-white px-2 py-1 rounded"
-              style="background-color: #fff; cursor: pointer; position: absolute; top: 4%; left: 10%; transform: translate(-50%, -50%);"
+  <div class="row gx-5">
+    <aside class="col-lg-6 col-md-12 position-relative">
+      <div class="border rounded-4 mb-3 d-flex justify-content-center position-relative product-container">
+        <a data-fslightbox="mygalley" class="rounded-4 w-100" target="_blank" data-type="image"
+          [href]="productDetails?.images && productDetails.images.length > 0 ? productDetails.images[currentImageIndex].imageUrl : '#'">
+          <img style="width: 100%; height: 300px; margin: auto;" class="rounded-4 fit"
+            [src]="productDetails?.images && productDetails.images.length > 0 ? productDetails.images[currentImageIndex].imageUrl : 'default_image_url'"
+            [alt]="productDetails?.images && productDetails.images.length > 0 ? productDetails.images[currentImageIndex].alt : 'default_alt_text'" />
+        </a>
+        <span class="tagged_as text-white px-2 py-1 rounded"
+              style="background-color: #fff; cursor: pointer; position: absolute; top: 6%; left: 96%; transform: translate(-50%, -50%);"
               [ngClass]="{'inactive': !isTokenAvailable}" (click)="isTokenAvailable && toggleFavorite(productDetails.id)">
               <i class="fas fa-heart" [ngStyle]="{'color': isFavorite ? 'red' : '#fd7e14'}"></i>
-            </span>
-            <span class="tagged_as text-white px-2 py-1 rounded icon1"
-              style="background-color: #fff; cursor: pointer; position: absolute; top: 12%; left: 10%; transform: translate(-50%, -50%);">
+        </span>
+        <span class="tagged_as text-white px-2 py-1 rounded icon1"
+              style="background-color: #fff; cursor: pointer; position: absolute; top: 18%; left: 96%; transform: translate(-50%, -50%);">
               <i class="fa-solid fa-share-nodes" style="color: #fd7e14;"></i>
-            </span>
+        </span>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+          <div *ngFor="let image of productDetails?.images; let i = index" class="border mx-1 rounded-2"
+            (click)="changeMainImage(i)">
+            <img width="60" height="60" class="rounded-2" [src]="image.imageUrl" />
           </div>
+        </div>
+    </aside>
 
-        
-              </section>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="pro-img-list" style="margin-left: 2px;">
-                    <!-- Affichage des autres images du backend -->
-                    <ng-container *ngIf="productDetails?.images && productDetails.images.length > 1">
-                      <a *ngFor="let image of productDetails.images; let i = index" (click)="changeMainImage(i)">
-                <div class="position-relative d-inline-block">
-                  <img [src]="image.imageUrl" [alt]="image.alt" class="product-image img-fluid" style="cursor: pointer;" loading="lazy">
-                </div>
-                </a>
-                </ng-container>
-                </div>
-                </div>
-                </div>
-                </div>
-              </div>
                 <!-- Section détails du produit -->
                 <div class="col-lg-6 col-md-12">
                   <div class="card product-box">
