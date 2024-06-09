@@ -99,7 +99,8 @@
                 </div>
                 <div class="col-6">
                   <div class="xp-social-profile-avatar text-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user-profile"
+                    <img [src]="productDetails?.vendorDetails?.profileUrl || 'https://bootdey.com/img/Content/avatar/avatar7.png'"
+                      alt="user-profile"
                       class="rounded-circle img-fluid profile-image" loading="lazy">
                   </div>
                 </div>

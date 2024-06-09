@@ -21,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ProfileComponent implements OnInit {
   user: RegisterDto | null = null;
   token: string | null = null;
-  userProfilePhoto: string = 'http://bootdey.com/img/Content/avatar/avatar1.png';
+  userProfilePhoto: string = 'https://bootdey.com/img/Content/avatar/avatar7.png';
   selectedProfilePhoto: File | null = null;
 
   constructor(private authService: AuthService, private userService: UserService) {}
@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
     if (this.user && this.user.data.profileUrl) {
       this.userProfilePhoto = this.user.data.profileUrl; // Utilisez le champ approprié pour l'URL de l'image de profil
     } else {
-      this.userProfilePhoto = 'http://bootdey.com/img/Content/avatar/avatar1.png';
+      this.userProfilePhoto = 'https://bootdey.com/img/Content/avatar/avatar7.png';
     }
   }
 
@@ -181,7 +181,7 @@ export class ProfileComponent implements OnInit {
       this.selectedProfilePhoto = file;
     } else { 
       // Utiliser l'image par défaut si aucun fichier n'a été sélectionné
-      this.userProfilePhoto = 'http://bootdey.com/img/Content/avatar/avatar1.png'; 
+      this.userProfilePhoto = 'https://bootdey.com/img/Content/avatar/avatar7.png'; 
       this.selectedProfilePhoto = null;
     } 
   }
