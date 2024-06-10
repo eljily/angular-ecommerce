@@ -51,6 +51,7 @@ export class AuthService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
+  
 
   isAuthenticated(): boolean {
     return this.isconnected;

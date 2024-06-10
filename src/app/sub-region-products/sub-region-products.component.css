@@ -3,14 +3,15 @@
     margin-bottom: 20px;
     font-size: 1.2rem;
     max-width: 100%;
-    /* Limiter la largeur du titre à 100% de son conteneur */
-    overflow: hidden;
-    /* Masquer tout contenu dépassant de la zone */
-    text-overflow: ellipsis;
-    /* Ajouter des points de suspension pour indiquer qu'il y a plus de contenu que ce qui est visible */
-    white-space: nowrap;
-    /* Empêcher le texte de se mettre à la ligne */
+        /* Limiter la largeur du titre à 100% de son conteneur */
+        overflow: hidden;
+        /* Masquer tout contenu dépassant de la zone */
+        text-overflow: ellipsis;
+        /* Ajouter des points de suspension pour indiquer qu'il y a plus de contenu que ce qui est visible */
+        white-space: nowrap;
+        /* Empêcher le texte de se mettre à la ligne */
 }
+
 
 
 .tab-content .box-product-outer {
@@ -19,19 +20,34 @@
 
 
 
-.box-product .img-wrapper .tags>.label-tags a:hover {
-    text-decoration: none;
+.box-product .img-wrapper>a>img {
+    width: 100%;
+    align-self: flex-end;
+    border-radius: 50px;
 }
 
 
 
 
+.box-product .img-wrapper .tags>.label-tags a:hover {
+    text-decoration: none;
+}
+
+
+.box-product .img-wrapper .option>a {
+    font-size: 18px;
+    font-weight: normal;
+    display: inline-block;
+    padding: 0 1px;
+    color: #fff;
+}
 .box-product .img-wrapper img {
     margin-top: 10px;
     width: 100%;
     height: 100px;
     object-fit: cover;
 }
+
 
 
 
@@ -59,10 +75,8 @@
 
 /*** Produits End ***/
 .produit-img img {
-    width: 150px;
-    /* Largeur fixe */
-    height: 200px;
-    /* Hauteur fixe */
+width: 150px;
+    height: 150px;
     object-fit: cover;
     /* Redimensionne l'image pour remplir les dimensions spécifiées sans déformer */
 }
@@ -70,30 +84,30 @@
 
 
 
-.product-border {
+
+  .product-border {
     border: 1px solid #fd7e14;
-    /* Bordure de 1px, couleur #fd7e14 */
-    border-radius: 10px;
-    /* Coins arrondis */
-    color: #fff;
-    /* Couleur du texte */
-    background-color: #f38a2e;
-    /* Couleur de fond */
-    transition: all 0.3s ease;
-    /* Animation de transition */
+        /* Bordure de 1px, couleur #fd7e14 */
+        border-radius: 10px;
+        /* Coins arrondis */
+        color: #fff;
+        /* Couleur du texte */
+        background-color: #f38a2e;
+        /* Couleur de fond */
+        transition: all 0.3s ease;
+        /* Animation de transition */
     margin-top: 10px;
 }
 
 h6 {
-
     margin-right: 250px;
 }
 
 
 
-.products-border {
+  .products-border {
     border: 1px solid #fd7e14;
-    /* Bordure de 1px, couleur #fd7e14 */
+        /* Bordure de 1px, couleur #fd7e14 */
     border-top: 0;
 }
 
@@ -111,11 +125,9 @@ h6 {
     background-color: #f5f5f5;
     box-shadow: 0 0 0 15px #39bbdb;
 }
-
 .page-404 .outer .middle .inner .inner-circle:hover span {
     color: #39bbdb;
 }
-
 .page-404 .outer .middle .inner .inner-circle i {
     font-size: 5em;
     line-height: 1em;
@@ -129,7 +141,7 @@ h6 {
     padding: 20px;
 
     -webkit-transition: all .4s;
-    transition: all .4s;
+            transition: all .4s;
     text-align: center;
 
     color: #f5f5f5 !important;
@@ -137,7 +149,6 @@ h6 {
     background-color: #39bbdb;
     box-shadow: 0 0 0 15px #f0f0f0;
 }
-
 .page-404 .outer .middle .inner .inner-circle span {
     font-size: 11em;
     font-weight: 700;
@@ -146,35 +157,34 @@ h6 {
     display: block;
 
     -webkit-transition: all .4s;
-    transition: all .4s;
+            transition: all .4s;
     text-align: center;
 
     color: #e0e0e0;
 }
 
 
-
-h2 span {
+  h2 span {
     font-weight: 400;
-}
 
-.pagination {
+}
+  .pagination {
     display: flex;
     justify-content: center;
     margin: 20px 0;
-    /* Adjust the margin as needed */
+        /* Adjust the margin as needed */
     padding: 10px;
     background-color: #fff;
     border-radius: 40px;
     box-shadow: 0 5px 25px 0 rgba(0, 0, 0, .5);
-}
 
-.pagination li {
+}
+  .pagination li {
     display: inline-block;
     list-style: none;
-}
 
-.pagination a {
+}
+  .pagination a {
     display: block;
     width: 40px;
     height: 40px;
@@ -187,20 +197,21 @@ h2 span {
     margin: 5px;
     box-shadow: inset 0 5px 10px rgba(0, 0, 0, .1), 0 2px 5px rgba(0, 0, 0, .5);
     transition: all .3s ease;
-}
 
-.pagination a:hover,
-.pagination a.active {
+}
+  .pagination a:hover,
+  .pagination a.active {
     color: #fff;
     background-color: #fd7e14;
-}
 
-.pagination li:first-child a {
+}
+  .pagination li:first-child a {
     border-radius: 40px 0 0 40px;
-}
 
-.pagination li:last-child a {
+}
+  .pagination li:last-child a {
     border-radius: 0 40px 40px 0;
+
 }
 
 /*------fin pagination */

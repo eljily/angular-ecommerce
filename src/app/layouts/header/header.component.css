@@ -6,7 +6,13 @@
 	background-color: #fff; /* Couleur de fond */
 	transition: all 0.3s ease; /* Animation de transition */
   }
-  
+
+  .row {
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 0;
+      padding-right: 0;
+  }
   .custom-border:hover {
 	background-color: #f38a2e; /* Changement de couleur de fond au survol */
 	color: #fff; /* Changement de couleur du texte au survol */
@@ -107,6 +113,7 @@ margin-left: 10px;
 
 
 
+
 .footer-social-icon a {
 	color: #fff;
 	font-size: 16px;
@@ -155,5 +162,18 @@ margin-left: 10px;
     height: 20px; 
   }
 
+  .form-select:focus {
+      border: 1px solid #fd7e14;
+      /* Garde la même bordure quand en focus */
+      outline: none;
+      /* Supprime l'effet de bordure bleue */
+  }
   /*---------------------*/
-  
+
+  @media (max-width: 576px) {
+      .form-select {
+          max-width: 120px;
+          /* Ajustez selon vos besoins */
+      }
+
+  }

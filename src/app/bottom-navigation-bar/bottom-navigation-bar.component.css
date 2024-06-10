@@ -41,6 +41,9 @@ body {
   position: relative;
 }
 
+.nav-margin {
+  margin-top: 20px;
+}
 .nav-item::before {
   content: "";
   position: absolute;

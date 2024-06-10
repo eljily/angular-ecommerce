@@ -58,14 +58,13 @@
                     </div>
                     <ul class="pagination">
                         <li><a href="#" (click)="setPage(currentPage - 1)" [class.disabled]="currentPage === 1"
-                                style="cursor: pointer;">&lt;</a></li>
+                            style="cursor: pointer;">&lt;</a></li>
                         <li *ngFor="let page of pages">
-                            <a (click)="setPage(page)" [class.active]="page === currentPage" style="cursor: pointer;">{{
-                                page }}</a>
+                        <a (click)="setPage(page)" [class.active]="page === currentPage" style="cursor: pointer;">{{ page }}</a>
                         </li>
                         <li><a (click)="setPage(currentPage + 1)" [class.disabled]="currentPage === pages.length"
-                                style="cursor: pointer;">&gt;</a></li>
-                    </ul>
+                            style="cursor: pointer;">&gt;</a></li>
+                      </ul>
                 </div>
             </div>
         </div>

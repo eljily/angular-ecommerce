@@ -166,45 +166,38 @@
             </div>
 
       <!-- Section visible uniquement sur les écrans de 992 pixels et moins -->
-      <div class="col-12 d-lg-none text-center ">
-
-      </div>
 
 
 
       <!-- Barre de recherche -->
       <div class="col-sm-12 offset-md-0 col-lg-5 d-lg-block">
-        <div class="row bg-light p-2 my-2 rounded-4" style="border-radius: 15px; border: 1px solid #fd7e14;">
-          <!-- Sélection de catégorie -->
-          <div class="col-md-4 col-3 mb-2">
-            <select class="form-select  bg-transparent " style="border: 1px solid #fd7e14;" (change)="navigateToSubRegion($event)">
+        <div class="row bg-light p-2 my-2 rounded-4"
+          style="border-radius: 15px; border: 1px solid #fd7e14; padding: 0; margin: 0;">
+          <!-- Conteneur flex pour aligner les éléments -->
+          <div class="d-flex align-items-center w-100">
+            <!-- Sélection de catégorie avec largeur réduite -->
+            <select class="form-select bg-transparent me-2" style="border: 1px solid #fd7e14; width: 150px;"
+              (change)="navigateToSubRegion($event)">
               <option>{{ 'header.all_regions' | translate }}</option>
-              <!-- Boucle sur les régions -->
               <optgroup *ngFor="let region of regions" label="{{ region.name }}">
-                <!-- Boucle sur les sous-régions de la région actuelle -->
                 <option *ngFor="let subRegion of region.subRegions" [value]="subRegion.id">{{ subRegion.name }}</option>
               </optgroup>
             </select>
-          </div>
-
-          <!-- Recherche de produits -->
-          <div class="col-md col">
-            <form id="search-form" class="text-center d-flex" (ngSubmit)="onSearch($event)">
+      <!-- Recherche de produits -->
+            <form id="search-form" class="d-flex flex-grow-1" (ngSubmit)="onSearch($event)">
               <input type="text" class="form-control border-0 bg-transparent flex-grow-1"
-                placeholder="{{ 'header.search_products' | translate }}" name="searchKeyword"
-                [(ngModel)]="searchKeyword">
-              <button type="submit" style="background: none; border: none; padding: 0; margin-top: 5px;">
+                     placeholder="{{ 'header.search_products' | translate }}" name="searchKeyword"
+                     [(ngModel)]="searchKeyword">
+              <button type="submit" style="background: none; border: none; padding: 0;">
                 <i style="color: #fd7e14;" class="fa-solid fa-magnifying-glass fa-lg"></i>
               </button>
+              <!-- Dropdown des produits -->
+              <select id="search-results" class="form-select border-0 bg-transparent" style="display: none;">
+                <option disabled selected hidden>{{ 'header.search_results' | translate }}</option>
+              </select>
             </form>
-
-            <!-- Dropdown des produits -->
-            <select id="search-results" class="form-select border-0 bg-transparent mt-2" style="display: none;">
-              <option disabled selected hidden>{{ 'header.search_results' | translate }}</option>
-            </select>
-          </div>
+            </div>
         </div>
-        
         </div>
 
     </div>

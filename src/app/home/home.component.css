@@ -12,56 +12,20 @@
 }
 
 
-.categories {
-	overflow: hidden;
-	margin-top: 0px;
-}
 
 
 .categories .container-fluid {
 	padding-right: 5px;
 }
 
-.categories__item {
-	height: 314px;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	padding-left: 0px;
-	margin-bottom: 10px;
-	margin-right: 0px;
-}
 
-
-.categories__item.categories__large__item {
-	height: 638px;
-	padding-left: 0px;
-}
-
-.categories__item.categories__large__item .categories__text {
-	max-width: 480px;
-}
 
 .categories__item.categories__large__item .categories__text p {
 	margin-bottom: 15px;
 }
 
 
-.categories__text h1 {
-	font-family: "Cookie", cursive;
-	color: #111111;
-	margin-bottom: 5px;
-}
 
-.categories__text h4 {
-	color: #111111;
-	font-weight: 700;
-    margin-top: 20px;
-    
-}
 
 #text{
     margin-top: 300px;
@@ -107,24 +71,7 @@
 
 
 
-@media (max-width: 767.98px) {
-    .products-row .col-6, 
-    .products-row .col-sm-4, 
-    .products-row .col-md-3, 
-    .products-row .col-lg-2 {
-      padding: 0; /* Enlever le padding */
-    }
-  }
-  
 
-
-.tab-content .box-product-outer {
-    margin-bottom: 0;
-}
-
-.box-product-slider-outer {
-    padding: 10px;
-}
 
 
 
@@ -153,23 +100,7 @@
     font-size: 0.8em;
 }
 
-.box-product {
-    display: flex; /* Utilise flexbox pour aligner les éléments enfants */
-    flex-direction: column; /* Aligner les éléments enfants verticalement */
-    align-items: center; /* Centrer les éléments enfants horizontalement */
-    justify-content: flex-start; /* Aligner les éléments enfants en haut */
-}
 
-.price {
-    text-align: center;
-    background-color: #f38a2e;
-    color: #fff;
-    padding: 5px 10px;
-    border-top-left-radius: 15px ;
-    border-top-right-radius: 15px ;
-    font-size: 14px;
-    z-index: 1; 
-}
 
 
 /*------category*/
@@ -224,10 +155,6 @@
     /* Ajustez la hauteur de l'image à vos besoins */
 }
 
-.price-border {
-    border-right: 1px solid #ced4da; /* Couleur de la bordure */
-    padding-right: 5px; /* Espace entre le prix et la bordure */
-  }
 
 
   .product-border {
@@ -285,9 +212,7 @@
     scroll-behavior: smooth; /* Animation de défilement lisse */
 }
 
-.products-row::-webkit-scrollbar {
-    display: none; /* Masquer la barre de défilement sur les navigateurs WebKit */
-}
+
 
 /* CSS pour réduire l'espace entre les produits */
 .produit-item {
@@ -302,15 +227,9 @@
 
   .carousel-item img {
     max-width: 100%; /* La largeur maximale de l'image est de 100% de la largeur du parent */
-    height: 200px; /* La hauteur s'ajuste automatiquement pour conserver les proportions */
-  }
-  @media (max-width: 992.00px) {
-    .carousel-item img {
-        max-width: 100%;
-        height: 151px; 
-       
+    height: 200px;
+        /* La hauteur s'ajuste automatiquement pour conserver les proportions */
+    
     }
-
-}
 
 
