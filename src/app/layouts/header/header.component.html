@@ -6,8 +6,8 @@
           <div class="col-auto">
             <div class="main-logo">
               <a>
-                <img src="../../../assets/logo-cava-palestine.webp" alt=""
-                  style="max-width: 150px;width: 70%; min-width: 80px; height: 30px;" loading="lazy">
+                <img src="../../../assets/logo....png" alt="" style="max-width: 200px;width: 100%; min-width: 80px; height: 30px;"
+                  loading="lazy">
               </a>
             </div>
           </div>
@@ -111,8 +111,8 @@
         <div class="col-sm-4 col-lg-3 text-center text-sm-start">
           <div class="main-logo">
             <a>
-              <img src="../../../assets/logo-cava-palestine.webp" alt=""
-                style="max-width: 100px;width: 100%;min-width: 80px;margin-top: 15px;  " loading="lazy">
+              <img src="../../../assets/logo....png" alt="" style="max-width: 150px;width: 80%;min-width: 80px;margin-top: 15px;  "
+                loading="lazy">
             </a>
           </div>
         </div>
@@ -156,7 +156,7 @@
   <div class="cv-header-search font-p-l">
     <i class="fa fa-search" aria-hidden="true"></i>
     <input type="text" class="cv-header-search-input" placeholder="Que cherchez-vous ?" name="searchKeyword"
-      [(ngModel)]="searchKeyword">
+    [(ngModel)]="searchKeyword" (keyup.enter)="onSearch()">
 
     <div class="cv-location-search cv-global-gradient">
       <div class="cv-location-dropdown-container">
