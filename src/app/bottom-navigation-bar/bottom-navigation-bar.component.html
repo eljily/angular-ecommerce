@@ -1,4 +1,4 @@
-<div class="navbar">
+<div class="navbar" [class.transparent]="isTransparent">
   <div class="nav-item" (click)="navigateTo('home')" style="cursor: pointer;">
     <i class="fas fa-home fa-lg"></i>
     <span style="margin-top: 10px;">{{ 'button-mobile.home' | translate }}</span>
@@ -40,13 +40,13 @@
   </div>
 
   <div class="nav-item" (click)="navigateTo('add-product')" style="cursor: pointer;">
-    <i class="fa-solid fa-square-plus fa-lg"></i>
+    <i class="fa fa-circle-plus fa-lg"></i>
     <span style="margin-top: 10px;">{{ 'button-mobile.publish' | translate }}</span>
   </div>
 
   <!-- Menu Profil -->
   <div class="nav-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasProfil" aria-controls="offcanvasProfil">
-    <i class="fa-solid fa-user fa-lg"></i>
+<i class="fa-regular fa-user fa-lg"></i>
     <span style="margin-top: 10px;">{{ 'button-mobile.profile' | translate }}</span>
   </div> 
 

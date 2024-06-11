@@ -16,51 +16,42 @@ body {
 /* Navigation bar styles */
 .navbar {
   position: fixed;
-  bottom: 10px;
+  bottom: 2px;
   left: 5px;
   width: 98%;
-  border: 1px solid #fd7e14;
-  background-color: white;
+  border: 1px solid transparent;
+    /* Utiliser transparent pour la bordure par défaut */
+    background: linear-gradient(90deg, #F56B2A 0%, #F79A3C 100%);
   border-radius: 16px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-around;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 10px 0;
-}
-
+  padding: 5px 0;
+    transition: background 0.3s ease, border 0.3s ease;
+    /* Transition douce */
+  }
+        .navbar.transparent {
+          background: linear-gradient(90deg, rgba(245, 107, 42, 0.5) 0%, rgba(247, 154, 60, 0.5) 100%);
+          /* Opacité ajustée à 0.5 (50%) pour rendre la couleur transparente */
+          border: 1px solid linear-gradient(90deg, rgba(245, 107, 42, 0.5) 0%, rgba(247, 154, 60, 0.5) 100%);
+          /* Vous pouvez ajuster la couleur de la bordure si nécessaire */
+        }
 .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--ion-color-medium);
+  color: #fff;
   transition: color 0.3s;
-  margin-top: 5px;
-  padding: 5px 0;
+  margin-top: 10px;
   position: relative;
 }
 
 .nav-margin {
   margin-top: 20px;
 }
-.nav-item::before {
-  content: "";
-  position: absolute;
-  bottom: 5px;
-  width: 20px;
-  height: 2px;
-  background-color: transparent;
-  transition: background-color 0.3s;
-}
 
-.nav-item.selected {
-  color: var(--ion-color-primary);
-}
 
-.nav-item.selected::before {
-  background-color: var(--ion-color-primary);
-}
 
 /* Custom CSS variables for colors */
 :root {
@@ -72,6 +63,9 @@ body {
   .navbar {
     display: none;
   }
+}
+i {
+  color: #fff;
 }
 
 

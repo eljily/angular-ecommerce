@@ -54,11 +54,11 @@
                   <strong><i class="fa-solid fa-eye" style="color: #fd7e14;"></i> {{ productDetails?.hit }}</strong>
                 </span>
                 </div>
-                <p>
+                <p [dir]="'ltr' | translate">
                   <button class="btn btn-round custom-border" type="button"><i class="fa fa-phone"></i> +222 {{
                     productDetails?.vendorDetails?.phoneNumber }}</button>
                 </p>
-                <p>
+                <p [dir]="'ltr' | translate">
               <button class="btn btn-round custom-border2" type="button"><i class="fa-brands fa-square-whatsapp"></i>
                 +222 {{
                 productDetails?.vendorDetails?.whatsappNumber }}</button>

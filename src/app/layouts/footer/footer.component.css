@@ -137,7 +137,7 @@ ul {
   transform: rotate(-6deg);
 }
 .copyright-area{
-  background: #fd7e14;
+  background: linear-gradient(90deg, #F56B2A 0%, #F79A3C 100%);
   padding: 25px 0;
 }
 .copyright-text p {

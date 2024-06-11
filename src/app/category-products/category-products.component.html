@@ -1,4 +1,4 @@
-<div class="container-fluid produit py-4">
+<div class="container-fluid produit py-4" [dir]="'dir' | translate">
   <div class="col-md-12 mx-md-50">
     <div class="title">
       <span>
@@ -23,7 +23,7 @@
                     style="top: 5px; right: 5px; font-size: 0.9rem;">
                     <i class="fa fa-eye fa-xs"></i> {{ product.hit }}
                   </div>
-                  <div class="p-2 border-top-0 rounded-bottom products-border">
+                <div class="border-top-0 rounded-bottom products-border" [dir]="'ltr' | translate">
                     <h6 class="text-dark fw-bold mb-0"
                       style="font-size: 0.8rem; text-overflow: ellipsis; white-space: nowrap; font-weight: 700;">
                       {{ shortenProductName(product.name) }}
@@ -36,14 +36,14 @@
                         product.region }}, {{
                         product.subRegion }}
                       </p>
-                    </div>
+                  
                     <div class="product-border">
-                      <a class="btn rounded-pill px-2"
-                        style="font-size: 12px; width: 100%; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                        {{ product.price + ' MRU' }}
-                      </a>
-                    </div>
-                  </div>
+                      <a class="btn  px-2 cv-global-gradient cv-p-price font-p-m m-0 px-2 py-1  "
+                        style="font-size: 0.8rem; width: 100%; color: #fff;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{
+                        product.price + " MRU" }}</a>
+                      </div>
+                      </div>
+                      </div>
                 </div>
               </div>
             </div>

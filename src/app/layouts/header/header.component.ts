@@ -232,18 +232,14 @@ export class HeaderComponent implements OnInit {
 
 
   // Méthode de recherche
-  onSearch(event: Event): void {
-    event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const input = form.elements.namedItem('searchKeyword') as HTMLInputElement;
-    const keyword = input.value.trim();
-
+  onSearch(): void {
+    const keyword = this.searchKeyword.trim();
+  
     if (keyword) {
       this.productService.getProductsByKeyword(keyword).subscribe(
         (response: any[]) => {
           this.searchService.updateSearchResults(response); // Transmet les résultats au service partagé
           console.log('Résultats de la recherche:', response);
-          this.router.navigate(['/search-results'], { queryParams: { keyword } }); // Redirige vers la page de résultats de recherche
           this.router.navigate(['/search-results'], { queryParams: { keyword } }); // Redirige vers la page de résultats de recherche
         },
         (error: any) => {
@@ -252,6 +248,7 @@ export class HeaderComponent implements OnInit {
       );
     }
   }
+  
 
   navigateToSubRegion(event: any): void {
     const subRegionId = event.target.value;

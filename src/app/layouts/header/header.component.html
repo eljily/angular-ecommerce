@@ -1,60 +1,118 @@
-<!-- Section du header qui est cachée sur les écrans de 992px et moins -->
-<div id="header" class="site-header text-black d-none d-lg-block" style="background-color: rgb(248, 246, 246);"
-  [dir]="'dir' | translate">
-  <div class="header-top border-bottom py-2">
-    <div class="row justify-content-evenly">
-      <div class="col-auto d-none d-md-block">
-        <div class="col-auto">
-          <div class="col-sm-4 col-lg-3 text-center text-sm-start">
+<header class="header-mobile" [dir]="'dir' | translate">
+  <div id="header" class="site-header text-black d-none d-lg-block" [dir]="'dir' | translate">
+    <div class="header-top border-bottom">
+      <div class="container">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-auto">
             <div class="main-logo">
               <a>
-                <img src="../../../assets/img/logo.jpeg" alt="" style="width: 90px; height: 60px; " loading="lazy">
+                <img src="../../../assets/logo-cava-palestine.webp" alt=""
+                  style="max-width: 150px;width: 70%; min-width: 80px; height: 30px;" loading="lazy">
               </a>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="col-auto d-none d-md-block" (click)="navigateTo('add-product')">
-        <a class="scrollto btn btn-outline-light custom-border">
-          <i class="fa-solid fa-circle-plus nav__icon"></i> {{ 'header.publish_ad' | translate }}
-        </a>
-      </div>
-
-      <div class="col" style="padding: 10px; margin-right: 5px;">
-        <ul class="d-flex justify-content-end gap-3 list-unstyled">
-          <li *ngIf="isLoggedIn; else notLoggedIn">
-            <a *ngIf="currentUser" class="custom-border" style="text-decoration:none">{{ currentUser?.data?.data?.name
-              }}</a> |
-            <a class="custom-border" (click)="logout()" style="text-decoration:none; cursor: pointer;">{{
-              'header.logout' |
-              translate }}</a>
+<div class="col-auto">
+  <ul class="d-flex justify-content-end list-unstyled m-0" style="margin-left: 50px;">
+    <li class="d-lg-block">
+      <div class="dropdown">
+        <button
+          class="btn dropdown-toggle rounded-circle bg-light p-2 mx-1 d-flex justify-content-center align-items-center"
+          type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
+          style="border-radius: 15px; border: 1px solid #fd7e14; width: 40px; height: 40px;">
+          <i class="fa-solid fa-user"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end custom-border2" aria-labelledby="dropdownMenuButton">
+          <li *ngIf="isLoggedIn" (click)="navigateTo('profile')">
+            <a class="dropdown-item custom-border1">{{ 'header.profile' | translate }}</a>
           </li>
-
-          <ng-template #notLoggedIn>
-            <li>
-              <a routerLink="/login" class="custom-border" style="text-decoration:none">{{ 'header.login' | translate
-                }}</a> |
-              <a routerLink="/signup" class="custom-border" style="text-decoration:none">{{ 'header.create_account' |
-                translate }}</a>
-            </li>
-          </ng-template>
+          <li *ngIf="isLoggedIn" (click)="navigateTo('forgot-password')">
+            <a class="dropdown-item custom-border1">{{ 'header.change_password' | translate }}</a>
+          </li>
+          <li *ngIf="isLoggedIn" (click)="navigateTo('add-product')">
+            <a class="dropdown-item custom-border1">{{ 'header.add_product' | translate }}</a>
+          </li>
+          <li (click)="navigateTo('favoris')">
+            <a class="dropdown-item custom-border1">{{ 'header.settings' | translate }}</a>
+          </li>
+          <li *ngIf="isLoggedIn" (click)="navigateTo('user-product')">
+            <a class="dropdown-item custom-border1">{{ 'header.user_product' | translate }}</a>
+          </li>
+          <li *ngIf="isLoggedIn" style="color: red;" (click)="navigateTo('delete-account')">
+            <a class="dropdown-item custom-border1">{{ 'header.delete_account' | translate }}</a>
+          </li>
         </ul>
       </div>
+    </li>
+    <li>
+      <span class="rounded-circle bg-light p-2 mx-1 d-flex justify-content-center align-items-center"
+        style="border-radius: 15px; border: 1px solid #fd7e14; width: 40px; height: 40px; cursor: pointer;">
+        <i class="fa-solid fa-heart"></i>
+      </span>
+    </li>
+    </ul>
+</div>
+
+<div class="col-auto">
+  <div class="lang_box dropdown custom-border2" style="cursor: pointer;" ngbDropdown>
+    <a title="Language" class="nav-link dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
+      <img [src]="getFlagImage(translateService.currentLang)" alt="flag" class="mr-2 flag-icon" loading="lazy">
+      {{ getLanguageName() }}
+    </a>
+    <div class="dropdown-menu custom-border2" ngbDropdownMenu>
+      <a class="dropdown-item custom-border1" (click)="changeLanguage('ar')">
+        <img [src]="getFlagImage('ar')" class="mr-2 flag-icon" alt="flag" loading="lazy">
+        {{ 'header.language_arabic' | translate }}
+      </a>
+      <a class="dropdown-item custom-border1" (click)="changeLanguage('fr')">
+        <img [src]="getFlagImage('fr')" class="mr-2 flag-icon" alt="flag" loading="lazy">
+        {{ 'header.language_french' | translate }}
+      </a>
+      <a class="dropdown-item custom-border1" (click)="changeLanguage('en')">
+        <img [src]="getFlagImage('en')" class="mr-2 flag-icon" alt="flag" loading="lazy">
+        {{ 'header.language_english' | translate }}
+      </a>
     </div>
   </div>
 </div>
+<div class="col-auto">
+  <a class="scrollto btn btn-outline-light custom-border3" (click)="navigateTo('add-product')">
+    <i class="fa-solid fa-circle-plus nav__icon"></i> {{ 'header.publish_ad' | translate }}
+  </a>
+</div>
+
+          <div class="col-auto">
+            <ul class="d-flex justify-content-end gap-3 list-unstyled">
+              <li *ngIf="isLoggedIn; else notLoggedIn">
+                <a *ngIf="currentUser" class="custom-border3" style="text-decoration:none">{{ currentUser?.data?.data?.name }}</a> |
+                <a class="custom-border3" (click)="logout()" style="text-decoration:none; cursor: pointer;">{{ 'header.logout' |
+                  translate }}</a>
+                </li>
+              <ng-template #notLoggedIn>
+                <li>
+                  <a routerLink="/login" class="custom-border3" style="text-decoration:none">{{ 'header.login' | translate }}</a> |
+                  <a routerLink="/signup" class="custom-border3" style="text-decoration:none">{{ 'header.create_account' | translate
+                    }}</a>
+                  </li>
+                  </ng-template>
+                  </ul>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+  </div>
+
 
 <!-- Contenu alternatif pour les écrans de 992px et moins -->
-<div id="header-mobile" class="site-header text-black d-lg-none" style="background-color: rgb(248, 246, 246);"
+<div id="header-mobile" class="site-header text-black d-lg-none"
   [dir]="'dir' | translate">
-  <div class="header-top border-bottom py-2">
+  <div class="header-top border-bottom ">
     <div class="row justify-content-evenly">
       <div class="col-auto">
         <div class="col-sm-4 col-lg-3 text-center text-sm-start">
           <div class="main-logo">
             <a>
-              <img src="../../../assets/img/logo.jpeg" alt="" style="width: 90px; height: 60px; " loading="lazy">
+              <img src="../../../assets/logo-cava-palestine.webp" alt=""
+                style="max-width: 100px;width: 100%;min-width: 80px;margin-top: 15px;  " loading="lazy">
             </a>
           </div>
         </div>
@@ -93,115 +151,33 @@
 </div>
 
 <!-- Section du header visible uniquement sur les écrans de plus de 992 pixels -->
-<header class="header-mobile" [dir]="'dir' | translate"
-  style="border: 1px solid #fd7e14; border-radius: 10px; background-color: rgb(248, 246, 246);">
-  <div class="container-fluid">
-    <div class="row py-3 border-bottom head">
 
-      <!-- Section visible uniquement sur les écrans de plus de 992 pixels -->
-      <div
-        class="col-sm-8 col-lg-4 d-flex ipad justify-content-end align-items-center mt-sm-0 justify-content-center justify-content-sm-end d-none d-lg-flex">
-        <div class="lang_box dropdown custom-border2" style="margin-right: 10px; cursor: pointer;" ngbDropdown>
-          <a title="Language" class="nav-link dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
-            <img [src]="getFlagImage(translateService.currentLang)" alt="flag" class="mr-2 flag-icon" loading="lazy">
-            {{ getLanguageName() }}
-          
-            </a>
-            <div class="dropdown-menu custom-border2 " ngbDropdownMenu>
-              <a class="dropdown-item custom-border1" (click)="changeLanguage('ar')">
-              <img [src]="getFlagImage('ar')" class="mr-2 flag-icon" alt="flag" loading="lazy">
-              {{ 'header.language_arabic' | translate }}
-              </a>
-              <a class="dropdown-item custom-border1" (click)="changeLanguage('fr')">
-              <img [src]="getFlagImage('fr')" class="mr-2 flag-icon" alt="flag" loading="lazy">
-              {{ 'header.language_french' | translate }}
-              </a>
-              <a class="dropdown-item custom-border1" (click)="changeLanguage('en')">
-              <img [src]="getFlagImage('en')" class="mr-2 flag-icon" alt="flag" loading="lazy">
-              {{ 'header.language_english' | translate }}
-              </a>
-              </div>
-              </div>
+<div class="search-container" [dir]="'ltr' | translate">
+  <div class="cv-header-search font-p-l">
+    <i class="fa fa-search" aria-hidden="true"></i>
+    <input type="text" class="cv-header-search-input" placeholder="Que cherchez-vous ?" name="searchKeyword"
+      [(ngModel)]="searchKeyword">
 
-
-        <div class="col-sm-4 col-lg-3 text-center text-sm-start"></div>
-
-        <ul class="d-flex justify-content-end list-unstyled m-0" style="margin-left: 50px;">
-          <li class="d-lg-block">
-            <div class="dropdown">
-              <button class="btn dropdown-toggle rounded-circle bg-light p-2 mx-1 d-flex justify-content-center align-items-center"
-                type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"
-                style="border-radius: 15px; border: 1px solid #fd7e14; width: 40px; height: 40px;">
-                <i class="fa-solid fa-user"></i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end custom-border2" aria-labelledby="dropdownMenuButton">
-                <li *ngIf="isLoggedIn" (click)="navigateTo('profile')">
-                  <a class="dropdown-item custom-border1">{{ 'header.profile' | translate }}</a>
-                </li>
-                <li *ngIf="isLoggedIn" (click)="navigateTo('forgot-password')">
-                  <a class="dropdown-item custom-border1">{{ 'header.change_password' | translate }}</a>
-                </li>
-                <li *ngIf="isLoggedIn" (click)="navigateTo('add-product')">
-                  <a class="dropdown-item custom-border1">{{ 'header.add_product' | translate }}</a>
-                </li>
-                <li (click)="navigateTo('favoris')">
-                  <a class="dropdown-item custom-border1">{{ 'header.settings' | translate }}</a>
-                </li>
-                <li *ngIf="isLoggedIn" (click)="navigateTo('user-product')">
-                  <a class="dropdown-item custom-border1">{{ 'header.user_product' | translate }}</a>
-                </li>
-                <li *ngIf="isLoggedIn" style="color: red;" (click)="navigateTo('delete-account')">
-                  <a class="dropdown-item custom-border1">{{ 'header.delete_account' | translate }}</a>
-                </li>
-                </ul>
-                </div>
-                </li>
-                <li>
-            <span class="rounded-circle bg-light p-2 mx-1 d-flex justify-content-center align-items-center"
-              style="border-radius: 15px; border: 1px solid #fd7e14; width: 40px; height: 40px; cursor: pointer;">
-              <i class="fa-solid fa-heart"></i>
-            </span>
-            </li>
-            </ul>
-            </div>
-
-      <!-- Section visible uniquement sur les écrans de 992 pixels et moins -->
-
-
-
-      <!-- Barre de recherche -->
-      <div class="col-sm-12 offset-md-0 col-lg-5 d-lg-block">
-        <div class="row bg-light p-2 my-2 rounded-4"
-          style="border-radius: 15px; border: 1px solid #fd7e14; padding: 0; margin: 0;">
-          <!-- Conteneur flex pour aligner les éléments -->
-          <div class="d-flex align-items-center w-100">
-            <!-- Sélection de catégorie avec largeur réduite -->
-            <select class="form-select bg-transparent me-2" style="border: 1px solid #fd7e14; width: 150px;"
-              (change)="navigateToSubRegion($event)">
-              <option>{{ 'header.all_regions' | translate }}</option>
-              <optgroup *ngFor="let region of regions" label="{{ region.name }}">
-                <option *ngFor="let subRegion of region.subRegions" [value]="subRegion.id">{{ subRegion.name }}</option>
-              </optgroup>
-            </select>
-      <!-- Recherche de produits -->
-            <form id="search-form" class="d-flex flex-grow-1" (ngSubmit)="onSearch($event)">
-              <input type="text" class="form-control border-0 bg-transparent flex-grow-1"
-                     placeholder="{{ 'header.search_products' | translate }}" name="searchKeyword"
-                     [(ngModel)]="searchKeyword">
-              <button type="submit" style="background: none; border: none; padding: 0;">
-                <i style="color: #fd7e14;" class="fa-solid fa-magnifying-glass fa-lg"></i>
-              </button>
-              <!-- Dropdown des produits -->
-              <select id="search-results" class="form-select border-0 bg-transparent" style="display: none;">
-                <option disabled selected hidden>{{ 'header.search_results' | translate }}</option>
-              </select>
-            </form>
-            </div>
-        </div>
-        </div>
-
-    </div>
-
+    <div class="cv-location-search cv-global-gradient">
+      <div class="cv-location-dropdown-container">
+        <select class="form-select cv-location-dropdown" (change)="navigateToSubRegion($event)">
+          <option>{{ 'header.all_regions' | translate }}</option>
+          <optgroup style="color: black;" *ngFor="let region of regions" label="{{ region.name }}">
+            <option style="color: black;" *ngFor="let subRegion of region.subRegions" [value]="subRegion.id">{{
+              subRegion.name }}
+            </option>
+          </optgroup>
+          </select>
+      </div>
+      </div>
+    <form (ngSubmit)="onSearch()">
+      <button type="submit" class="btn cv-search-btn btn-sm">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <span class="mx-1">Rechercher</span>
+      </button>
+    </form>
+  </div>
+  <div class="bottom-border"></div>
   </div>
 
 

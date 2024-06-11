@@ -135,4 +135,12 @@ checkScreenSize() {
       });
     }
   }
+
+  shortenProductName(name: string): string {
+    const maxLength = 16;
+    if (name.length > maxLength) {
+      return name.substr(0, maxLength) + '...';
+    }
+    return name;
+  }
 }

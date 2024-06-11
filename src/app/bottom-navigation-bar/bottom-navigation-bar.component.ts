@@ -27,6 +27,9 @@ export class BottomNavigationBarComponent implements OnInit {
   currentUserSubject: BehaviorSubject<any>;
   activeLink: string = '';
 
+  isTransparent: boolean = false;
+  lastScrollPosition: number = 0;
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -114,4 +117,24 @@ export class BottomNavigationBarComponent implements OnInit {
       console.error('Error fetching categories:', error);
     }
   }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event) {
+    const currentScrollPosition = window.scrollY;
+    const navbar: HTMLElement | null = document.querySelector('.navbar');
+    
+    if (navbar) {
+      if (currentScrollPosition > this.lastScrollPosition) {
+        // Scrolling down
+        navbar.classList.add('transparent');
+        this.isTransparent = true;
+      } else {
+        // Scrolling up
+        navbar.classList.remove('transparent');
+        this.isTransparent = false;
+      }
+      this.lastScrollPosition = currentScrollPosition;
+    }
+  }
 }
+  
