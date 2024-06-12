@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ProduitComponent implements OnInit {
   pagedProducts: any[] = [];
   currentPage = 1;
-  rows = 50; 
+  rows = 50;
   totalProducts = 0;
   categoryId: number | undefined;
   pages: number[] = [];
@@ -31,28 +31,47 @@ export class ProduitComponent implements OnInit {
     private searchService: SearchService
   ) {}
 
-
   ngOnInit() {
+    console.log('ngOnInit called');
+
+    // Récupérer l'état de la pagination de la session si disponible
+    const savedPage = sessionStorage.getItem('currentPage');
+    if (savedPage) {
+      this.currentPage = Number(savedPage);
+      console.log(`Restored page from session: ${this.currentPage}`);
+    }
+
     this.route.paramMap.subscribe(params => {
       const categoryIdParam = params.get('categoryId');
+      console.log(`Category ID from route: ${categoryIdParam}`);
       if (categoryIdParam) {
         const categoryId = Number(categoryIdParam);
         if (!isNaN(categoryId)) {
           this.categoryId = categoryId;
+          console.log(`Fetching products for category ID: ${categoryId}`);
           this.fetchProducts(categoryId);
         }
+      } else {
+        console.log('No category ID, fetching all products');
+        this.fetchProducts(0);
       }
     });
 
     // Abonnez-vous aux résultats de recherche
     this.searchService.searchResults$.subscribe((results: any[]) => {
-      this.pagedProducts = results;
-      this.totalProducts = results.length; // Mettez à jour le total des produits avec la longueur des résultats
-      this.calculatePages(); // Recalculez les pages en fonction du nouveau total des produits
+      console.log('Search results received', results);
+      if (results && results.length > 0) { // Vérifiez si les résultats de recherche ne sont pas vides
+        this.pagedProducts = results;
+        this.totalProducts = results.length; // Mettez à jour le total des produits avec la longueur des résultats
+        this.calculatePages(); // Recalculez les pages en fonction du nouveau total des produits
+      } else {
+        console.log('Empty search results. No need to calculate pages.');
+      }
     });
   }
 
   fetchProducts(categoryId: number) {
+    console.log(`fetchProducts called with categoryId: ${categoryId}`);
     let productsObservable: Observable<any>;
 
     if (categoryId === 0) {
@@ -63,6 +82,7 @@ export class ProduitComponent implements OnInit {
 
     productsObservable.subscribe(
       (response: any) => {
+        console.log('Products fetched', response);
         this.pagedProducts = response.data;
         this.totalProducts = response.meta.total;
         this.calculatePages();
@@ -76,12 +96,17 @@ export class ProduitComponent implements OnInit {
   calculatePages() {
     const totalPages = Math.ceil(this.totalProducts / this.rows);
     this.pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    console.log('Calculated pages:', this.pages);
   }
 
   onPageChange(event: any) {
     this.currentPage = event.page + 1;
+    console.log(`Page changed to: ${this.currentPage}`);
+    sessionStorage.setItem('currentPage', this.currentPage.toString());
     if (this.categoryId !== undefined) {
       this.fetchProducts(this.categoryId);
+    } else {
+      this.fetchProducts(0);
     }
   }
 
@@ -96,10 +121,12 @@ export class ProduitComponent implements OnInit {
   setPage(page: number): void {
     if (page < 1 || page > this.pages.length) return;
     this.currentPage = page;
-    this.fetchProducts(this.categoryId!);
-  }
-
-  redirectToAddProduct() {
-    this.router.navigateByUrl('/add');
+    console.log(`Setting page to: ${this.currentPage}`);
+    sessionStorage.setItem('currentPage', this.currentPage.toString());
+    if (this.categoryId !== undefined) {
+      this.fetchProducts(this.categoryId);
+    } else {
+      this.fetchProducts(0);
+    }
   }
 }

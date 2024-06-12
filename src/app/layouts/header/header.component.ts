@@ -43,6 +43,7 @@ export class HeaderComponent implements OnInit {
   regions: Region[] = [];
   selectedCategory: string = 'all';
   isLoggedIn: boolean = false;
+  selectedRegion: string = 'region';
 
   category: SubCategoryResponse = {
     status: null,
@@ -96,11 +97,24 @@ export class HeaderComponent implements OnInit {
       this.isLoggedIn = !!user; // Met à jour l'état de connexion de l'utilisateur
     });
 
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd && event.url === '/home') {
+   // Abonnez-vous aux événements de navigation du routeur
+   this.router.events.subscribe(event => {
+    if (event instanceof NavigationEnd) {
+      const url = event.url;
+
+      if (!url.startsWith('/sub-region-products')) {
+        this.selectedRegion = 'all';
+      }
+
+      if (!url.startsWith('/products')) {
         this.selectedCategory = 'all';
       }
-    });
+    }
+  });
+
+
+
+    
 
     this.loadCategories();
     this.loadRegions();
@@ -154,12 +168,16 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([route]);
   }
 
+
+
   navigateToSubCategory(event: any): void {
-    const subCategoryId = event.target.value;
-    if (subCategoryId === 'all') {
+    const categoryId = event.target.value;
+    console.log('Selected category ID:', categoryId);
+    
+    if (categoryId === 'all') {
       this.router.navigate(['/home']);
     } else {
-      this.router.navigate(['/products', subCategoryId]);
+      this.router.navigate(['/products', categoryId]);
     }
   }
 
@@ -241,6 +259,9 @@ export class HeaderComponent implements OnInit {
           this.searchService.updateSearchResults(response); // Transmet les résultats au service partagé
           console.log('Résultats de la recherche:', response);
           this.router.navigate(['/search-results'], { queryParams: { keyword } }); // Redirige vers la page de résultats de recherche
+  
+          // Réinitialiser la valeur du champ de recherche après la recherche
+          this.searchKeyword = ''; // Vider le champ de recherche
         },
         (error: any) => {
           console.error('Erreur lors de la recherche de produits:', error);
@@ -252,13 +273,15 @@ export class HeaderComponent implements OnInit {
 
   navigateToSubRegion(event: any): void {
     const subRegionId = event.target.value;
-    console.log('Selected subregion ID:', subRegionId); // Vérifiez la valeur de subRegionId dans la console
+    console.log('Selected subregion ID:', subRegionId);
+    
     if (subRegionId === 'all') {
-        this.router.navigate(['/home']);
+      this.router.navigate(['/home']);
     } else {
-        this.router.navigate(['/sub-region-products', subRegionId]);
+      this.router.navigate(['/sub-region-products', subRegionId]);
     }
-}
+  }
+
 
   
 

@@ -1,4 +1,4 @@
-<div class="navbar" [class.transparent]="isTransparent">
+<div class="navbar" [class.transparent]="isTransparent" [dir]="'dir' | translate">
   <div class="nav-item" (click)="navigateTo('home')" style="cursor: pointer;">
     <i class="fas fa-home fa-lg"></i>
     <span style="margin-top: 10px;">{{ 'button-mobile.home' | translate }}</span>
@@ -25,9 +25,15 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end menu-list">
           <li class="nav-item dropdown" *ngFor="let category of categories">
-            <a class="nav-link dropdown-toggle custom-border" role="button" id="categories" data-bs-toggle="dropdown" aria-expanded="false">{{ category.name }}</a>
-            <ul class="dropdown-menu" aria-labelledby="categories">
-              <li *ngFor="let subCategory of category.subCategories">
+        
+            <a class="nav-link dropdown-toggle custom-border" role="button" id="categories" data-bs-toggle="dropdown" aria-expanded="false">
+             
+              <img [src]="category.imageUrl" alt="" class="img-fluid" style="max-width: 20px; max-height: 20px;" loading="lazy">
+              <span style="margin-right: 5px;">{{ category.name }}</span>
+            </a>
+            
+            <ul class="dropdown-menu" aria-labelledby="categories" >
+              <li *ngFor="let subCategory of category.subCategories" [dir]="'ltr' | translate">
                 <a class="dropdown-item custom-border" data-bs-dismiss="offcanvas" [routerLink]="['/products', subCategory.id]">
                   <span class="badge bg-success text-dark ms-2">✔️</span> {{ subCategory.name }}
                 </a>
@@ -51,63 +57,59 @@
   </div> 
 
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasProfil">
-    <div class="offcanvas-header justify-content-center" style="margin-right: 20px; margin-top: 15px;">
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="ferme"></button>
+    <div class="offcanvas-header justify-content-end" style="margin-right: 20px; margin-top: 20px; margin-bottom: 10px;">
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
     </div>
-    <div class="offcanvas-body" style="margin-top: 20px;">
-      <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-        <li *ngIf="isUserLoggedIn(); else notLoggedIn" class="d-flex align-items-center ma">
-          <a *ngIf="currentUser" class="custom-border" data-bs-dismiss="offcanvas"
-            style="text-decoration:none;cursor: pointer;"><i class="fa-solid fa-user"></i>&nbsp;{{ currentUser?.data?.data?.name }}</a> |
-          <a class="custom-border" (click)="logout()" data-bs-dismiss="offcanvas"
-            style="text-decoration:none; cursor: pointer; color: red;">{{ 'button-mobile.logout' | translate }}</a>
-        </li>
+    <div class="offcanvas-body">
+      <div class="profile-options">
+        <div *ngIf="isUserLoggedIn(); else notLoggedIn" class="user-info">
+          <a *ngIf="currentUser" class="user-name custom-border" data-bs-dismiss="offcanvas" (click)="navigateTo('profile')">
+            <i class="fa-solid fa-user"></i>&nbsp;{{ currentUser?.data?.data?.name }}
+          </a>
+          <span class="divider">|</span>
+          <a class="logout custom-border" (click)="logout()" data-bs-dismiss="offcanvas">{{ 'button-mobile.logout' | translate }}</a>
+        </div>
         <ng-template #notLoggedIn>
-          <li class="d-flex align-items-center">
-            <a routerLink="/login" class="custom-border" data-bs-dismiss="offcanvas" style="text-decoration:none">{{
-              'button-mobile.login' | translate }}</a> |
-            <a routerLink="/signup" class="custom-border" data-bs-dismiss="offcanvas" style="text-decoration:none">{{
-              'button-mobile.signup' | translate }}</a>
-          </li>
+          <div class="login-options">
+            <a routerLink="/login" class="login-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.login' | translate }}</a>
+            <span class="divider">|</span>
+            <a routerLink="/signup" class="signup-link custom-border" data-bs-dismiss="offcanvas">{{ 'button-mobile.signup' | translate }}</a>
+          </div>
         </ng-template>
-        <li class="nav-item nav-margin margin active" (click)="navigateTo('profile')" style="cursor: pointer;"
-          *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">
+      </div>
+      <ul class="navbar-nav justify-content-end profile-menu list-unstyled">
+        <li class="nav-item" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" (click)="navigateTo('profile')" data-bs-dismiss="offcanvas">
             <i class="fa-solid fa-house"></i>&nbsp;{{ 'button-mobile.profile' | translate }}
           </a>
         </li>
-        <li class="nav-item nav-margin active" (click)="navigateTo('forgot-password')" style="cursor: pointer;"
-          *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">
+        <li class="nav-item" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" (click)="navigateTo('forgot-password')" data-bs-dismiss="offcanvas">
             <i class="fa-solid fa-lock"></i>&nbsp;{{ 'button-mobile.change_password' | translate }}
           </a>
         </li>
-        <li class="nav-item  nav-margin active" (click)="navigateTo('add-product')" style="cursor: pointer;"
-          *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">
+        <li class="nav-item" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" (click)="navigateTo('add-product')" data-bs-dismiss="offcanvas">
             <i class="fa-solid fa-plus"></i>&nbsp;{{ 'button-mobile.add_product' | translate }}
           </a>
         </li>
-        <li class="nav-item nav-margin active" (click)="navigateTo('favoris')" style="cursor: pointer;"
-          *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">
+        <li class="nav-item" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" (click)="navigateTo('favoris')" data-bs-dismiss="offcanvas">
             <i class="fa-solid fa-heart"></i>&nbsp;{{ 'button-mobile.settings' | translate }}
           </a>
         </li>
-        <li class="nav-item nav-margin active" (click)="navigateTo('user-product')" style="cursor: pointer;"
-          *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">
+        <li class="nav-item" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" (click)="navigateTo('user-product')" data-bs-dismiss="offcanvas">
             <i class="fa-brands fa-product-hunt"></i>&nbsp;{{ 'button-mobile.user_product' | translate }}
           </a>
         </li>
-        <li class="nav-item nav-margin active" (click)="navigateTo('delete-account')" style="cursor: pointer;"
-          *ngIf="isUserLoggedIn()">
-          <a class="nav-link custom-border" data-bs-dismiss="offcanvas">
+        <li class="nav-item" *ngIf="isUserLoggedIn()">
+          <a class="nav-link custom-border" (click)="navigateTo('delete-account')" data-bs-dismiss="offcanvas">
             <i class="fa-solid fa-trash"></i>&nbsp;{{ 'button-mobile.delete_account' | translate }}
           </a>
         </li>
-        
-        </ul>
+      </ul>
     </div>
   </div>
+  
 </div>
