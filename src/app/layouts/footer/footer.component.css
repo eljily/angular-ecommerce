@@ -44,6 +44,11 @@ ul {
 }
 .footer-logo {
   margin-bottom: 30px;
+  text-align: center;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: linear-gradient(90deg, #F56B2A 0%, #F79A3C 100%);
 }
 .footer-logo img {
     max-width: 200px;
