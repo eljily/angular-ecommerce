@@ -37,7 +37,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     FooterComponent,
     BottomNavigationBarComponent,
     LoadingSpinnerComponent,
-    TranslateModule
+    TranslateModule,
+    
     
 
 

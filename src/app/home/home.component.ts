@@ -13,6 +13,7 @@ import { ApiResponse, Product } from '../service/model/model';
 import {ProductsService} from '../service/products.service'
 import { SliderComponent } from '../slider/slider.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -21,7 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'app-home',
   standalone: true,
   
-  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,RouterModule, NgFor ,SliderComponent,CarouselModule,TranslateModule],
+  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,RouterModule, NgFor ,SliderComponent,CarouselModule,TranslateModule,NgbModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -29,79 +30,67 @@ import { TranslateModule } from '@ngx-translate/core';
 
 
 export class HomeComponent implements OnInit {
-  productsData: any[] = []; // Initialiser la variable pour stocker les données des produits
+  productsData: any[] = [];
   categories: any[] = [];
+  groupedCategories: any[][] = [];
   adGroups = [
     [
       { imageUrl: '../../assets/slider1/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-free-vector.jpg' },
-    
     ],
     [
       { imageUrl: '../../assets/slider2/ecommerce-website-banner-template-presents-260nw-2252124451.webp' },
       { imageUrl: '../../assets/slider2/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-vector.jpg' }
     ],
-
   ];
-
 
   slides = [
     { image: '../../assets/slider3/ecommerce-banner.jpg' },
     { image: '../../assets/slider3/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-vector.jpg' },
-
   ];
 
   isDesktopView: boolean = false;
   isBrowser: boolean = false;
 
+  constructor(private categoryService: CategoryService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
-  constructor(private categoryService: CategoryService,
-    @Inject(PLATFORM_ID) private platformId: Object
-) {}
-ngOnInit(): void {
-  this.checkScreenSize();
-
-  // Récupération des données des catégories avec les produits intégrés
-  this.categoryService.getAllWithProducts().subscribe(
-    (response: ApiResponse<Category[]>) => {
-      console.log('Données récupérées pour les produits:', response);
-
-      if (response && response.data && Array.isArray(response.data)) {
-        // Enregistrer les catégories obtenues à partir du service ProductService
-        const categoriesFromProducts = response.data;
-
-        // Si vous avez également besoin des catégories provenant de categoryService.getAllCategories(),
-        // vous pouvez les fusionner avec les catégories des produits ici.
-        // Par exemple, si les catégories provenant de categoryService.getAllCategories() 
-        // contiennent des informations supplémentaires, vous pouvez les ajouter ici.
-
-        // Enregistrer les catégories fusionnées dans la variable this.categories
-        this.categories = categoriesFromProducts;
-      } else {
-        console.error('Les données retournées pour les produits ne sont pas dans le format attendu.');
-      }
-    },
-    (error: any) => {
-      console.error('Erreur lors de la récupération des produits avec les catégories:', error);
-    }
-  );
-}
-// Méthode pour vérifier la taille de l'écran et définir isDesktopView en conséquence
-checkScreenSize() {
-  if (isPlatformBrowser(this.platformId)) {
-    // Exécute le code uniquement si l'application est exécutée côté client
-    this.isDesktopView = window.innerWidth >= 768;
-
-    // Ajouter un écouteur d'événement pour vérifier la taille de l'écran lors du redimensionnement
-    window.addEventListener('resize', () => {
-      this.isDesktopView = window.innerWidth >= 768;
-    });
+  ngOnInit(): void {
+    this.checkScreenSize();
+    this.loadCategoriesWithProducts();
   }
-}
 
+  checkScreenSize() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isDesktopView = window.innerWidth >= 768;
+      window.addEventListener('resize', () => {
+        this.isDesktopView = window.innerWidth >= 768;
+        this.groupCategories(); // Regrouper les catégories à nouveau en fonction de la nouvelle taille de l'écran
+      });
+    }
+  }
 
+  loadCategoriesWithProducts() {
+    this.categoryService.getAllWithProducts().subscribe(
+      (response: any) => {
+        if (response && response.data && Array.isArray(response.data)) {
+          this.categories = response.data;
+          this.groupCategories();
+        } else {
+          console.error('Les données retournées pour les produits ne sont pas dans le format attendu.');
+        }
+      },
+      (error: any) => {
+        console.error('Erreur lors de la récupération des produits avec les catégories:', error);
+      }
+    );
+  }
 
-
-
+  groupCategories() {
+    const groupSize = this.isDesktopView ? 8 : 4;
+    this.groupedCategories = []; // Réinitialiser les groupes
+    for (let i = 0; i < this.categories.length; i += groupSize) {
+      this.groupedCategories.push(this.categories.slice(i, i + groupSize));
+    }
+  }
 
   canScrollLeft(categoryId: number): boolean {
     const container = document.querySelector(`[data-category-id="${categoryId}"]`);
@@ -120,7 +109,7 @@ checkScreenSize() {
     const container = document.querySelector(`[data-category-id="${categoryId}"]`);
     if (container) {
       container.scrollBy({
-        left: -200, // Défilement de 200 pixels vers la gauche
+        left: -200,
         behavior: 'smooth'
       });
     }
@@ -130,7 +119,7 @@ checkScreenSize() {
     const container = document.querySelector(`[data-category-id="${categoryId}"]`);
     if (container) {
       container.scrollBy({
-        left: 200, // Défilement de 200 pixels vers la droite
+        left: 200,
         behavior: 'smooth'
       });
     }
@@ -138,9 +127,6 @@ checkScreenSize() {
 
   shortenProductName(name: string): string {
     const maxLength = 16;
-    if (name.length > maxLength) {
-      return name.substr(0, maxLength) + '...';
-    }
-    return name;
+    return name.length > maxLength ? name.substr(0, maxLength) + '...' : name;
   }
 }

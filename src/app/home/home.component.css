@@ -156,6 +156,53 @@
 }
 
 
+/* Conteneur NgbCarousel avec défilement horizontal */
+.ngb-carousel {
+    overflow-x: auto;
+    /* Autoriser le défilement horizontal */
+    white-space: nowrap;
+    /* Empêcher le renvoi à la ligne des éléments */
+    margin-bottom: 15px;
+    /* Ajouter un espace en bas du carrousel */
+}
+
+/* Conteneur de la diapositive */
+.ngb-carousel-inner {
+    display: inline-block;
+    /* Afficher les diapositives côte à côte */
+    vertical-align: top;
+    /* Aligner les diapositives en haut de la ligne */
+}
+
+/* Diapositive */
+.carousel-item {
+    width: auto !important;
+    /* Réinitialiser la largeur pour permettre le contenu à l'intérieur de la diapositive */
+    flex: 0 0 auto !important;
+    /* Réinitialiser le comportement de flex pour la diapositive */
+}
+
+/* Styles pour l'icône de contrôle "suivant" du NgbCarousel */
+/* Styles pour l'icône de contrôle "précédent" du NgbCarousel */
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Couleur d'arrière-plan semi-transparente */
+}
+
+
+/* Style pour l'indicateur actif */
+ngb-carousel::ng-deep .carousel-indicators [data-bs-target] {
+    background-color: #fd7e14;
+    /* Couleur de fond de l'indicateur actif */
+}
+
+/* Style pour l'indicateur actif */
+ngb-carousel::ng-deep .carousel-indicators [data-bs-target].active {
+    background-color: #fd7e14;
+    /* Couleur de fond de l'indicateur actif */
+}
 
 .product-border {
     font-size: 90%;

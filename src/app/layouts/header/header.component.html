@@ -1,10 +1,10 @@
-<header class="header-mobile" [dir]="'dir' | translate">
+<header class="header" [dir]="'dir' | translate">
   <div
-    id="header"
-    class="site-header text-black d-none d-lg-block"
+  id="header-mobile"
+    class="site-header text-black "
     [dir]="'dir' | translate"
   >
-    <div class="header-top border-bottom">
+    <div class="header-top border-bottom  d-none d-lg-block " >
       <div class="row justify-content-between align-items-center">
         <div class="col-auto">
           <div class="main">
@@ -216,7 +216,57 @@
         </div>
       </div>
     </div>
+    
+    <div class="search-container" [dir]="'ltr' | translate">
+      <div class="cv-header-search font-p-l">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input
+          type="text"
+          class="cv-header-search-input"
+          placeholder="Que cherchez-vous ?"
+          name="searchKeyword"
+          [(ngModel)]="searchKeyword"
+          (keyup.enter)="onSearch()"
+          (keydown.enter)="onSearch()"
+        />
+  
+        <div class="cv-location-search cv-global-gradient">
+          <div class="cv-location-dropdown-container">
+            <select
+              class="form-select cv-location-dropdown"
+              (change)="navigateToSubRegion($event)"
+              [(ngModel)]="selectedRegion"
+            >
+              <option style="color: black" value="all">
+                {{ "header.all_regions" | translate }}
+              </option>
+              <optgroup
+                style="color: black"
+                *ngFor="let region of regions"
+                label="{{ region.name }}"
+              >
+                <option
+                  style="color: black"
+                  *ngFor="let subRegion of region.subRegions"
+                  [value]="subRegion.id"
+                >
+                  {{ subRegion.name }}
+                </option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+        <form (submit)="onSearch()">
+          <button type="submit" class="btn cv-search-btn btn-sm">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <span class="mx-1">Rechercher</span>
+          </button>
+        </form>
+      </div>
+      <div class="bottom-border"></div>
+    </div>
   </div>
+
 
   <!-- Contenu alternatif pour les écrans de 992px et moins -->
   <div
@@ -313,54 +363,6 @@
 
   <!-- Section du header visible uniquement sur les écrans de plus de 992 pixels -->
 
-  <div class="search-container" [dir]="'ltr' | translate">
-    <div class="cv-header-search font-p-l">
-      <i class="fa fa-search" aria-hidden="true"></i>
-      <input
-        type="text"
-        class="cv-header-search-input"
-        placeholder="Que cherchez-vous ?"
-        name="searchKeyword"
-        [(ngModel)]="searchKeyword"
-        (keyup.enter)="onSearch()"
-        (keydown.enter)="onSearch()"
-      />
-
-      <div class="cv-location-search cv-global-gradient">
-        <div class="cv-location-dropdown-container">
-          <select
-            class="form-select cv-location-dropdown"
-            (change)="navigateToSubRegion($event)"
-            [(ngModel)]="selectedRegion"
-          >
-            <option style="color: black" value="all">
-              {{ "header.all_regions" | translate }}
-            </option>
-            <optgroup
-              style="color: black"
-              *ngFor="let region of regions"
-              label="{{ region.name }}"
-            >
-              <option
-                style="color: black"
-                *ngFor="let subRegion of region.subRegions"
-                [value]="subRegion.id"
-              >
-                {{ subRegion.name }}
-              </option>
-            </optgroup>
-          </select>
-        </div>
-      </div>
-      <form (submit)="onSearch()">
-        <button type="submit" class="btn cv-search-btn btn-sm">
-          <i class="fa fa-search" aria-hidden="true"></i>
-          <span class="mx-1">Rechercher</span>
-        </button>
-      </form>
-    </div>
-    <div class="bottom-border"></div>
-  </div>
 </header>
 
 <div class="container-fluid">
