@@ -5,6 +5,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  z-index: 10000;
 }
 
 body {
@@ -53,20 +54,13 @@ body {
 
 
 
-/* Custom CSS variables for colors */
-:root {
-  --ion-color-medium: #6c757d;
-  --ion-color-primary: #007bff;
-}
 
 @media (min-width: 992px) {
   .navbar {
     display: none;
   }
 }
-i {
-  color: #fff;
-}
+
 
 
 
@@ -86,15 +80,96 @@ i {
   }
   
 
-  .dropdown-menu  {
-    width: 100%;
-  }
+.dropdown-menu {
+  width: 90%;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  border: 1px solid #F56B2A;
+}
 
-  .dropdown-item{
+.dropdown-item {
     margin-left: 18px;
+    padding: 10px 20px;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
+      align-items: center;
+      margin-bottom: 5px;
   }
+  
 
-
-  .offcanvas-header {
-    z-index: 2; /* ou une valeur plus élevée si nécessaire */
+/* Profil Styles */
+/* Offcanvas Header */
+.offcanvas-header {
+  margin-top: 15px;
+    text-align: center;
+  }
+  
+  /* Profile Options */
+  .profile-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* User Info and Login Options */
+  .user-info,
+  .login-options {
+    margin-top: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  
+  .user-name,
+  .logout,
+  .login-link,
+  .signup-link {
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  /* Divider */
+  .divider {
+    margin: 0 10px;
+  }
+  
+  /* Logout Color */
+  .logout {
+    color: red;
+  }
+  
+  /* Hover Effects */
+  .logout:hover,
+  .user-name:hover,
+  .login-link:hover,
+  .signup-link:hover {
+    color: #f38a2e;
+  }
+  
+  /* Profile Menu */
+  .profile-menu .nav-item {
+    margin-bottom: 10px;
+  }
+  
+  /* Profile Menu Link */
+  .profile-menu .nav-link {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Profile Menu Link Hover */
+  .profile-menu .nav-link:hover {
+    color: #f38a2e;
+  }
+  
+  /* Icon Styles */
+  .fa-solid,
+  .fa-brands {
+    margin-right: 5px;
 }
