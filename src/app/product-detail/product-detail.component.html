@@ -2,8 +2,7 @@
   <div class="row">
     <aside class="col-lg-6 col-md-12 position-relative">
       <div class="border rounded-4 mb-3 d-flex justify-content-center position-relative product-container">
-        <a data-fslightbox="mygalley" class="rounded-4 w-100" target="_blank" data-type="image"
-          [href]="productDetails?.images && productDetails.images.length > 0 ? productDetails.images[currentImageIndex].imageUrl : '#'">
+        <a data-fslightbox="mygallery" class="rounded-4 w-100" data-type="image">
           <img style="width: 100%; height: 300px; margin: auto;" class="rounded-4 fit"
             [src]="productDetails?.images && productDetails.images.length > 0 ? productDetails.images[currentImageIndex].imageUrl : 'default_image_url'"
             [alt]="productDetails?.images && productDetails.images.length > 0 ? productDetails.images[currentImageIndex].alt : 'default_alt_text'" />
@@ -17,14 +16,14 @@
               style="background-color: #fff; cursor: pointer; position: absolute; top: 18%; left: 96%; transform: translate(-50%, -50%);">
               <i class="fa-solid fa-share-nodes" style="color: #fd7e14;"></i>
         </span>
+      </div>
+      <div class="d-flex justify-content-center mb-3">
+        <div *ngFor="let image of productDetails?.images; let i = index" class="border mx-1 rounded-2">
+          <img width="60" height="60" class="rounded-2" [src]="image.imageUrl" />
         </div>
-        <div class="d-flex justify-content-center mb-3">
-          <div *ngFor="let image of productDetails?.images; let i = index" class="border mx-1 rounded-2"
-            (click)="changeMainImage(i)">
-            <img width="60" height="60" class="rounded-2" [src]="image.imageUrl" />
-          </div>
-        </div>
+      </div>
     </aside>
+    
 
                 <!-- Section détails du produit -->
                 <div class="col-lg-6 col-md-12">

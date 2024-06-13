@@ -93,8 +93,8 @@ export class ProductDetailComponent implements OnInit {
         (response: any) => {
           console.log('Toggle favorite response:', response);
           this.isFavorite = !this.isFavorite;
-          console.log('isFavorite toggled to:', this.isFavorite); // Log to confirm state
-          this.cdr.detectChanges(); // Force change detection
+          console.log('isFavorite toggled to:', this.isFavorite); 
+          this.cdr.detectChanges();
         },
         error => {
           console.error('Error toggling product favorite:', error);
@@ -105,8 +105,6 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-
-  
   
   calculateDateAgo(createDate: Date | undefined): string{
     if (!createDate) {
