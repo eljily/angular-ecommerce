@@ -1,202 +1,263 @@
-body{margin-top:20px;
-background: #eee;
+body {
+  margin-top: 20px;
+  background: #eee;
 }
 
-
-.container{
-    margin-top: 20px;
-    margin-bottom: 50px;
+.container {
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
-    
-    .col-md-6 {
-        flex: 1;
-    }
-    
-    .product_meta {
-        margin-top: 20px;
-    }
-    
-    
-    .pro-price {
-        color: #fc5959;
-        font-size: 20px;
-    }
-    
-    
-    
-    .pro-img-list a img {
-        max-width: 80px; /* Ajuster la taille des images dans la liste */
-        max-height: 80px;
-    }
-    /*//////////////*/
-    
-    /*product list*/
-    
-    .prod-cat li a{
-        border-bottom: 1px dashed #d9d9d9;
-    }
-    
-    .prod-cat li a {
-        color: #3b3b3b;
-    }
-    
 
-    
-    .prod-cat li ul li a{
-        border-bottom:none;
-    }
-    .prod-cat li ul li a:hover,.prod-cat li ul li a:focus, .prod-cat li ul li.active a , .prod-cat li a:hover,.prod-cat li a:focus, .prod-cat li a.active{
-        background: none;
-        color: #ff7261;
-    }
-    
-    .pro-lab{
-        margin-right: 20px;
-        font-weight: normal;
-    }
+.col-md-6 {
+  flex: 1;
+}
 
-    
-    .product-list img{
-        width: 100%;
-        border-radius: 4px 4px 0 0;
-        -webkit-border-radius: 4px 4px 0 0;
-    }
-    
+.product_meta {
+  margin-top: 20px;
+}
 
-    .adtocart i{
-        color: #fff;
-        font-size: 25px;
-        line-height: 42px;
-    }
-    
+.pro-price {
+  color: #fc5959;
+  font-size: 20px;
+}
 
-    .product-image{
-        width: 100px; /* Définissez la largeur souhaitée */
-        height: 400px; /* Ajustez la hauteur en conséquence pour conserver les proportions */
-    }
+.pro-img-list a img {
+  max-width: 80px; /* Ajuster la taille des images dans la liste */
+  max-height: 80px;
+}
+/*//////////////*/
 
-    
+/*product list*/
 
-    
-    .pro-img-details img {
-        width: 100%;
-    }
-    
+.prod-cat li a {
+  border-bottom: 1px dashed #d9d9d9;
+}
 
-    
-    .product_meta {
-        border-top: 1px solid #eee;
-        border-bottom: 1px solid #eee;
-        padding: 10px 0;
-        margin: 15px 0;
-    }
-    
-    .product_meta span {
-        display: block;
-        margin-bottom: 10px;
-    }
+.prod-cat li a {
+  color: #3b3b3b;
+}
 
+.prod-cat li ul li a {
+  border-bottom: none;
+}
+.prod-cat li ul li a:hover,
+.prod-cat li ul li a:focus,
+.prod-cat li ul li.active a,
+.prod-cat li a:hover,
+.prod-cat li a:focus,
+.prod-cat li a.active {
+  background: none;
+  color: #ff7261;
+}
 
-    .pro-img-list a {
-        display: inline-block; /* Pour que les liens d'image se comportent comme des blocs */
-        max-width: 100px; /* Largeur maximale des images */
-        max-height: 100px; /* Hauteur maximale des images */
-        overflow: hidden; /* Masquer tout débordement d'image */
-        margin-right: 10px; /* Marge entre les images */
-    }
+.pro-lab {
+  margin-right: 20px;
+  font-weight: normal;
+}
 
-    .custom-border {
-        width : 100%;
-        border-radius: 10px; /* Coins arrondis */
-        padding: 10px 20px; /* Espace de remplissage */
-        color: #fff; /* Couleur du texte */
-        background-color: #38a543; /* Couleur de fond */
-        transition: all 0.3s ease; /* Animation de transition */
-      }
+.product-list img {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  -webkit-border-radius: 4px 4px 0 0;
+}
 
-      .custom-border2 {
-        width : 100%;
-        border: 1px solid #38a543;
-        border-radius: 10px; /* Coins arrondis */
-        padding: 10px 20px; /* Espace de remplissage */
-        color: #38a543; /* Couleur du texte */
-        background-color: #fff; /* Couleur de fond */
-        transition: all 0.3s ease; /* Animation de transition */
-      }
-      
-      
+.adtocart i {
+  color: #fff;
+  font-size: 25px;
+  line-height: 42px;
+}
 
+.product-image {
+  width: 100px; /* Définissez la largeur souhaitée */
+  height: 400px; /* Ajustez la hauteur en conséquence pour conserver les proportions */
+}
 
+.pro-img-details img {
+  width: 100%;
+}
 
+.product_meta {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  margin: 15px 0;
+}
 
-    .product-box {
-        border: 1px solid #ccc; /* Bordure de la boîte */
-        border-radius: 5px; /* Coins arrondis */
-        padding: 15px; /* Espace intérieur */
-        margin-bottom: 20px; /* Marge inférieure */
-        position: relative; /* Permet de positionner des éléments en absolu à l'intérieur */
-    }
+.product_meta span {
+  display: block;
+  margin-bottom: 10px;
+}
 
+.pro-img-list a {
+  display: inline-block; /* Pour que les liens d'image se comportent comme des blocs */
+  max-width: 100px; /* Largeur maximale des images */
+  max-height: 100px; /* Hauteur maximale des images */
+  overflow: hidden; /* Masquer tout débordement d'image */
+  margin-right: 10px; /* Marge entre les images */
+}
 
-    .d-flex {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative; /* Permet de positionner le prix en absolu */
-    }
-      
-      .product_meta .d-flex {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      
+.custom-border {
+  width: 100%;
+  border-radius: 10px; /* Coins arrondis */
+  padding: 10px 20px; /* Espace de remplissage */
+  color: #fff; /* Couleur du texte */
+  background-color: #38a543; /* Couleur de fond */
+  transition: all 0.3s ease; /* Animation de transition */
+}
 
-      .pro-price {
-        font-size: 1.2em;
-        font-weight: bold;
-        color: #fff; /* Couleur du prix */
-        border: 1px solid #fd7e14; /* Bordure de 2px de large, couleur #333 */
-        border-radius: 10px;
-        padding: 5px 20px; /* Espace intérieur du prix */
-        background-color: #fd7e14; /* Fond blanc pour le prix */
+.custom-border2 {
+  width: 100%;
+  border: 1px solid #38a543;
+  border-radius: 10px; /* Coins arrondis */
+  padding: 10px 20px; /* Espace de remplissage */
+  color: #38a543; /* Couleur du texte */
+  background-color: #fff; /* Couleur de fond */
+  transition: all 0.3s ease; /* Animation de transition */
+}
 
-    }
+.product-box {
+  border: 1px solid #ccc; /* Bordure de la boîte */
+  border-radius: 5px; /* Coins arrondis */
+  padding: 15px; /* Espace intérieur */
+  margin-bottom: 20px; /* Marge inférieure */
+  position: relative; /* Permet de positionner des éléments en absolu à l'intérieur */
+}
 
-      .name {
-        font-size: 1.4em;
-        font-weight: bold;
-        margin-right: 15px;
-      }
-      
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; /* Permet de positionner le prix en absolu */
+}
 
-      .xp-social-profile-avatar {
-        position: relative; /* Permet de positionner les éléments en absolu à l'intérieur */
-        margin: 0 auto; /* Centre l'avatar horizontalement */
-    }
-    
-    .profile-image {
-        width: 100px; /* Largeur de l'image réduite */
-        height: 100px; /* Hauteur de l'image réduite */
-        object-fit: cover; /* Assure que l'image couvre le conteneur sans déformer */
-        border: 3px solid #fff; /* Bordure blanche autour de l'image */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère autour de l'image */
-    }
+.product_meta .d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.pro-price {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff; /* Couleur du prix */
+  border: 1px solid #fd7e14; /* Bordure de 2px de large, couleur #333 */
+  border-radius: 10px;
+  padding: 5px 20px; /* Espace intérieur du prix */
+  background-color: #fd7e14; /* Fond blanc pour le prix */
+}
+
+.name {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.xp-social-profile-avatar {
+  position: relative; /* Permet de positionner les éléments en absolu à l'intérieur */
+  margin: 0 auto; /* Centre l'avatar horizontalement */
+}
+
+.profile-image {
+  width: 100px; /* Largeur de l'image réduite */
+  height: 100px; /* Hauteur de l'image réduite */
+  object-fit: cover; /* Assure que l'image couvre le conteneur sans déformer */
+  border: 3px solid #fff; /* Bordure blanche autour de l'image */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère autour de l'image */
+}
 
 .fit {
-    object-fit: contain;
-    /* This ensures the image scales properly within the defined dimensions */
+  object-fit: contain;
+  /* This ensures the image scales properly within the defined dimensions */
 }
 
-
 .product-container {
-    background-image: url('../../assets/detail-products.jpg');
-    /* Remplacez 'chemin/vers/image/background.jpg' par le chemin de votre image de fond */
-    background-size: cover;
-    /* Pour couvrir toute la zone du conteneur */
-    background-position: center;
-    /* Pour centrer l'image de fond */
-    position: relative;
-    /* Assurez-vous que la position est relative pour que les éléments à l'intérieur soient positionnés correctement */
+  background-image: url("../../assets/detail-products.jpg");
+  /* Remplacez 'chemin/vers/image/background.jpg' par le chemin de votre image de fond */
+  background-size: cover;
+  /* Pour couvrir toute la zone du conteneur */
+  background-position: center;
+  /* Pour centrer l'image de fond */
+  position: relative;
+  /* Assurez-vous que la position est relative pour que les éléments à l'intérieur soient positionnés correctement */
+}
+/*--------------------------Modal Style */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1001; /* Ensure modal is above other content */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+  overflow: hidden; /* Hide overflow */
+}
+
+.modal-content {
+  position: relative;
+  margin: auto;
+  display: block;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXhrE95i4-hvNgBgV03lBwcGdCek4433qGCw&s")
+    no-repeat center center; /* Add your background image */
+  background-size: cover;
+}
+
+.modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio */
+  transition: opacity 0.9s ease; /* Smooth transition for image change */
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #fd7e14; /* Orange color */
+  font-size: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1100; /* Ensure close button is above modal content */
+  text-decoration: none; /* Remove underline */
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  background-color: #fd7e14; /* Orange background color */
+  padding: 10px;
+  transition: 0.3s ease;
+  border-radius: 50%; /* Rounded shape */
+  z-index: 1100; /* Ensure arrows are above modal content */
+  text-decoration: none; /* Remove underline */
+}
+
+.prev {
+  left: 15px; /* Adjust position */
+}
+
+.next {
+  right: 15px; /* Adjust position */
+}
+
+.prev:hover,
+.next:hover {
+  background-color: #e65c00; /* Darker orange on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .prev,
+  .next {
+    font-size: 20px; /* Reduce arrow size for smaller screens */
+    padding: 8px; /* Adjust padding */
+  }
 }

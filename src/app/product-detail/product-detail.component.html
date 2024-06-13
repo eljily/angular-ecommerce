@@ -1,91 +1,131 @@
-<div class="container bootdey" [dir]="'dir' | translate">
+<div class="container bootdey">
   <div class="row">
+    <!-- Main product details section -->
     <aside class="col-lg-6 col-md-12 position-relative">
-      <div class="border rounded-4 mb-3 d-flex justify-content-center position-relative product-container">
-        <a data-fslightbox="mygallery" class="rounded-4 w-100" data-type="image">
-          <img style="width: 100%; height: 300px; margin: auto;" class="rounded-4 fit"
-            [src]="productDetails?.images && productDetails.images.length > 0 ? productDetails.images[currentImageIndex].imageUrl : 'default_image_url'"
-            [alt]="productDetails?.images && productDetails.images.length > 0 ? productDetails.images[currentImageIndex].alt : 'default_alt_text'" />
+      <div
+        class="border rounded-4 mb-3 d-flex justify-content-center position-relative product-container"
+      >
+        <!-- Clickable main image -->
+        <a class="rounded-4 w-100" (click)="showImage(currentImageIndex)">
+          <img
+            style="width: 100%; height: 300px; margin: auto"
+            class="rounded-4 fit"
+            [src]="
+              productDetails?.images && productDetails.images.length > 0
+                ? productDetails.images[currentImageIndex]?.imageUrl
+                : 'default_image_url'
+            "
+            [alt]="
+              productDetails?.images && productDetails.images.length > 0
+                ? productDetails.images[currentImageIndex]?.alt
+                : 'default_alt_text'
+            "
+          />
         </a>
-        <span class="tagged_as text-white px-2 py-1 rounded"
-              style="background-color: #fff; cursor: pointer; position: absolute; top: 6%; left: 96%; transform: translate(-50%, -50%);"
-              [ngClass]="{'inactive': !isTokenAvailable}" (click)="isTokenAvailable && toggleFavorite(productDetails.id)">
-              <i class="fas fa-heart" [ngStyle]="{'color': isFavorite ? 'red' : '#fd7e14'}"></i>
-        </span>
-        <span class="tagged_as text-white px-2 py-1 rounded icon1"
-              style="background-color: #fff; cursor: pointer; position: absolute; top: 18%; left: 96%; transform: translate(-50%, -50%);">
-              <i class="fa-solid fa-share-nodes" style="color: #fd7e14;"></i>
-        </span>
       </div>
+
+      <!-- Thumbnail images -->
       <div class="d-flex justify-content-center mb-3">
-        <div *ngFor="let image of productDetails?.images; let i = index" class="border mx-1 rounded-2">
-          <img width="60" height="60" class="rounded-2" [src]="image.imageUrl" />
+        <div
+          *ngFor="let image of productDetails?.images; let i = index"
+          class="border mx-1 rounded-2"
+          style="cursor: pointer"
+        >
+          <img
+            width="60"
+            height="60"
+            class="rounded-2"
+            [src]="image.imageUrl"
+          />
         </div>
       </div>
     </aside>
-    
 
-                <!-- Section détails du produit -->
-                <div class="col-lg-6 col-md-12">
-                  <div class="card product-box">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <strong class="name" style="max-width: 50%;">{{ productDetails?.name }}</strong>
-                      <span class="pro-price">{{ productDetails?.price }} MRU</span>
-                    </div>
-                    <div class="card-body">
-                      <div class="product_meta">
-                        <div>
-              <p> <i class="fa-solid fa-location-dot fa-beat" style="color: #fd7e14;"> </i> {{ productDetails?.region }}
-                , {{
-                productDetails?.subRegion }}</p>
-              </div>
-              <div class="product_meta">
-                <span class="posted_in d-flex justify-content-between align-items-center">
-                  <strong>
-                    <i class="fa-solid fa-calendar-days" style="color: #fd7e14;"></i>
-                    {{ productDetails?.createDate ? calculateDateAgo(productDetails?.createDate) : '' }}
-                  </strong>
-            
-                
-                
-                </span>
-                <span class="tagged_as">
-                  <strong><i class="fa-solid fa-eye" style="color: #fd7e14;"></i> {{ productDetails?.hit }}</strong>
-                </span>
-                </div>
-                <p [dir]="'ltr' | translate">
-                  <button class="btn btn-round custom-border" type="button"><i class="fa fa-phone"></i> +222 {{
-                    productDetails?.vendorDetails?.phoneNumber }}</button>
-                </p>
-                <p [dir]="'ltr' | translate">
-              <button class="btn btn-round custom-border2" type="button"><i class="fa-brands fa-square-whatsapp"></i>
-                +222 {{
-                productDetails?.vendorDetails?.whatsappNumber }}</button>
-              </p>
-              </div>
-              </div>
-              </div>
-              </div>
-
+    <!-- Product details section -->
     <div class="col-lg-6 col-md-12">
       <div class="card product-box">
-        <div>
-          <strong style="color: #fd7e14;">{{ 'product-detail.description_section' | translate }}</strong>
-          <p style="font-size: 13px;">{{ productDetails?.description }}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <strong class="name" style="max-width: 50%">{{
+            productDetails?.name
+          }}</strong>
+          <span class="pro-price">{{ productDetails?.price }} MRU</span>
+        </div>
+        <div class="card-body">
+          <div class="product_meta">
+            <div>
+              <p>
+                <i
+                  class="fa-solid fa-location-dot fa-beat"
+                  style="color: #fd7e14"
+                ></i>
+                {{ productDetails?.region }} , {{ productDetails?.subRegion }}
+              </p>
+            </div>
+            <div class="product_meta">
+              <span
+                class="posted_in d-flex justify-content-between align-items-center"
+              >
+                <strong>
+                  <i
+                    class="fa-solid fa-calendar-days"
+                    style="color: #fd7e14"
+                  ></i>
+                  {{
+                    productDetails?.createDate
+                      ? (productDetails?.createDate | date)
+                      : ""
+                  }}
+                </strong>
+              </span>
+              <span class="tagged_as">
+                <strong
+                  ><i class="fa-solid fa-eye" style="color: #fd7e14"></i>
+                  {{ productDetails?.hit }}</strong
+                >
+              </span>
+            </div>
+            <p>
+              <button class="btn btn-round custom-border" type="button">
+                <i class="fa fa-phone"></i> +222
+                {{ productDetails?.vendorDetails?.phoneNumber }}
+              </button>
+            </p>
+            <p>
+              <button class="btn btn-round custom-border2" type="button">
+                <i class="fa-brands fa-square-whatsapp"></i> +222
+                {{ productDetails?.vendorDetails?.whatsappNumber }}
+              </button>
+            </p>
+          </div>
         </div>
       </div>
+
       <div class="card product-box">
         <div>
-          <strong style="color: #fd7e14;">{{ 'product-detail.security_tips_section' | translate }}</strong>
-          <p style="font-size: 11px;">{{ 'product-detail.security_tips' | translate }}</p>
+          <strong style="color: #fd7e14">Description Section</strong>
+          <p style="font-size: 13px">{{ productDetails?.description }}</p>
+        </div>
+      </div>
+
+      <div class="card product-box">
+        <div>
+          <strong style="color: #fd7e14">Security Tips Section</strong>
+          <p style="font-size: 11px">
+            {{ "product-detail.security_tips" | translate }}
+          </p>
         </div>
       </div>
     </div>
+  </div>
 
+  <!-- Seller info section -->
+  <div class="row">
     <div class="col-md-6">
       <div class="card m-b-30">
         <div class="card-header bg-white">
-          <h5 class="card-title text-black mb-0">{{ 'product-detail.seller_info_section' | translate }}</h5>
+          <h5 class="card-title text-black mb-0">
+            {{ "product-detail.seller_info_section" | translate }}
+          </h5>
         </div>
         <div class="card-body">
           <div class="xp-social-profile">
@@ -98,9 +138,15 @@
                 </div>
                 <div class="col-6">
                   <div class="xp-social-profile-avatar text-center">
-                    <img [src]="productDetails?.vendorDetails?.profileUrl || 'https://bootdey.com/img/Content/avatar/avatar7.png'"
+                    <img
+                      [src]="
+                        productDetails?.vendorDetails?.profileUrl ||
+                        'https://bootdey.com/img/Content/avatar/avatar7.png'
+                      "
                       alt="user-profile"
-                      class="rounded-circle img-fluid profile-image" loading="lazy">
+                      class="rounded-circle img-fluid profile-image"
+                      loading="lazy"
+                    />
                   </div>
                 </div>
                 <div class="col-3">
@@ -114,7 +160,9 @@
               <div class="row">
                 <div class="col-12">
                   <div class="xp-social-profile-title">
-                    <h5 class="my-1 text-black">{{ productDetails?.vendorDetails?.name }}</h5>
+                    <h5 class="my-1 text-black">
+                      {{ productDetails?.vendorDetails?.name }}
+                    </h5>
                   </div>
                 </div>
               </div>
@@ -123,20 +171,28 @@
               <div class="row">
                 <div class="col-4">
                   <div class="xp-social-profile-followers pt-3">
-                    <i class="fa-solid fa-phone" style="color: #38a543;"></i>
-                    <p class="mb-0 text-muted">{{ 'product-detail.seller_phone' | translate }}</p>
+                    <i class="fa-solid fa-phone" style="color: #38a543"></i>
+                    <p class="mb-0 text-muted">
+                      {{ "product-detail.seller_phone" | translate }}
+                    </p>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="xp-social-profile-followers pt-3">
-                    <h5 class="text-black my-1">{{ 'product-detail.seller_ads' | translate }}</h5>
-                    <p class="mb-0 text-muted">{{ 'product-detail.seller_ads' | translate }}</p>
+                    <h5 class="text-black my-1">
+                      {{ "product-detail.seller_ads" | translate }}
+                    </h5>
+                    <p class="mb-0 text-muted">
+                      {{ "product-detail.seller_ads" | translate }}
+                    </p>
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="xp-social-profile-followers pt-3">
-                    <i class="fa-brands fa-whatsapp" style="color: #38a543;"></i>
-                    <p class="mb-0 text-muted">{{ 'product-detail.seller_whatsapp' | translate }}</p>
+                    <i class="fa-brands fa-whatsapp" style="color: #38a543"></i>
+                    <p class="mb-0 text-muted">
+                      {{ "product-detail.seller_whatsapp" | translate }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -144,6 +200,25 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Full-screen image gallery modal -->
+  <div #imageModal class="modal">
+    <span class="close" (click)="closeFullScreenGallery()">&times;</span>
+    <div class="modal-content">
+      <div
+        class="mySlides"
+        *ngFor="let image of productDetails?.images; let i = index"
+        [ngStyle]="{ display: i === currentImageIndex ? 'block' : 'none' }"
+      >
+        <img
+          [src]="image.imageUrl"
+          style="width: 100%; height: 100vh; object-fit: contain"
+        />
+      </div>
+      <a class="prev" (click)="previousImage()">&#10094;</a>
+      <a class="next" (click)="nextImage()">&#10095;</a>
     </div>
   </div>
 </div>

@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  ElementRef,
+  ViewChild,
+  Renderer2,
+} from '@angular/core';
 import { Product } from '../service/model/model';
 import { CarouselModule } from 'primeng/carousel';
 import { ProductsService } from '../service/products.service';
@@ -8,37 +15,34 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../service/auth.service';
 import { FavoriteService } from '../service/favorite.service';
 
-
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [ CommonModule,CarouselModule,TranslateModule ],
+  imports: [CommonModule, CarouselModule, TranslateModule],
   templateUrl: './product-detail.component.html',
-  styleUrl: './product-detail.component.css'
+  styleUrls: ['./product-detail.component.css'],
 })
-
 export class ProductDetailComponent implements OnInit {
-
   productId!: number;
-  productDetails!: Product;
-  status = false;
-  isAuthenticated = false;
-  isTokenAvailable: boolean = false;
-  isFavorite: boolean = false;
+  productDetails!: any; // Use appropriate type
+  isTokenAvailable = false;
+  isFavorite = false;
+  currentImageIndex = 0;
+  startX = 0;
 
-    // Déclarez une variable pour stocker l'index de l'image principale
-    currentImageIndex: number = 0;
+  @ViewChild('imageModal') imageModal!: ElementRef | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
     private productService: ProductsService,
     private favoriteService: FavoriteService,
-    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+    private renderer: Renderer2 // Inject Renderer2
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.productId = +params['productId'];
       this.fetchProductDetails();
       this.isTokenAvailable = this.authService.isTokenAvailable();
@@ -46,89 +50,114 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  changeMainImage(index: number): void {
-    this.currentImageIndex = index;
-  }
-
   fetchProductDetails() {
     this.productService.getProductDetails(this.productId).subscribe(
       (response: any) => {
         this.productDetails = response;
-        console.log('Product details fetched:', response);
       },
-      error => {
+      (error) => {
         console.error('Error fetching product details:', error);
       }
     );
   }
 
   checkIfProductIsFavorite(productId: number): void {
-    console.log('Checking if product is favorite with ID:', productId);
     if (this.isTokenAvailable) {
       this.favoriteService.checkIfProductIsFavorite(productId).subscribe(
         (response: any) => {
-          console.log('Favorite service response:', response);
-          this.isFavorite = response.data; // Utiliser la propriété `data` de la réponse
-          console.log('isFavorite set to:', this.isFavorite); // Log to confirm state
-          this.cdr.detectChanges(); // Force change detection
+          this.isFavorite = response.data;
+          this.cdr.detectChanges();
         },
-        error => {
+        (error) => {
           console.error('Error checking if product is favorite:', error);
-          if (error.status === 401) {
-            console.error('User not authenticated. Redirecting to login page.');
-            // Handle redirection to login page here
-          }
         }
       );
-    } else {
-      console.error('User not authenticated. Please login to check favorites.');
     }
   }
 
   toggleFavorite(productId: number): void {
-    console.log('Toggle favorite called for product ID:', productId);
     if (this.isTokenAvailable) {
-      console.log('Token is available. Adding or removing product from favorites.');
       this.favoriteService.addOrRemoveFavorite(productId).subscribe(
         (response: any) => {
-          console.log('Toggle favorite response:', response);
           this.isFavorite = !this.isFavorite;
-          console.log('isFavorite toggled to:', this.isFavorite); 
           this.cdr.detectChanges();
         },
-        error => {
+        (error) => {
           console.error('Error toggling product favorite:', error);
         }
       );
-    } else {
-      console.error('User not authenticated. Please login to toggle favorites.');
     }
   }
 
-  
-  calculateDateAgo(createDate: Date | undefined): string{
-    if (!createDate) {
-      return ''; // Si la date est undefined, retourner une chaîne vide
+  openFullScreenGallery(): void {
+    if (this.imageModal) {
+      this.imageModal.nativeElement.style.display = 'block';
+      this.renderer.addClass(document.body, 'modal-open'); // Add class to body
+      this.imageModal.nativeElement.addEventListener(
+        'touchstart',
+        this.touchStart.bind(this)
+      );
+      this.imageModal.nativeElement.addEventListener(
+        'touchend',
+        this.touchEnd.bind(this)
+      );
     }
-    // Convertir la chaîne createDate en objet Date
-    const createDateObj = new Date(createDate);
-  
-    // Obtenir la date actuelle
-    const currentDate = new Date();
-  
-    // Calculer la différence en millisecondes entre les deux dates
-    const differenceInMs = currentDate.getTime() - createDateObj.getTime();
-  
-    // Convertir la différence en jours
-    const differenceInDays = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
-  
-    // Soustraire 3 jours de la différence pour obtenir la date il y a 3 jours
-    const dateAgo = new Date(currentDate.getTime() - (3 * 24 * 60 * 60 * 1000));
-  
-    // Formater la date en format lisible
-    const formattedDateAgo = `${dateAgo.toLocaleDateString('fr-FR')}`;
-  
-    return formattedDateAgo;
   }
-  
+
+  closeFullScreenGallery(): void {
+    if (this.imageModal) {
+      this.imageModal.nativeElement.style.display = 'none';
+      this.renderer.removeClass(document.body, 'modal-open'); // Remove class from body
+      this.imageModal.nativeElement.removeEventListener(
+        'touchstart',
+        this.touchStart.bind(this)
+      );
+      this.imageModal.nativeElement.removeEventListener(
+        'touchend',
+        this.touchEnd.bind(this)
+      );
+    }
+  }
+
+  showImage(index: number): void {
+    this.currentImageIndex = index;
+    this.openFullScreenGallery();
+  }
+
+  nextImage(): void {
+    this.currentImageIndex =
+      (this.currentImageIndex + 1) % this.productDetails.images.length;
+    this.triggerImageTransition();
+  }
+
+  previousImage(): void {
+    this.currentImageIndex =
+      (this.currentImageIndex + this.productDetails.images.length - 1) %
+      this.productDetails.images.length;
+    this.triggerImageTransition();
+  }
+
+  triggerImageTransition(): void {
+    const images = document.querySelectorAll('.modal-img');
+    images.forEach((img, index) => {
+      if (index === this.currentImageIndex) {
+        img.classList.add('fade-in');
+      } else {
+        img.classList.remove('fade-in');
+      }
+    });
+  }
+
+  touchStart(event: TouchEvent): void {
+    this.startX = event.touches[0].clientX;
+  }
+
+  touchEnd(event: TouchEvent): void {
+    const endX = event.changedTouches[0].clientX;
+    if (this.startX - endX > 50) {
+      this.nextImage();
+    } else if (this.startX - endX < -50) {
+      this.previousImage();
+    }
+  }
 }
