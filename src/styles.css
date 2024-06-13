@@ -14,3 +14,7 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+/* Hide body scroll when modal is open */
+body.modal-open {
+  overflow: hidden !important;
+}

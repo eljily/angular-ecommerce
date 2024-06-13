@@ -181,10 +181,6 @@ body {
   /* Assurez-vous que la position est relative pour que les éléments à l'intérieur soient positionnés correctement */
 }
 /*--------------------------Modal Style */
-/* Modal styles */
-body {
-  overflow: auto; /* Enable scrolling for the entire app */
-}
 .modal {
   display: none; /* Hidden by default */
   position: fixed;
@@ -193,22 +189,27 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
   background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+  overflow: hidden; /* Hide overflow */
 }
+
 .modal-content {
   position: relative;
   margin: auto;
   display: block;
   max-width: 100%;
-  overflow: hidden;
   max-height: 100vh;
+  overflow: hidden;
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXhrE95i4-hvNgBgV03lBwcGdCek4433qGCw&s")
+    no-repeat center center; /* Add your background image */
+  background-size: cover;
 }
 
 .modal-img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Maintain aspect ratio */
+  object-fit: cover; /* Maintain aspect ratio */
+  transition: opacity 0.9s ease; /* Smooth transition for image change */
 }
 
 .close {
