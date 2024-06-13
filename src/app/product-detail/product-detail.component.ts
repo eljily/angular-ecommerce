@@ -28,7 +28,7 @@ export class ProductDetailComponent implements OnInit {
   isFavorite = false;
   currentImageIndex = 0;
 
-  @ViewChild('imageModal') imageModal!: ElementRef | undefined;
+  @ViewChild('imageModal') imageModal!: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +38,7 @@ export class ProductDetailComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.productId = +params['productId'];
       this.fetchProductDetails();
@@ -47,7 +47,7 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  fetchProductDetails() {
+  fetchProductDetails(): void {
     this.productService.getProductDetails(this.productId).subscribe(
       (response: any) => {
         this.productDetails = response;
