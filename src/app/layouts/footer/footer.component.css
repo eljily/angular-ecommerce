@@ -85,8 +85,15 @@ ul {
 .twitter-bg{
   background: #55ACEE;
 }
-.google-bg{
-  background: #DD4B39;
+.instagram-bg {
+  background: #833ab4;
+  background: linear-gradient(to right,
+      #833ab4, #fd1d1d, #fcb045);
+}
+
+.linkedin-bg {
+
+  background-color: #0461a8;
 }
 .footer-widget-heading h3 {
   color: #fd7e14;

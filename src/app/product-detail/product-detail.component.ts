@@ -105,6 +105,8 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
+
+  
   
   calculateDateAgo(createDate: Date | undefined): string{
     if (!createDate) {

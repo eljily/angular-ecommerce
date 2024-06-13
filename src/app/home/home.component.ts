@@ -13,7 +13,6 @@ import { ApiResponse, Product } from '../service/model/model';
 import {ProductsService} from '../service/products.service'
 import { SliderComponent } from '../slider/slider.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -22,7 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-home',
   standalone: true,
   
-  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,RouterModule, NgFor ,SliderComponent,CarouselModule,TranslateModule,NgbModule],
+  imports: [HeaderComponent,FooterComponent,ProduitComponent ,RouterLink,CommonModule,RouterModule, NgFor ,SliderComponent,CarouselModule,TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -30,86 +29,117 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 export class HomeComponent implements OnInit {
-  productsData: any[] = [];
+  productsData: any[] = []; // Initialiser la variable pour stocker les données des produits
   categories: any[] = [];
-  groupedCategories: any[][] = [];
   adGroups = [
     [
       { imageUrl: '../../assets/slider1/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-free-vector.jpg' },
+    
     ],
     [
       { imageUrl: '../../assets/slider2/ecommerce-website-banner-template-presents-260nw-2252124451.webp' },
       { imageUrl: '../../assets/slider2/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-vector.jpg' }
     ],
+
   ];
+
 
   slides = [
     { image: '../../assets/slider3/ecommerce-banner.jpg' },
     { image: '../../assets/slider3/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-vector.jpg' },
+
   ];
 
   isDesktopView: boolean = false;
   isBrowser: boolean = false;
 
-  constructor(private categoryService: CategoryService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
-  ngOnInit(): void {
-    this.checkScreenSize();
-    this.loadCategoriesWithProducts();
-  }
+  constructor(private categoryService: CategoryService,
+    @Inject(PLATFORM_ID) private platformId: Object
+) {}
+ngOnInit(): void {
+  this.checkScreenSize();
 
-  checkScreenSize() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.isDesktopView = window.innerWidth >= 768;
-      window.addEventListener('resize', () => {
-        this.isDesktopView = window.innerWidth >= 768;
-        this.groupCategories(); // Regrouper les catégories à nouveau en fonction de la nouvelle taille de l'écran
-      });
-    }
-  }
+  // Récupération des données des catégories avec les produits intégrés
+  this.categoryService.getAllWithProducts().subscribe(
+    (response: ApiResponse<Category[]>) => {
+      console.log('Données récupérées pour les produits:', response);
 
-  loadCategoriesWithProducts() {
-    this.categoryService.getAllWithProducts().subscribe(
-      (response: any) => {
-        if (response && response.data && Array.isArray(response.data)) {
-          this.categories = response.data;
-          this.groupCategories();
-        } else {
-          console.error('Les données retournées pour les produits ne sont pas dans le format attendu.');
-        }
-      },
-      (error: any) => {
-        console.error('Erreur lors de la récupération des produits avec les catégories:', error);
+      if (response && response.data && Array.isArray(response.data)) {
+        // Enregistrer les catégories obtenues à partir du service ProductService
+        const categoriesFromProducts = response.data;
+
+        // Si vous avez également besoin des catégories provenant de categoryService.getAllCategories(),
+        // vous pouvez les fusionner avec les catégories des produits ici.
+        // Par exemple, si les catégories provenant de categoryService.getAllCategories() 
+        // contiennent des informations supplémentaires, vous pouvez les ajouter ici.
+
+        // Enregistrer les catégories fusionnées dans la variable this.categories
+        this.categories = categoriesFromProducts;
+      } else {
+        console.error('Les données retournées pour les produits ne sont pas dans le format attendu.');
       }
-    );
-  }
-
-  groupCategories() {
-    const groupSize = this.isDesktopView ? 8 : 4;
-    this.groupedCategories = []; // Réinitialiser les groupes
-    for (let i = 0; i < this.categories.length; i += groupSize) {
-      this.groupedCategories.push(this.categories.slice(i, i + groupSize));
+    },
+    (error: any) => {
+      console.error('Erreur lors de la récupération des produits avec les catégories:', error);
     }
+  );
+}
+// Méthode pour vérifier la taille de l'écran et définir isDesktopView en conséquence
+checkScreenSize() {
+  if (isPlatformBrowser(this.platformId)) {
+    // Exécute le code uniquement si l'application est exécutée côté client
+    this.isDesktopView = window.innerWidth >= 768;
+
+    // Ajouter un écouteur d'événement pour vérifier la taille de l'écran lors du redimensionnement
+    window.addEventListener('resize', () => {
+      this.isDesktopView = window.innerWidth >= 768;
+    });
+  }
+}
+
+
+
+
+
+
+canScrollLeft(categoryId: number): boolean {
+  const container = document.querySelector(`[data-category-id="${categoryId}"]`);
+
+  // Vérifier si le conteneur existe et si le défilement vers la gauche est possible
+  if (container) {
+      const scrollLeftAvailable = container.scrollLeft > 0;
+      return scrollLeftAvailable;
   }
 
-  canScrollLeft(categoryId: number): boolean {
-    const container = document.querySelector(`[data-category-id="${categoryId}"]`);
-    return container ? container.scrollLeft > 0 : false;
+  // Renvoyer false si le conteneur n'existe pas
+  return false;
+}
+
+canScrollRight(categoryId: number): boolean {
+  const container = document.querySelector(`[data-category-id="${categoryId}"]`);
+
+  // Vérifier si le conteneur existe
+  if (container) {
+      // Calculer les conditions de défilement vers la droite
+      const scrollWidthGreaterThanClientWidth = container.scrollWidth > container.clientWidth;
+      const scrollLeftPlusClientWidthLessThanScrollWidth = container.scrollLeft + container.clientWidth < container.scrollWidth;
+
+      // Vérifier si le défilement vers la droite est possible
+      const scrollRightAvailable = scrollWidthGreaterThanClientWidth && scrollLeftPlusClientWidthLessThanScrollWidth;
+      return scrollRightAvailable;
   }
 
-  canScrollRight(categoryId: number): boolean {
-    const container = document.querySelector(`[data-category-id="${categoryId}"]`);
-    if (container) {
-      return container.scrollWidth > container.clientWidth && container.scrollLeft + container.clientWidth < container.scrollWidth;
-    }
-    return false;
-  }
+  // Renvoyer false si le conteneur n'existe pas
+  return false;
+}
+
 
   scrollLeft(categoryId: number): void {
     const container = document.querySelector(`[data-category-id="${categoryId}"]`);
     if (container) {
       container.scrollBy({
-        left: -200,
+        left: -200, // Défilement de 200 pixels vers la gauche
         behavior: 'smooth'
       });
     }
@@ -119,14 +149,17 @@ export class HomeComponent implements OnInit {
     const container = document.querySelector(`[data-category-id="${categoryId}"]`);
     if (container) {
       container.scrollBy({
-        left: 200,
+        left: 200, // Défilement de 200 pixels vers la droite
         behavior: 'smooth'
       });
     }
   }
 
   shortenProductName(name: string): string {
-    const maxLength = 16;
-    return name.length > maxLength ? name.substr(0, maxLength) + '...' : name;
+    const maxLength = 19;
+    if (name.length > maxLength) {
+      return name.substr(0, maxLength) + '...';
+    }
+    return name;
   }
 }

@@ -1,28 +1,51 @@
 <app-slider></app-slider>
+
 <section [dir]="'dir' | translate">
-  <div class="pt-5" style="padding: 30px;">
+  <div class="pt-2">
     <div class="container-fluid">
-      <ngb-carousel [interval]="5000" [pauseOnHover]="true" *ngIf="groupedCategories && groupedCategories.length > 0">
-        <ng-template ngbSlide *ngFor="let categoryGroup of groupedCategories">
-          <div class="row justify-content-center align-items-center">
-            <div class="col-6 col-md-3 col-lg-1-5 mb-3" *ngFor="let category of categoryGroup">
+      <div class="row ">
+        <!-- Première rangée de 8 colonnes -->
+        <div class="col-12">
+          <div class="row gx-2">
+            <div class="col-6 col-md-3 col-lg-1-5 mb-3 d-none d-lg-block" *ngFor="let category of categories.slice(0, 8)">
               <a [routerLink]="'/category-products/' + category.id"
-                 class="btn custom-border text-center d-flex flex-column justify-content-center align-items-center"
-                 style="width: 100%; height: 100%; border: 1px solid #fd7e14; border-radius: 15px; overflow: hidden;">
+                class="btn custom-border text-center d-flex flex-column justify-content-center align-items-center"
+                style="width: 100%; height: 100%; border: 1px solid #fd7e14; border-radius: 15px; overflow: hidden;">
                 <div>
-                  <img [src]="category.imageUrl" alt="" class="img-fluid" style="max-width: 50px; max-height: 50px;" loading="lazy">
+                  <!-- Image de catégorie -->
+                  <img [src]="category.imageUrl" alt="" class="img-fluid" style="max-width: 50px; max-height: 50px;"
+                    loading="lazy">
                 </div>
+                <!-- Nom de la catégorie -->
                 <div class="text-truncate mt-2" style="width: 100%; text-align: center;">{{ category.name }}</div>
               </a>
             </div>
           </div>
-        </ng-template>
-      </ngb-carousel>
+        </div>
+  
+        <!-- Deuxième rangée de 8 colonnes -->
+        <div class="col-12">
+          <div class="row gx-2">
+            <div class="col-6 col-md-3 col-lg-1-5 mb-3 d-none d-lg-block" *ngFor="let category of categories.slice(8, 16)">
+              <a [routerLink]="'/category-products/' + category.id"
+                class="btn custom-border text-center d-flex flex-column justify-content-center align-items-center"
+                style="width: 100%; height: 100%; border: 1px solid #fd7e14; border-radius: 15px; overflow: hidden;">
+                <div>
+                  <!-- Image de catégorie -->
+                  <img [src]="category.imageUrl" alt="" class="img-fluid" style="max-width: 50px; max-height: 50px;"
+                    loading="lazy">
+                </div>
+                <!-- Nom de la catégorie -->
+                <div class="text-truncate mt-2" style="width: 100%; text-align: center;">{{ category.name }}</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  
 </section>
-
-
 
 <carousel class="carousel" *ngIf="isBrowser">
   <slide *ngFor="let slide of slides" class="carousel-item">
@@ -33,7 +56,7 @@
 
 <!-- Affichage des produits par catégorie et sous-catégorie -->
 
-<div class="container-fluid produit py-4" [dir]="'dir' | translate">
+<div class="container-fluid produit" [dir]="'dir' | translate">
   <div class="col-md-12 mx-md-50" *ngFor="let category of categories; let i = index">
         <div class="title" style="display: flex; justify-content: space-between;">
           <div>
@@ -43,8 +66,7 @@
           style="color: #fd7e14; font-size: 0.8em; cursor: pointer; margin-right: 10px;">{{
           'home.see_more' | translate }} >></span>
         </div>
-
-
+       
     <!-- Conteneur des produits avec défilement à partir de 768px -->
     <div class="products-container position-relative" *ngIf="isDesktopView">
       <button *ngIf="canScrollLeft(category.id)" class="btn btn-primary btn-nav left-nav"
